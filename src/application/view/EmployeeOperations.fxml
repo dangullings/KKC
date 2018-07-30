@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.EmployeeController">
+   <children>
+      <AnchorPane layoutX="200.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btnDelete" layoutX="174.0" layoutY="14.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="btnUpdate" layoutX="174.0" layoutY="49.0" mnemonicParsing="false" text="Update" />
+            <Button fx:id="btnAdd" layoutX="70.0" layoutY="94.0" mnemonicParsing="false" onAction="#pressAdd" text="Add" />
+         </children>
+      </AnchorPane>
+      <TextField fx:id="txtEmpID" layoutX="28.0" layoutY="40.0" />
+      <TextField fx:id="txtNewEmail" layoutX="192.0" layoutY="43.0" />
+      <Button fx:id="btnSearch" layoutX="373.0" layoutY="40.0" mnemonicParsing="false" text="Search" />
+      <TextField fx:id="txtName" layoutX="103.0" layoutY="104.0" />
+      <TextField fx:id="txtSurname" layoutX="103.0" layoutY="129.0" />
+      <TextField fx:id="txtEmail" layoutX="103.0" layoutY="156.0" />
+      <Label layoutX="48.0" layoutY="14.0" text="Employee ID" />
+      <Label layoutX="216.0" layoutY="14.0" text="New Email" />
+      <Label layoutX="34.0" layoutY="108.0" text="Name" />
+      <Label layoutX="34.0" layoutY="133.0" text="Surname" />
+      <Label layoutX="34.0" layoutY="160.0" text="Email" />
+      <TextArea fx:id="txtResult" layoutX="44.0" layoutY="235.0" prefHeight="151.0" prefWidth="313.0" />
+      <Label layoutX="48.0" layoutY="211.0" text="Result Console" />
+   </children>
+</AnchorPane>
