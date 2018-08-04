@@ -1,4 +1,4 @@
 package application.model;
 
-public class Employee {
+public class Event {
 }

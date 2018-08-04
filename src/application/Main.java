@@ -24,13 +24,15 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
 
         //Optional: Set a title for primary stage
-        this.primaryStage.setTitle("SW Test Academy - Sample JavaFX App");
+        this.primaryStage.setTitle("KKC");
 
         //2) Initialize RootLayout
         initRootLayout();
 
-        //3) Display the EmployeeOperations View
-        showEmployeeOperationsView();
+        //3) Display the StudentOperations View
+        //showStudentOperationsView();
+
+        //showFinanceOperationsView();
     }
 
     //Initializes the root layout.
@@ -42,7 +44,7 @@ public class Main extends Application {
             rootLayout = (BorderPane) loader.load();
 
             //Second, show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout); //We are sending rootLayout to the Scene.
+            Scene scene = new Scene(rootLayout, 1000, 800); //We are sending rootLayout to the Scene.
             primaryStage.setScene(scene); //Set the scene in primary stage.
 
             //Third, show the primary stage
@@ -52,16 +54,30 @@ public class Main extends Application {
         }
     }
 
-    //Shows the employee operations view inside the root layout.
-    public void showEmployeeOperationsView() {
+    //Shows the student operations view inside the root layout.
+    public void showStudentOperationsView() {
         try {
-            //First, load EmployeeOperationsView from EmployeeOperations.fxml
+            //First, load StudentOperationsView from StudentOperations.fxml
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/EmployeeOperations.fxml"));
-            AnchorPane employeeOperationsView = (AnchorPane) loader.load();
+            loader.setLocation(Main.class.getResource("view/StudentOperations.fxml"));
+            AnchorPane studentOperationsView = (AnchorPane) loader.load();
 
-            // Set Employee Operations view into the center of root layout.
-            rootLayout.setCenter(employeeOperationsView);
+            // Set Student Operations view into the center of root layout.
+            rootLayout.setCenter(studentOperationsView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showFinanceOperationsView() {
+        try {
+            //First, load StudentOperationsView from StudentOperations.fxml
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/FinanceOperations.fxml"));
+            AnchorPane financeOperationsView = (AnchorPane) loader.load();
+
+            // Set Student Operations view into the center of root layout.
+            rootLayout.setCenter(financeOperationsView);
         } catch (IOException e) {
             e.printStackTrace();
         }

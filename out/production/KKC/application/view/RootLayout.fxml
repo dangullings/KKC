@@ -3,8 +3,9 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RootLayoutController">
    <top>
@@ -28,4 +29,16 @@
         </menus>
       </MenuBar>
    </top>
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+          <tabs>
+              <Tab fx:id="students" onSelectionChanged="#studentTabSelected" text="Students">
+                  <fx:include fx:id="studentOperations" source="StudentOperations.fxml" />
+              </Tab>
+              <Tab fx:id="finances" text="Finances">
+                  <fx:include fx:id="financeOperations" source="FinanceOperations.fxml" />
+              </Tab>
+          </tabs>
+      </TabPane>
+   </center>
 </BorderPane>

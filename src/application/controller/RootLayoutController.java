@@ -1,10 +1,14 @@
 package application.controller;
 
 import application.Main;
+import application.model.Student;
+import application.util.StudentDAOImpl;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 
@@ -14,17 +18,16 @@ public class RootLayoutController {
     @FXML private Button btn1;
     @FXML private Button btn2;
 
-    private Main main;
+    @FXML
+    private Tab students;
 
-    public void setMain(Main main){
-        this.main = main;
-    }
+    @FXML
+    TableView<Student> studentTable;
 
-    public void pressButtonOne(ActionEvent event){
-
-    }
-
-    public void pressButtonTwo(ActionEvent event) throws IOException{
-
+    @FXML
+    void studentTabSelected() {
+        if (students.isSelected()) {
+            System.out.println("Tab is Selected");
+        }
     }
 }
