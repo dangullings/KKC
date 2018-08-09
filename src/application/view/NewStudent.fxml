@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewStudentController">
+   <children>
+      <BorderPane prefHeight="400.0" prefWidth="600.0">
+         <top>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                   <HBox prefHeight="40.0" prefWidth="570.0" BorderPane.alignment="CENTER">
+                       <children>
+                           <TextField fx:id="txtFirstName" prefHeight="25.0" prefWidth="165.0" promptText="First Name">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></TextField>
+                           <TextField fx:id="txtLastName" prefHeight="25.0" prefWidth="185.0" promptText="Last Name" />
+                       </children>
+                       <BorderPane.margin>
+                           <Insets top="10.0" />
+                       </BorderPane.margin>
+                     <VBox.margin>
+                        <Insets left="150.0" right="100.0" top="10.0" />
+                     </VBox.margin>
+                   </HBox>
+                  <ComboBox fx:id="cboRank" prefWidth="150.0" promptText="Rank">
+                     <VBox.margin>
+                        <Insets left="150.0" right="100.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                     <TextField fx:id="txtEmail" promptText="Email">
+                     <VBox.margin>
+                        <Insets left="150.0" right="100.0" />
+                     </VBox.margin></TextField>
+                     <TextField fx:id="txtNumber" promptText="xxx-xxx-xxxx">
+                     <VBox.margin>
+                        <Insets left="150.0" right="100.0" />
+                     </VBox.margin></TextField>
+                     <HBox fx:id="hboxBirthdate" prefHeight="100.0" prefWidth="200.0">
+                         <children>
+                             <TextField fx:id="txtYear" promptText="yyyy" />
+                             <TextField fx:id="txtMonth" promptText="mm" />
+                             <TextField fx:id="txtDay" promptText="dd" />
+                         </children>
+                     <VBox.margin>
+                        <Insets left="150.0" right="100.0" />
+                     </VBox.margin>
+                     </HBox>
+               </children>
+            </VBox>
+         </top>
+         <bottom>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                     <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#pressCancel" prefHeight="99.0" prefWidth="307.0" text="Cancel">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                     <Button fx:id="btnSaveStudent" mnemonicParsing="false" onAction="#pressSave" prefHeight="101.0" prefWidth="312.0" text="Save">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom></BorderPane>
+   </children>
+</AnchorPane>

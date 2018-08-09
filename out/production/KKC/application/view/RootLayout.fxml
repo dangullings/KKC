@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RootLayoutController">
    <top>
@@ -30,7 +31,7 @@
       </MenuBar>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="600.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
           <tabs>
               <Tab fx:id="students" onSelectionChanged="#studentTabSelected" text="Students">
                   <fx:include fx:id="studentOperations" source="StudentOperations.fxml" />
@@ -38,7 +39,19 @@
               <Tab fx:id="finances" text="Finances">
                   <fx:include fx:id="financeOperations" source="FinanceOperations.fxml" />
               </Tab>
+              <Tab fx:id="events" text="Events">
+                  <fx:include fx:id="eventOperations" source="EventOperations.fxml" />
+              </Tab>
+              <Tab fx:id="items" text="Items">
+                  <fx:include fx:id="itemsOperations" source="ItemOperations.fxml" />
+              </Tab>
+              <Tab fx:id="tests" text="Tests">
+                  <fx:include fx:id="testOperations" source="TestOperations.fxml" />
+              </Tab>
           </tabs>
       </TabPane>
    </center>
+   <bottom>
+      <HBox prefHeight="16.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

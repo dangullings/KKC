@@ -1,26 +1,25 @@
 package application.util;
 
-import application.model.Student;
+import application.model.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
-public class StudentDAOImpl implements StudentDAO{
+public class ItemDAOImpl implements ItemDAO{
 
     @Override
-    public void createStudentTable() {
+    public void createItemTable() {
         Connection connection = null;
         Statement statement = null;
 
         try {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS student (id int primary key unique auto_increment," +
-                    "first_name varchar(55), last_name varchar(55), email varchar(55), number varchar(15), birthdate date)");
+            statement.execute("CREATE TABLE IF NOT EXISTS item (id int primary key unique auto_increment," +
+                    "name varchar(55), quantity int(3), cost int(3), sale int(3))");
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -45,19 +44,18 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public void insert(Student student) {
+    public void insert(Item item) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO student (first_name, last_name, email, number, birthdate)" +
-                    "VALUES (?, ?, ?, ?, ?)");
-            preparedStatement.setString(1, student.getFirstName());
-            preparedStatement.setString(2, student.getLastName());
-            preparedStatement.setString(3, student.getEmail());
-            preparedStatement.setString(4, student.getNumber());
-            preparedStatement.setDate(5, Date.valueOf(student.getBirthDate()));
+            preparedStatement = connection.prepareStatement("INSERT INTO item (name, quantity, cost, sale)" +
+                    "VALUES (?, ?, ?, ?)");
+            preparedStatement.setString(1, item.getName());
+            preparedStatement.setInt(2, item.getQuantity());
+            preparedStatement.setInt(3, item.getCost());
+            preparedStatement.setInt(4, item.getSale());
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -83,8 +81,8 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public Student selectById(int id) {
-        Student student = new Student();
+    public Item selectById(int id) {
+        Item item = new Item();
         Connection connection = null;
 
         PreparedStatement preparedStatement = null;
@@ -92,14 +90,16 @@ public class StudentDAOImpl implements StudentDAO{
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM student WHERE is = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM item WHERE is = ?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                student.setId(resultSet.getInt("id"));
-                student.setFirstName(resultSet.getString("first_name"));
-                student.setLastName(resultSet.getString("last_name"));
+                item.setId(resultSet.getInt("id"));
+                item.setName(resultSet.getString("name"));
+                item.setQuantity(resultSet.getInt("quantity"));
+                item.setCost(resultSet.getInt("cost"));
+                item.setSale(resultSet.getInt("sale"));
             }
 
         } catch (Exception e){
@@ -130,12 +130,12 @@ public class StudentDAOImpl implements StudentDAO{
             }
         }
 
-        return student;
+        return item;
     }
 
     @Override
-    public List<Student> selectAll() {
-        List<Student> students = new ArrayList<Student>();
+    public List<Item> selectAll() {
+        List<Item> items = new ArrayList<Item>();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -143,18 +143,17 @@ public class StudentDAOImpl implements StudentDAO{
         try {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM student");
+            resultSet = statement.executeQuery("SELECT * FROM item");
 
             while (resultSet.next()){
-                Student student = new Student();
-                student.setId(resultSet.getInt("id"));
-                student.setFirstName(resultSet.getString("first_name"));
-                student.setLastName(resultSet.getString("last_name"));
-                student.setEmail(resultSet.getString("email"));
-                student.setNumber(resultSet.getString("number"));
-                student.setBirthDate(resultSet.getDate("birthdate"));
+                Item item = new Item();
+                item.setId(resultSet.getInt("id"));
+                item.setName(resultSet.getString("name"));
+                item.setQuantity(resultSet.getInt("quantity"));
+                item.setCost(resultSet.getInt("cost"));
+                item.setSale(resultSet.getInt("sale"));
 
-                students.add(student);
+                items.add(item);
             }
 
         } catch (Exception e){
@@ -185,27 +184,26 @@ public class StudentDAOImpl implements StudentDAO{
             }
         }
 
-        return students;
+        return items;
     }
 
     @Override
-    public ObservableList<Student> selectAllObservable() {
-        ObservableList<Student> students = FXCollections.observableArrayList(selectAll());
+    public ObservableList<Item> selectAllObservable() {
+        ObservableList<Item> items = FXCollections.observableArrayList(selectAll());
 
-        return students;
+        return items;
 
     }
 
     @Override
-    public void delete(String firstName, String lastName) {
+    public void delete(String name) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM student WHERE first_name = ? AND last_name = ?");
-            preparedStatement.setString(1, firstName);
-            preparedStatement.setString(2, lastName);
+            preparedStatement = connection.prepareStatement("DELETE FROM item WHERE name = ?");
+            preparedStatement.setString(1, name);
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -230,17 +228,16 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public void update(Student student, int id) {
+    public void update(Item item, int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE student SET " +
-                    "first_name = ?, last_name = ? WHERE id = ?");
-            preparedStatement.setString(1, student.getFirstName());
-            preparedStatement.setString(2, student.getLastName());
-            preparedStatement.setInt(3, id);
+            preparedStatement = connection.prepareStatement("UPDATE item SET " +
+                    "name = ? WHERE id = ?");
+            preparedStatement.setString(1, item.getName());
+            preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
 
         } catch (Exception e){

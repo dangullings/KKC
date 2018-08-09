@@ -2,55 +2,156 @@ package application.controller;
 
 import application.Main;
 import application.model.Student;
-import application.util.DBUtil;
+import application.model.Test;
 import application.util.StudentDAOImpl;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class StudentController {
+public class StudentController implements Initializable{
 
-    @FXML private TextField txtFirstName;
-    @FXML private TextField txtLastName;
-    @FXML private Button btnAdd;
-    @FXML private Button btnDelete;
-    @FXML private Button btnPopulate;
+    private static StudentController instance;
+
+    public StudentController(){
+        instance = this;
+    }
+
+    public static StudentController getInstance(){
+        return instance;
+    }
+
+    @FXML private Button btnNewStudent;
+    @FXML private Button btnStudentDetail;
 
     @FXML
     TableView<Student> studentTable;
 
-    private Main main;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        StudentDAOImpl sdi = new StudentDAOImpl();
+        sdi.createStudentTable();
 
-    public void setMain(Main main){
-        this.main = main;
+        ObservableList<Student> students = sdi.selectAllObservable();
+
+        TableColumn<Student, String> colFirstName = new TableColumn<>("First Name");
+        colFirstName.setMinWidth(120);
+        colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+
+        TableColumn<Student, String> colLastName = new TableColumn<>("Last Name");
+        colLastName.setMinWidth(120);
+        colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+        TableColumn<Student, String> colRank = new TableColumn<>("Rank");
+        colRank.setMinWidth(120);
+        colRank.setCellValueFactory(new PropertyValueFactory<>("rank"));
+
+        TableColumn<Student, String> colEmail = new TableColumn<>("Email");
+        colEmail.setMinWidth(120);
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        TableColumn<Student, String> colNumber = new TableColumn<>("Number");
+        colNumber.setMinWidth(120);
+        colNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
+
+        TableColumn<Student, Integer> colAge = new TableColumn<>("Age");
+        colAge.setMinWidth(120);
+        colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
+
+        TableColumn<Student, LocalDate> colBirthdate = new TableColumn<>("Birth Date");
+        colBirthdate.setMinWidth(120);
+        colBirthdate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+
+        colFirstName.setCellFactory(TextFieldTableCell.forTableColumn());
+        colFirstName.setOnEditCommit(
+                (TableColumn.CellEditEvent<Student, String> t) ->
+                        ( t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).updateFirstName(t.getNewValue())
+        );
+
+        colLastName.setCellFactory(TextFieldTableCell.forTableColumn());
+        colLastName.setOnEditCommit(
+                (TableColumn.CellEditEvent<Student, String> t) ->
+                        ( t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).updateLastName(t.getNewValue())
+        );
+
+        studentTable.setItems(students);
+        studentTable.getColumns().addAll(colFirstName, colLastName, colRank, colEmail, colNumber, colAge, colBirthdate);
+        studentTable.setEditable(true);
     }
 
-    public void pressAdd(ActionEvent event){
-        StudentDAOImpl sdi = new StudentDAOImpl();
-        //sdi.createStudentTable();
+    public void pressStudentDetail(){
+        loadStudentDetail();
+    }
 
-        Student student = new Student(txtFirstName.getText(), txtLastName.getText());
-        sdi.insert(student);
+    public void loadStudentDetail(){
+        ObservableList<Student> studentSelected, students;
+        students = studentTable.getItems();
+        studentSelected = studentTable.getSelectionModel().getSelectedItems();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/StudentDetail.fxml"));
+        try {
+            //Parent root1 = (Parent) loader.load();
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Student Detail");
+
+
+            stage.setScene(new Scene((Pane) loader.load()));
+
+            StudentDetailController controller = loader.<StudentDetailController>getController();
+            controller.initData(studentSelected.get(0));
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void pressNewStudent(ActionEvent event){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/NewStudent.fxml"));
+        try {
+            Parent root1 = (Parent) loader.load();
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("New Student");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void studentTableInsert(Student student){
         studentTable.getItems().add(student);
-
-        txtFirstName.clear();
-        txtLastName.clear();
-
-        //Student student = sdi.selectById(1);
-
-        //Student student = new Student("Dan", "Gullings");
-        //sdi.update(student, 1);
     }
 
     public void pressDelete(ActionEvent event){
@@ -62,22 +163,6 @@ public class StudentController {
         sdi.delete(studentSelected.get(0).getFirstName(), studentSelected.get(0).getLastName());
 
         studentSelected.forEach(students::remove);
-    }
-
-    public void pressPopulate(){
-        StudentDAOImpl sdi = new StudentDAOImpl();
-        ObservableList<Student> students = sdi.selectAllObservable();
-
-        TableColumn<Student, String> colFirstName = new TableColumn<>("First Name");
-        colFirstName.setMinWidth(100);
-        colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-
-        TableColumn<Student, String> colLastName = new TableColumn<>("Last Name");
-        colLastName.setMinWidth(100);
-        colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-
-        studentTable.setItems(students);
-        studentTable.getColumns().addAll(colFirstName, colLastName);
     }
 
 }
