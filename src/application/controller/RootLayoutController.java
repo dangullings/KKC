@@ -27,7 +27,7 @@ public class RootLayoutController {
     @FXML
     void studentTabSelected() {
         if (students.isSelected()) {
-            System.out.println("Tab is Selected");
+
         }
     }
 }

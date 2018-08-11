@@ -1,5 +1,6 @@
 package application.util;
 
+import application.Main;
 import application.model.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +21,7 @@ public class StudentDAOImpl implements StudentDAO{
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS student (id int primary key unique auto_increment," +
-                    "first_name varchar(55), last_name varchar(55), email varchar(55), number varchar(15), birthdate date)");
+                    "first_name varchar(55), last_name varchar(55), rank varchar(55), email varchar(55), number varchar(15), birthdate date, active boolean)");
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -51,13 +52,15 @@ public class StudentDAOImpl implements StudentDAO{
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO student (first_name, last_name, email, number, birthdate)" +
-                    "VALUES (?, ?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO student (first_name, last_name, rank, email, number, birthdate)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)");
             preparedStatement.setString(1, student.getFirstName());
             preparedStatement.setString(2, student.getLastName());
-            preparedStatement.setString(3, student.getEmail());
-            preparedStatement.setString(4, student.getNumber());
-            preparedStatement.setDate(5, Date.valueOf(student.getBirthDate()));
+            preparedStatement.setString(3, student.getRankName());
+            preparedStatement.setString(4, student.getEmail());
+            preparedStatement.setString(5, student.getNumber());
+            preparedStatement.setDate(6, Date.valueOf(student.getBirthDate()));
+            preparedStatement.setBoolean(7, student.getActive());
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -150,9 +153,12 @@ public class StudentDAOImpl implements StudentDAO{
                 student.setId(resultSet.getInt("id"));
                 student.setFirstName(resultSet.getString("first_name"));
                 student.setLastName(resultSet.getString("last_name"));
+                student.setRankName(resultSet.getString("rank"));
                 student.setEmail(resultSet.getString("email"));
                 student.setNumber(resultSet.getString("number"));
                 student.setBirthDate(resultSet.getDate("birthdate"));
+                student.setActive(resultSet.getBoolean("active"));
+                student.setRankValue(Main.Ranks.indexOf(student.getRankName()));
 
                 students.add(student);
             }
@@ -237,10 +243,15 @@ public class StudentDAOImpl implements StudentDAO{
         try {
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE student SET " +
-                    "first_name = ?, last_name = ? WHERE id = ?");
+                    "first_name = ?, last_name = ?, rank = ?, email = ?, number = ?, birthdate = ?, active = ? WHERE id = ?");
             preparedStatement.setString(1, student.getFirstName());
             preparedStatement.setString(2, student.getLastName());
-            preparedStatement.setInt(3, id);
+            preparedStatement.setString(3, student.getRankName());
+            preparedStatement.setString(4, student.getEmail());
+            preparedStatement.setString(5, student.getNumber());
+            preparedStatement.setDate(6, Date.valueOf(student.getBirthDate()));
+            preparedStatement.setBoolean(7, student.getActive());
+            preparedStatement.setInt(8, id);
             preparedStatement.executeUpdate();
 
         } catch (Exception e){

@@ -5,13 +5,16 @@ public class Test_Student {
     int id;
     int testId;
     int studentId;
+    int rank;
 
-    int score1;
-    int score2;
-    int score3;
+    int form, steps, power, kiap, questions, attitude, sparring, breaking;
 
     public Test_Student() {
 
+    }
+
+    public Test_Student(int studentId) {
+        this.studentId = studentId;
     }
 
     public Test_Student(int testId, int studentId) {
@@ -43,27 +46,71 @@ public class Test_Student {
         this.studentId = studentId;
     }
 
-    public int getScore1() {
-        return score1;
+    public int getRank() { return rank; }
+
+    public void setRank(int rank) { this.rank = rank; }
+
+    public int getForm() {
+        return form;
     }
 
-    public void setScore1(int score1) {
-        this.score1 = score1;
+    public void setForm(int form) {
+        this.form = form;
     }
 
-    public int getScore2() {
-        return score2;
+    public int getSteps() {
+        return steps;
     }
 
-    public void setScore2(int score2) {
-        this.score2 = score2;
+    public void setSteps(int steps) {
+        this.steps = steps;
     }
 
-    public int getScore3() {
-        return score3;
+    public int getPower() {
+        return power;
     }
 
-    public void setScore3(int score3) {
-        this.score3 = score3;
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public int getKiap() {
+        return kiap;
+    }
+
+    public void setKiap(int kiap) {
+        this.kiap = kiap;
+    }
+
+    public int getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(int questions) {
+        this.questions = questions;
+    }
+
+    public int getAttitude() {
+        return attitude;
+    }
+
+    public void setAttitude(int attitude) {
+        this.attitude = attitude;
+    }
+
+    public int getSparring() {
+        return sparring;
+    }
+
+    public void setSparring(int sparring) {
+        this.sparring = sparring;
+    }
+
+    public int getBreaking() {
+        return breaking;
+    }
+
+    public void setBreaking(int breaking) {
+        this.breaking = breaking;
     }
 }

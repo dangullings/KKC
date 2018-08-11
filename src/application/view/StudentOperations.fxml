@@ -33,6 +33,7 @@
                <children>
                   <Button fx:id="btnNewStudent" mnemonicParsing="false" onAction="#pressNewStudent" prefHeight="104.0" prefWidth="105.0" text="New Student" />
                   <Button fx:id="btnStudentDetail" mnemonicParsing="false" onAction="#pressStudentDetail" prefHeight="114.0" prefWidth="100.0" text="Student Detail" />
+                  <Button fx:id="btnRemoveStudent" mnemonicParsing="false" onAction="#pressRemove" prefHeight="105.0" prefWidth="100.0" text="Remove Student" />
                </children>
             </VBox>
          </right>

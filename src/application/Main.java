@@ -1,6 +1,7 @@
 package application;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -38,33 +39,6 @@ public class Main extends Application {
         //showStudentOperationsView();
 
         //showFinanceOperationsView();
-
-        Ranks.add("While Belt");
-        Ranks.add("Gold Stripe");
-        Ranks.add("Gold Belt");
-        Ranks.add("Green Stripe");
-        Ranks.add("Green Belt");
-        Ranks.add("Purple Stripe");
-        Ranks.add("Purple Belt");
-        Ranks.add("Brown Stripe");
-        Ranks.add("Brown Belt");
-        Ranks.add("Red Stripe");
-        Ranks.add("Red Belt");
-        Ranks.add("1st Degree");
-        Ranks.add("1st of 2nd");
-        Ranks.add("2nd Degree");
-        Ranks.add("1st of 3rd");
-        Ranks.add("2nd of 3rd");
-        Ranks.add("3rd Degree");
-        Ranks.add("1st of 4th");
-        Ranks.add("2nd of 4th");
-        Ranks.add("3rd of 4th");
-        Ranks.add("4th Degree");
-        Ranks.add("1st of 5th");
-        Ranks.add("2nd of 5th");
-        Ranks.add("3rd of 5th");
-        Ranks.add("4th of 5th");
-        Ranks.add("5th Degree");
 
     }
 
@@ -117,6 +91,43 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        Ranks = RankFill();
+
+        Ranks.add("White Belt");
+        Ranks.add("Gold Stripe");
+        Ranks.add("Gold Belt");
+        Ranks.add("Green Stripe");
+        Ranks.add("Green Belt");
+        Ranks.add("Purple Stripe");
+        Ranks.add("Purple Belt");
+        Ranks.add("Brown Stripe");
+        Ranks.add("Brown Belt");
+        Ranks.add("Red Stripe");
+        Ranks.add("Red Belt");
+        Ranks.add("1st Degree");
+        Ranks.add("1st of 2nd");
+        Ranks.add("2nd Degree");
+        Ranks.add("1st of 3rd");
+        Ranks.add("2nd of 3rd");
+        Ranks.add("3rd Degree");
+        Ranks.add("1st of 4th");
+        Ranks.add("2nd of 4th");
+        Ranks.add("3rd of 4th");
+        Ranks.add("4th Degree");
+        Ranks.add("1st of 5th");
+        Ranks.add("2nd of 5th");
+        Ranks.add("3rd of 5th");
+        Ranks.add("4th of 5th");
+        Ranks.add("5th Degree");
+
         launch(args);
+    }
+
+    public static ObservableList<String> RankFill() {
+
+        ObservableList<String> rank = FXCollections.observableArrayList();
+
+        return rank;
+
     }
 }

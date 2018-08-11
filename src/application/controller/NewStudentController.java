@@ -1,6 +1,5 @@
 package application.controller;
 
-import application.LOCATION;
 import application.Main;
 import application.model.Student;
 import application.util.StudentDAOImpl;
@@ -23,8 +22,7 @@ import java.util.regex.Pattern;
 
 public class NewStudentController implements Initializable {
 
-    @FXML
-    ComboBox<String> rank = new ComboBox<>();
+    @FXML ComboBox<String> cboRank = new ComboBox<>();
     @FXML private TextField txtFirstName;
     @FXML private TextField txtLastName;
     @FXML private TextField txtEmail;
@@ -38,8 +36,8 @@ public class NewStudentController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        rank.setItems(Main.Ranks);
-        rank.setValue(Main.Ranks.get(0));
+        cboRank.setItems(Main.Ranks);
+        cboRank.setValue(Main.Ranks.get(0));
 
         txtYear.setAlignment(Pos.CENTER);
         //txtYear.setBackground(Background.EMPTY);
@@ -73,7 +71,7 @@ public class NewStudentController implements Initializable {
     public void pressSave(ActionEvent event){
         StudentDAOImpl sdi = new StudentDAOImpl();
 
-        Student student = new Student(txtFirstName.getText(), txtLastName.getText(), rank.getValue(), txtEmail.getText(), txtNumber.getText(), Integer.parseInt(txtYear.getText()), Integer.parseInt(txtMonth.getText()), Integer.parseInt(txtDay.getText()));
+        Student student = new Student(txtFirstName.getText(), txtLastName.getText(), cboRank.getValue(), txtEmail.getText(), txtNumber.getText(), Integer.parseInt(txtYear.getText()), Integer.parseInt(txtMonth.getText()), Integer.parseInt(txtDay.getText()));
         sdi.insert(student);
 
         txtFirstName.clear();
@@ -87,6 +85,10 @@ public class NewStudentController implements Initializable {
         stage.close();
 
         StudentController.getInstance().studentTableInsert(student);
+    }
+
+    public void pressCancel(ActionEvent event){
+
     }
 
     public boolean validPhoneNumber(String number) {

@@ -4,6 +4,7 @@ import application.Main;
 import application.model.Student;
 import application.model.Test;
 import application.util.StudentDAOImpl;
+import application.util.Test_StudentDAOImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -27,6 +28,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,6 +47,7 @@ public class StudentController implements Initializable{
 
     @FXML private Button btnNewStudent;
     @FXML private Button btnStudentDetail;
+    @FXML private Button btnRemoveStudent;
 
     @FXML
     TableView<Student> studentTable;
@@ -66,7 +69,9 @@ public class StudentController implements Initializable{
 
         TableColumn<Student, String> colRank = new TableColumn<>("Rank");
         colRank.setMinWidth(120);
-        colRank.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        colRank.setCellValueFactory(new PropertyValueFactory<>("rankName"));
+
+        //Collections.sort(g.getNodeList(), Student.BY_RANK); // least to most
 
         TableColumn<Student, String> colEmail = new TableColumn<>("Email");
         colEmail.setMinWidth(120);
@@ -154,7 +159,7 @@ public class StudentController implements Initializable{
         studentTable.getItems().add(student);
     }
 
-    public void pressDelete(ActionEvent event){
+    public void pressRemove(ActionEvent event){ // remove test_student
         ObservableList<Student> studentSelected, students;
         students = studentTable.getItems();
         studentSelected = studentTable.getSelectionModel().getSelectedItems();
@@ -162,7 +167,17 @@ public class StudentController implements Initializable{
         StudentDAOImpl sdi = new StudentDAOImpl();
         sdi.delete(studentSelected.get(0).getFirstName(), studentSelected.get(0).getLastName());
 
+        Test_StudentDAOImpl tsdi = new Test_StudentDAOImpl();
+        tsdi.deleteByStudentId(studentSelected.get(0).getId());
+
         studentSelected.forEach(students::remove);
+    }
+
+    public void updateStudentTable(){
+        StudentDAOImpl sdi = new StudentDAOImpl();
+        studentTable.getItems().clear();
+        ObservableList<Student> students = sdi.selectAllObservable();
+        studentTable.setItems(students);
     }
 
 }

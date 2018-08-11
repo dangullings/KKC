@@ -13,7 +13,11 @@ public interface Test_StudentDAO {
 
     void insert(Test_Student test_student);
 
+    void deleteByStudentId(int studentId);
+
     List<Test> selectAllStudentTests(int id);
+    List<Test_Student> selectAllStudentTestScores(int id);
 
     ObservableList<Test> selectAllObservable(Student student);
+    ObservableList<Test_Student> selectAllObservableScores(Student student);
 }
