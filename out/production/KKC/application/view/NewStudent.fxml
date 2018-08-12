@@ -3,74 +3,84 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewStudentController">
+<AnchorPane prefHeight="400.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewStudentController">
    <children>
-      <BorderPane prefHeight="400.0" prefWidth="600.0">
-         <top>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="400.0" prefWidth="459.0">
+         <center>
+            <GridPane prefHeight="289.0" prefWidth="417.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="433.0" minWidth="10.0" prefWidth="229.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                   <HBox prefHeight="40.0" prefWidth="570.0" BorderPane.alignment="CENTER">
-                       <children>
-                           <TextField fx:id="txtFirstName" prefHeight="25.0" prefWidth="165.0" promptText="First Name">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin></TextField>
-                           <TextField fx:id="txtLastName" prefHeight="25.0" prefWidth="185.0" promptText="Last Name" />
-                       </children>
-                       <BorderPane.margin>
-                           <Insets top="10.0" />
-                       </BorderPane.margin>
-                     <VBox.margin>
-                        <Insets left="150.0" right="100.0" top="10.0" />
-                     </VBox.margin>
-                   </HBox>
-                  <ComboBox fx:id="cboRank" prefWidth="150.0" promptText="Rank">
-                     <VBox.margin>
-                        <Insets left="150.0" right="100.0" />
-                     </VBox.margin>
-                  </ComboBox>
-                     <TextField fx:id="txtEmail" promptText="Email">
-                     <VBox.margin>
-                        <Insets left="150.0" right="100.0" />
-                     </VBox.margin></TextField>
-                     <TextField fx:id="txtNumber" promptText="xxx-xxx-xxxx">
-                     <VBox.margin>
-                        <Insets left="150.0" right="100.0" />
-                     </VBox.margin></TextField>
-                     <HBox fx:id="hboxBirthdate" prefHeight="100.0" prefWidth="200.0">
-                         <children>
-                             <TextField fx:id="txtYear" promptText="yyyy" />
-                             <TextField fx:id="txtMonth" promptText="mm" />
-                             <TextField fx:id="txtDay" promptText="dd" />
-                         </children>
-                     <VBox.margin>
-                        <Insets left="150.0" right="100.0" />
-                     </VBox.margin>
-                     </HBox>
+                  <Label text="First Name:" />
+                  <Label text="Last Name:" GridPane.rowIndex="1" />
+                  <Label text="Rank:" GridPane.rowIndex="2" />
+                  <Label text="Email:" GridPane.rowIndex="4" />
+                  <Label text="Phone Number:" GridPane.rowIndex="5" />
+                  <Label text="Date of Birth" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtFirstName" promptText="first name" GridPane.columnIndex="1" />
+                  <TextField fx:id="txtLastName" promptText="last name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cboRank" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="datePickerDOB" onAction="#pressDOB" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtEmail" promptText="name@domain.com" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtNumber" promptText="10 digit number" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label text="Club:" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="cboClub" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
-            </VBox>
+               <BorderPane.margin>
+                  <Insets left="30.0" right="100.0" />
+               </BorderPane.margin>
+            </GridPane>
+         </center>
+         <top>
+            <Label prefHeight="53.0" prefWidth="602.0" text="Student Information" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
+            </Label>
          </top>
          <bottom>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="48.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                     <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#pressCancel" prefHeight="99.0" prefWidth="307.0" text="Cancel">
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#pressCancel" prefHeight="48.0" prefWidth="299.0" text="Cancel">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
-                     <Button fx:id="btnSave" mnemonicParsing="false" onAction="#pressSave" prefHeight="101.0" prefWidth="312.0" text="Save">
+                  <Button fx:id="btnSave" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#pressSave" prefHeight="63.0" prefWidth="303.0" text="Save">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Button>
+                        <Insets />
+                     </HBox.margin></Button>
                </children>
+               <BorderPane.margin>
+                  <Insets top="10.0" />
+               </BorderPane.margin>
             </HBox>
-         </bottom></BorderPane>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>

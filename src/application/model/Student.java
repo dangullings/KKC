@@ -22,6 +22,7 @@ public class Student {
     private String lastName;
     private int rankValue;
     private String rankName;
+    private String club;
     private String email;
     private String number;
     private LocalDate birthDate;
@@ -32,13 +33,14 @@ public class Student {
         testViews = new ArrayList<>();
     }
 
-    public Student(String firstName, String lastName, String rankName, String email, String number, int year, int month, int day){
+    public Student(String firstName, String lastName, String rankName, String club, String email, String number, LocalDate dob){
         this.firstName = firstName;
         this.lastName = lastName;
         this.rankName = rankName;
+        this.club = club;
         this.email = email;
         this.number = number;
-        this.setBirthDate(year, month, day);
+        this.birthDate = dob;
         this.age = getAge();
 
         this.rankValue = Main.Ranks.indexOf(rankName);
@@ -138,6 +140,10 @@ public class Student {
     public void setRankName(String rankName) {
         this.rankName = rankName;
     }
+
+    public String getClub() { return club; }
+
+    public void setClub(String club) { this.club = club; }
 
     public Boolean getActive() {
         return active;

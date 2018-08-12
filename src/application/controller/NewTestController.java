@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.LOCATION;
+import application.Main;
 import application.model.Student;
 import application.model.Test;
 import application.model.Test_Student;
@@ -11,12 +12,20 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,6 +33,16 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class NewTestController implements Initializable {
+
+    private static NewTestController instance;
+
+    public NewTestController(){
+        instance = this;
+    }
+
+    public static NewTestController getInstance(){
+        return instance;
+    }
 
     ArrayList<Test_Student> test_students;
 
@@ -41,6 +60,9 @@ public class NewTestController implements Initializable {
     @FXML CheckBox checkIsBlackbelt;
 
     @FXML Button btnNewTest;
+
+    @FXML Button btnRemoveStudent;
+    @FXML Button btnNewStudent;
 
     @FXML TextField txtForm;
     @FXML TextField txtSteps;
@@ -66,8 +88,6 @@ public class NewTestController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         test_students = new ArrayList<>();
 
-        stdi.createTest_StudentTable();
-
         StudentDAOImpl sdi = new StudentDAOImpl();
         ObservableList<Student> students = sdi.selectAllObservable();
 
@@ -81,14 +101,19 @@ public class NewTestController implements Initializable {
         colLastNameList.setMaxWidth(50);
         colLastNameList.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
-        TableColumn<Student, String> colRank = new TableColumn<>("Rank");
-        colRank.setMinWidth(50);
-        colRank.setMaxWidth(75);
-        colRank.setCellValueFactory(new PropertyValueFactory<>("rankName"));
+        TableColumn<Student, String> colRankList = new TableColumn<>("Rank");
+        colRankList.setMinWidth(50);
+        colRankList.setMaxWidth(75);
+        colRankList.setCellValueFactory(new PropertyValueFactory<>("rankName"));
+
+        TableColumn<Student, String> colClubList = new TableColumn<>("Club");
+        colClubList.setMinWidth(50);
+        colClubList.setMaxWidth(75);
+        colClubList.setCellValueFactory(new PropertyValueFactory<>("club"));
 
         studentsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         studentsTable.setItems(students);
-        studentsTable.getColumns().addAll(colFirstNameList, colLastNameList, colRank);
+        studentsTable.getColumns().addAll(colFirstNameList, colLastNameList, colRankList, colClubList);
 
         TableColumn<Student, String> colFirstName = new TableColumn<>("First Name");
         colFirstName.setMinWidth(120);
@@ -97,6 +122,14 @@ public class NewTestController implements Initializable {
         TableColumn<Student, String> colLastName = new TableColumn<>("Last Name");
         colLastName.setMinWidth(120);
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+        TableColumn<Student, String> colRank = new TableColumn<>("Rank");
+        colRank.setMinWidth(120);
+        colRank.setCellValueFactory(new PropertyValueFactory<>("rankName"));
+
+        TableColumn<Student, String> colClub = new TableColumn<>("Club");
+        colClub.setMinWidth(120);
+        colClub.setCellValueFactory(new PropertyValueFactory<>("club"));
 
         TableColumn<Student, String> colEmail = new TableColumn<>("Email");
         colEmail.setMinWidth(120);
@@ -135,7 +168,7 @@ public class NewTestController implements Initializable {
             }
         });
 
-        testStudentsTable.getColumns().addAll(colFirstName, colLastName, colEmail, colNumber, colAge, colBirthdate);
+        testStudentsTable.getColumns().addAll(colFirstName, colLastName, colRank, colClub, colEmail, colNumber, colAge, colBirthdate);
 
         choiceLocation.getItems().addAll(LOCATION.values());
         choiceLocation.setValue(LOCATION.LOC_ONE);
@@ -144,7 +177,11 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                selectedTest_Student.setForm(Integer.valueOf(newValue));
+                if (newValue.isEmpty()){
+                    selectedTest_Student.setForm(0);
+                }else {
+                    selectedTest_Student.setForm(Integer.valueOf(newValue));
+                }
             }
         });
 
@@ -152,7 +189,11 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                selectedTest_Student.setSteps(Integer.valueOf(newValue));
+                if (newValue.isEmpty()){
+                    selectedTest_Student.setSteps(0);
+                }else {
+                    selectedTest_Student.setSteps(Integer.valueOf(newValue));
+                }
             }
         });
 
@@ -160,7 +201,11 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                selectedTest_Student.setPower(Integer.valueOf(newValue));
+                if (newValue.isEmpty()){
+                    selectedTest_Student.setPower(0);
+                }else {
+                    selectedTest_Student.setPower(Integer.valueOf(newValue));
+                }
             }
         });
 
@@ -168,7 +213,11 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                selectedTest_Student.setKiap(Integer.valueOf(newValue));
+                if (newValue.isEmpty()){
+                    selectedTest_Student.setKiap(0);
+                }else {
+                    selectedTest_Student.setKiap(Integer.valueOf(newValue));
+                }
             }
         });
 
@@ -176,7 +225,11 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                selectedTest_Student.setQuestions(Integer.valueOf(newValue));
+                if (newValue.isEmpty()){
+                    selectedTest_Student.setQuestions(0);
+                }else {
+                    selectedTest_Student.setQuestions(Integer.valueOf(newValue));
+                }
             }
         });
 
@@ -184,7 +237,11 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                selectedTest_Student.setAttitude(Integer.valueOf(newValue));
+                if (newValue.isEmpty()){
+                    selectedTest_Student.setAttitude(0);
+                }else {
+                    selectedTest_Student.setAttitude(Integer.valueOf(newValue));
+                }
             }
         });
 
@@ -192,7 +249,11 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                selectedTest_Student.setSparring(Integer.valueOf(newValue));
+                if (newValue.isEmpty()){
+                    selectedTest_Student.setSparring(0);
+                }else {
+                    selectedTest_Student.setSparring(Integer.valueOf(newValue));
+                }
             }
         });
 
@@ -200,7 +261,11 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                selectedTest_Student.setBreaking(Integer.valueOf(newValue));
+                if (newValue.isEmpty()){
+                    selectedTest_Student.setBreaking(0);
+                }else {
+                    selectedTest_Student.setBreaking(Integer.valueOf(newValue));
+                }
             }
         });
     }
@@ -221,8 +286,34 @@ public class NewTestController implements Initializable {
         testStudentsTable.getItems().addAll(studentsSelected);
     }
 
-    public void pressDelete(ActionEvent event){
+    public void pressRemoveStudent(ActionEvent event){
+        ObservableList<Student> studentSelected, students;
+        students = studentsTable.getItems();
+        studentSelected = studentsTable.getSelectionModel().getSelectedItems();
 
+        for (Test_Student test_student : test_students){
+            if (test_student.getStudentId() == studentSelected.get(0).getId()){
+                test_students.remove(test_student);
+            }
+        }
+
+        testStudentsTable.getItems().remove(studentSelected);
+    }
+
+    @FXML
+    public void pressNewStudent(ActionEvent event){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/NewStudent.fxml"));
+        try {
+            Parent root1 = (Parent) loader.load();
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("New Student");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void typeChanged(){
@@ -286,5 +377,21 @@ public class NewTestController implements Initializable {
         }
     }
 
-    // when deleting test and or students, need to delete all records with their id in the test_student database
+    public void studentTableInsert(Student student){ studentsTable.getItems().add(student); }
+
+    @FXML private void cleartxtForm(MouseEvent event) { txtForm.clear(); }
+
+    @FXML private void cleartxtSteps(MouseEvent event) { txtSteps.clear(); }
+
+    @FXML private void cleartxtPower(MouseEvent event) { txtPower.clear(); }
+
+    @FXML private void cleartxtKiap(MouseEvent event) { txtKiap.clear(); }
+
+    @FXML private void cleartxtQuestions(MouseEvent event) { txtQuestions.clear(); }
+
+    @FXML private void cleartxtAttitude(MouseEvent event) { txtAttitude.clear(); }
+
+    @FXML private void cleartxtSparring(MouseEvent event) { txtSparring.clear(); }
+
+    @FXML private void cleartxtBreaking(MouseEvent event) { txtBreaking.clear(); }
 }

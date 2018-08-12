@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,43 +10,80 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="670.0" prefWidth="976.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.StudentDetailController">
+<AnchorPane prefHeight="459.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.StudentDetailController">
    <children>
-      <BorderPane layoutX="-2.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="-2.0" prefHeight="602.0" prefWidth="976.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
          <top>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="143.0" prefWidth="976.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="70.0" prefWidth="976.0">
                      <children>
                         <Label fx:id="lblName" prefHeight="60.0" prefWidth="371.0" text="Kenzie Lastname">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="36.0" />
                            </font>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="38.0" prefWidth="976.0" spacing="50.0">
                      <children>
-                        <Label fx:id="lblDOB" text="DOB: 1993/09/08" />
-                        <Label fx:id="lblRank" text="Current Rank: Brown Belt" />
-                        <Label fx:id="lblClub" text="Club: clubname" />
+                        <Label fx:id="lblDOB" text="DOB: 1993/09/08">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="lblRank" text="Current Rank: Brown Belt">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="lblClub" text="Club: clubname">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
                      </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="41.0" prefWidth="976.0" spacing="50.0">
                      <children>
-                        <Label fx:id="lblNumber" text="Phone Number: 433-333-3333" />
-                        <Label fx:id="lblEmail" text="Email: jiwsilfnmlsadij" />
+                        <Label fx:id="lblNumber" text="Phone Number: 433-333-3333">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="lblEmail" text="Email: jiwsilfnmlsadij">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>
          </top>
          <center>
-            <TableView fx:id="studentTestsTable" prefHeight="465.0" prefWidth="349.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="studentTestsTable" prefHeight="377.0" prefWidth="971.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="5.0" left="5.0" />
                </BorderPane.margin></TableView>
          </center>
+         <bottom>
+            <Button fx:id="btnOk" mnemonicParsing="false" onAction="#pressOk" prefHeight="32.0" prefWidth="794.0" text="Ok" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </Button>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

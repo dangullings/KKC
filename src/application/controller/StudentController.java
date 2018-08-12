@@ -71,22 +71,26 @@ public class StudentController implements Initializable{
         colRank.setMinWidth(120);
         colRank.setCellValueFactory(new PropertyValueFactory<>("rankName"));
 
+        TableColumn<Student, String> colClub = new TableColumn<>("Club");
+        colClub.setMinWidth(120);
+        colClub.setCellValueFactory(new PropertyValueFactory<>("club"));
+
         //Collections.sort(g.getNodeList(), Student.BY_RANK); // least to most
 
         TableColumn<Student, String> colEmail = new TableColumn<>("Email");
-        colEmail.setMinWidth(120);
+        colEmail.setMinWidth(140);
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         TableColumn<Student, String> colNumber = new TableColumn<>("Number");
-        colNumber.setMinWidth(120);
+        colNumber.setMinWidth(100);
         colNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
 
         TableColumn<Student, Integer> colAge = new TableColumn<>("Age");
-        colAge.setMinWidth(120);
+        colAge.setMinWidth(30);
         colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
 
         TableColumn<Student, LocalDate> colBirthdate = new TableColumn<>("Birth Date");
-        colBirthdate.setMinWidth(120);
+        colBirthdate.setMinWidth(80);
         colBirthdate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 
         colFirstName.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -106,7 +110,7 @@ public class StudentController implements Initializable{
         );
 
         studentTable.setItems(students);
-        studentTable.getColumns().addAll(colFirstName, colLastName, colRank, colEmail, colNumber, colAge, colBirthdate);
+        studentTable.getColumns().addAll(colFirstName, colLastName, colRank, colClub, colEmail, colNumber, colAge, colBirthdate);
         studentTable.setEditable(true);
     }
 
