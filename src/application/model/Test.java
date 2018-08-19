@@ -8,6 +8,7 @@ public class Test {
     private String type;
     private LocalDate date;
     private String location;
+    private int numStudents;
 
     //ArrayList<Student> students;
 
@@ -15,10 +16,11 @@ public class Test {
 
     }
 
-    public Test(String type, LocalDate date, String location) {
+    public Test(String type, LocalDate date, String location, int numStudents) {
         this.type = type;
         this.date = date;
         this.location = location;
+        this.numStudents = numStudents;
     }
 
     public String getLocation() {
@@ -45,6 +47,10 @@ public class Test {
         this.date = date.toLocalDate();
     }
 
+    public void setDate(LocalDate date){
+        this.date = date;
+    }
+
     public LocalDate getDate() {
         return date;
     }
@@ -55,5 +61,13 @@ public class Test {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNumStudents() {
+        return numStudents;
+    }
+
+    public void setNumStudents(int numStudents) {
+        this.numStudents = numStudents;
     }
 }

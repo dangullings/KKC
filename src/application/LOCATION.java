@@ -1,6 +1,8 @@
 package application;
 
 public enum LOCATION{
-    LOC_ONE,
-    LOC_TWO;
+    Waconia,
+    Arlington,
+    Jordan,
+    Shakopee;
 }

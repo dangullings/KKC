@@ -13,10 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Border;
@@ -41,6 +38,7 @@ public class StudentDetailController implements Initializable {
     @FXML Label lblEmail;
 
     @FXML Button btnOk;
+    @FXML ToggleButton toggleActive;
 
     public void initData(Student student) {
         this.student = new Student();
@@ -51,6 +49,7 @@ public class StudentDetailController implements Initializable {
         ObservableList<Test> studentTests = t_sdi.selectAllObservable(student);
         ObservableList<Test_Student> studentTestScores = t_sdi.selectAllObservableScores(student);
 
+        student.getTestViews().clear();
         student.setTestViews(studentTests, studentTestScores);
 
         TableColumn<Student.TestView, String> colTest = new TableColumn<>("Test");
@@ -64,7 +63,6 @@ public class StudentDetailController implements Initializable {
         TableColumn<Student.TestView, String> colLocation = new TableColumn<>("Location");
         colLocation.setMinWidth(100);
         colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
-
 
         TableColumn<Student.TestView, String> colScores = new TableColumn<>("Scores");
         colScores.setMinWidth(120);
@@ -113,6 +111,8 @@ public class StudentDetailController implements Initializable {
 
         studentTestsTable.setItems(student.getObservableTestViews());
         studentTestsTable.getColumns().addAll(colTest, colDate, colLocation, colScores);
+        colDate.setSortType(TableColumn.SortType.DESCENDING);
+        studentTestsTable.getSortOrder().setAll(colDate);
         //studentTestsTable_Test.setEditable(true);
 
         lblName.setText(student.getFirstName() + " " + student.getLastName());
@@ -121,6 +121,15 @@ public class StudentDetailController implements Initializable {
         lblClub.setText("Club: " + student.getClub());
         lblNumber.setText("Phone Number: " + student.getNumber());
         lblEmail.setText("Email: " + student.getEmail());
+
+        if (student.getActive()){
+            toggleActive.setStyle("-fx-base: #A1B56C;");
+            toggleActive.setText("Active");
+        }else{
+            toggleActive.setStyle("-fx-base: #AB4642;");
+            toggleActive.setText("Inactive");
+        }
+        toggleActive.setSelected(student.getActive());
     }
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -130,8 +139,24 @@ public class StudentDetailController implements Initializable {
     public void pressOk(){
         Stage stage = (Stage) btnOk.getScene().getWindow();
         stage.close();
+        StudentController.getInstance().updateStudentTable();
     }
 
+    public void pressActive(){
+        StudentDAOImpl sdi = new StudentDAOImpl();
+
+        student.setActive(toggleActive.isSelected());
+
+        sdi.update(student, student.getId());
+
+        if (student.getActive()){
+            toggleActive.setStyle("-fx-base: #A1B56C;");
+            toggleActive.setText("Active");
+        }else{
+            toggleActive.setStyle("-fx-base: #AB4642;");
+            toggleActive.setText("Inactive");
+        }
+    }
 }
 
 /*

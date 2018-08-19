@@ -7,7 +7,7 @@ public class Test_Student {
     int studentId;
     int rank;
 
-    int form, steps, power, kiap, questions, attitude, sparring, breaking;
+    String form, steps, power, kiap, questions, attitude, sparring, breaking;
 
     public Test_Student() {
 
@@ -15,11 +15,26 @@ public class Test_Student {
 
     public Test_Student(int studentId) {
         this.studentId = studentId;
+        this.form = "-";
+        this.steps = "-";
+        this.power = "-";
+        this.kiap = "-";
+        this.questions = "-";
+        this.attitude = "-";
+        this.sparring = "-";
+        this.breaking = "-";
     }
 
     public Test_Student(int testId, int studentId) {
         this.testId = testId;
         this.studentId = studentId;
+    }
+
+    public boolean inRange(String score){
+        if ((score.equalsIgnoreCase("5")) || (score.equalsIgnoreCase("6")) || (score.equalsIgnoreCase("7")) || (score.equalsIgnoreCase("8")) || (score.equalsIgnoreCase("9")))
+            return true;
+
+        return false;
     }
 
     public int getId() {
@@ -50,67 +65,67 @@ public class Test_Student {
 
     public void setRank(int rank) { this.rank = rank; }
 
-    public int getForm() {
+    public String getForm() {
         return form;
     }
 
-    public void setForm(int form) {
+    public void setForm(String form) {
         this.form = form;
     }
 
-    public int getSteps() {
+    public String getSteps() {
         return steps;
     }
 
-    public void setSteps(int steps) {
+    public void setSteps(String steps) {
         this.steps = steps;
     }
 
-    public int getPower() {
+    public String getPower() {
         return power;
     }
 
-    public void setPower(int power) {
+    public void setPower(String power) {
         this.power = power;
     }
 
-    public int getKiap() {
+    public String getKiap() {
         return kiap;
     }
 
-    public void setKiap(int kiap) {
+    public void setKiap(String kiap) {
         this.kiap = kiap;
     }
 
-    public int getQuestions() {
+    public String getQuestions() {
         return questions;
     }
 
-    public void setQuestions(int questions) {
+    public void setQuestions(String questions) {
         this.questions = questions;
     }
 
-    public int getAttitude() {
+    public String getAttitude() {
         return attitude;
     }
 
-    public void setAttitude(int attitude) {
+    public void setAttitude(String attitude) {
         this.attitude = attitude;
     }
 
-    public int getSparring() {
+    public String getSparring() {
         return sparring;
     }
 
-    public void setSparring(int sparring) {
+    public void setSparring(String sparring) {
         this.sparring = sparring;
     }
 
-    public int getBreaking() {
+    public String getBreaking() {
         return breaking;
     }
 
-    public void setBreaking(int breaking) {
+    public void setBreaking(String breaking) {
         this.breaking = breaking;
     }
 }

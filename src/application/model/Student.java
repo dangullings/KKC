@@ -4,13 +4,12 @@ import application.Main;
 import application.util.StudentDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.CheckBox;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Observable;
 
 public class Student {
 
@@ -43,6 +42,7 @@ public class Student {
         this.birthDate = dob;
         this.age = getAge();
 
+        this.active = true;
         this.rankValue = Main.Ranks.indexOf(rankName);
 
         testViews = new ArrayList<>();
@@ -86,12 +86,37 @@ public class Student {
         sdi.update(this, this.id);
     }
 
+    public void updateEmail(String email) {
+        this.email = email;
+
+        StudentDAOImpl sdi = new StudentDAOImpl();
+        sdi.update(this, this.id);
+    }
+
+    public void updateDOB(LocalDate dob) {
+        this.birthDate = dob;
+
+        StudentDAOImpl sdi = new StudentDAOImpl();
+        sdi.update(this, this.id);
+    }
+
+    public void updateNumber(String number) {
+        this.number = number;
+
+        StudentDAOImpl sdi = new StudentDAOImpl();
+        sdi.update(this, this.id);
+    }
+
     public void setBirthDate(int year, int month, int day){
         birthDate = LocalDate.of(year, month, day);
     }
 
     public void setBirthDate(java.sql.Date birthDate){
         this.birthDate = birthDate.toLocalDate();
+    }
+
+    public void setBirthDate(LocalDate birthDate){
+        this.birthDate = birthDate;
     }
 
     public LocalDate getBirthDate() {
@@ -137,6 +162,23 @@ public class Student {
         return rankName;
     }
 
+    public String getRankNameRounded() {
+        String name = null;
+
+        if ((rankValue >= 11) && (rankValue <= 12)){
+            name = "1st Degree";
+        }else if ((rankValue >= 13) && (rankValue <= 15)){
+            name = "2nd Degree";
+        }else if ((rankValue >= 16) && (rankValue <= 19)){
+            name = "3rd Degree";
+        }else if ((rankValue >= 20) && (rankValue <= 24)){
+            name = "4th Degree";
+        }else if ((rankValue >= 25) && (rankValue <= 30)){
+            name = "5th Degree";
+        }
+            return name;
+    }
+
     public void setRankName(String rankName) {
         this.rankName = rankName;
     }
@@ -156,6 +198,11 @@ public class Student {
     public void increaseRank(){
         //setRankValue(Main.Ranks.indexOf(getRankName()));
         setRankName(Main.Ranks.get(++rankValue));
+    }
+
+    public void decreaseRank(){
+        //setRankValue(Main.Ranks.indexOf(getRankName()));
+        setRankName(Main.Ranks.get(--rankValue));
     }
 
     /*
@@ -220,7 +267,7 @@ public class Student {
 
     public class AgeCalculator {
 
-        public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
+        private int calculateAge(LocalDate birthDate, LocalDate currentDate) {
             if ((birthDate != null) && (currentDate != null)) {
                 return Period.between(birthDate, currentDate).getYears();
             } else {
@@ -236,13 +283,13 @@ public class Student {
         private String rankName;
         private LocalDate date;
         private String location;
-        int form, steps, power, kiap, questions, attitude, sparring, breaking;
+        String form, steps, power, kiap, questions, attitude, sparring, breaking;
 
         public TestView(){
 
         }
 
-        public TestView(int testId, int form, int steps, int power, int kiap, int questions, int attitude, int sparring, int breaking) {
+        public TestView(int testId, String form, String steps, String power, String kiap, String questions, String attitude, String sparring, String breaking) {
             this.testId = testId;
             this.form = form;
             this.steps = steps;
@@ -258,21 +305,19 @@ public class Student {
             return location;
         }
 
-        public void setLocation(String location) {
+        private void setLocation(String location) {
             this.location = location;
         }
 
-        public int getRankValue() {
+        private int getRankValue() {
             return rankValue;
         }
 
-        public void setRankValue(int rankValue) {
+        private void setRankValue(int rankValue) {
             this.rankValue = rankValue;
         }
 
-        public void setRankName(int rankValue) {
-            this.rankName = Main.Ranks.get(rankValue);
-        }
+        private void setRankName(int rankValue) { this.rankName = Main.Ranks.get(rankValue); }
 
         public String getRankName() {
             return rankName;
@@ -282,7 +327,7 @@ public class Student {
             date = LocalDate.of(year, month, day);
         }
 
-        public void setDate(java.sql.Date date){
+        private void setDate(java.sql.Date date){
             this.date = date.toLocalDate();
         }
 
@@ -292,38 +337,38 @@ public class Student {
 
         public int getTestId() { return testId; }
 
-        public void setTestId(int testId) { this.testId = testId; }
+        private void setTestId(int testId) { this.testId = testId; }
 
-        public int getForm() { return form; }
+        public String getForm() { return form; }
 
-        public void setForm(int form) { this.form = form; }
+        private void setForm(String form) { this.form = form; }
 
-        public int getSteps() { return steps; }
+        public String getSteps() { return steps; }
 
-        public void setSteps(int steps) { this.steps = steps; }
+        private void setSteps(String steps) { this.steps = steps; }
 
-        public int getPower() { return power; }
+        public String getPower() { return power; }
 
-        public void setPower(int power) { this.power = power; }
+        private void setPower(String power) { this.power = power; }
 
-        public int getKiap() { return kiap; }
+        public String getKiap() { return kiap; }
 
-        public void setKiap(int kiap) { this.kiap = kiap; }
+        private void setKiap(String kiap) { this.kiap = kiap; }
 
-        public int getQuestions() { return questions; }
+        public String getQuestions() { return questions; }
 
-        public void setQuestions(int questions) { this.questions = questions; }
+        private void setQuestions(String questions) { this.questions = questions; }
 
-        public int getAttitude() { return attitude; }
+        public String getAttitude() { return attitude; }
 
-        public void setAttitude(int attitude) { this.attitude = attitude; }
+        private void setAttitude(String attitude) { this.attitude = attitude; }
 
-        public int getSparring() { return sparring; }
+        public String getSparring() { return sparring; }
 
-        public void setSparring(int sparring) { this.sparring = sparring; }
+        private void setSparring(String sparring) { this.sparring = sparring; }
 
-        public int getBreaking() { return breaking; }
+        public String getBreaking() { return breaking; }
 
-        public void setBreaking(int breaking) { this.breaking = breaking; }
+        private void setBreaking(String breaking) { this.breaking = breaking; }
     }
 }

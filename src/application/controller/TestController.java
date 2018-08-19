@@ -6,6 +6,7 @@ import application.model.Student;
 import application.model.Test;
 import application.util.StudentDAOImpl;
 import application.util.TestDAOImpl;
+import application.util.Test_StudentDAOImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -24,12 +25,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,6 +49,8 @@ public class TestController implements Initializable {
         return instance;
     }
 
+    //ArrayList<Student> students = new ArrayList<>();
+
     @FXML private TextField txtFirstName;
     @FXML private TextField txtLastName;
     @FXML private TextField txtYear;
@@ -55,7 +60,7 @@ public class TestController implements Initializable {
     @FXML private TextField txtNumber;
 
     @FXML private Button btnNewTest;
-    @FXML private Button btnDelete;
+    @FXML private Button btnEditTest;
 
     @FXML
     TableView<Test> testTable;
@@ -79,8 +84,12 @@ public class TestController implements Initializable {
         colLocation.setMinWidth(120);
         colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
 
+        TableColumn<Test, String> colNumStudents = new TableColumn<>("Number of Students");
+        colNumStudents.setMinWidth(120);
+        colNumStudents.setCellValueFactory(new PropertyValueFactory<>("numStudents"));
+
         testTable.setItems(tests);
-        testTable.getColumns().addAll(colType, colDate, colLocation);
+        testTable.getColumns().addAll(colType, colDate, colLocation, colNumStudents);
         testTable.setEditable(true);
     }
 
@@ -98,6 +107,38 @@ public class TestController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void pressEditTest(){
+        loadTest();
+    }
+
+    public void loadTest(){
+        ObservableList<Test> testSelected, tests;
+        tests = testTable.getItems();
+        testSelected = testTable.getSelectionModel().getSelectedItems();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/NewTest.fxml"));
+        try {
+            //Parent root1 = (Parent) loader.load();
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Edit Test");
+            stage.setScene(new Scene((Pane) loader.load()));
+            NewTestController controller = loader.<NewTestController>getController();
+            controller.initData(testSelected.get(0));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTestTable(){
+        TestDAOImpl tdi = new TestDAOImpl();
+        testTable.getItems().clear();
+        ObservableList<Test> tests = tdi.selectAllObservable();
+        testTable.setItems(tests);
     }
 
     public void testTableInsert(Test test){

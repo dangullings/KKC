@@ -1,5 +1,6 @@
 package application.util;
 
+import application.Main;
 import application.model.Student;
 import application.model.Test;
 import application.model.Test_Student;
@@ -21,7 +22,7 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
                 connection = DBUtil.getConnection();
                 statement = connection.createStatement();
                 statement.execute("CREATE TABLE IF NOT EXISTS test_student (id int primary key unique auto_increment," +
-                        "test_id int(6), student_id int(6), rank int(3), form int(3), steps int(3), power int(3), kiap int(3), questions int(3), attitude int(3), sparring int(3), breaking int(3))");
+                        "test_id int(6), student_id int(6), rank int(3), form varchar(2), steps varchar(2), power varchar(2), kiap varchar(2), questions varchar(2), attitude varchar(2), sparring varchar(2), breaking varchar(2))");
 
             }catch (Exception e) {
                 e.printStackTrace();
@@ -57,14 +58,14 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
             preparedStatement.setInt(1, test_student.getTestId());
             preparedStatement.setInt(2, test_student.getStudentId());
             preparedStatement.setInt(3, test_student.getRank());
-            preparedStatement.setInt(4, test_student.getForm());
-            preparedStatement.setInt(5, test_student.getSteps());
-            preparedStatement.setInt(6, test_student.getPower());
-            preparedStatement.setInt(7, test_student.getKiap());
-            preparedStatement.setInt(8, test_student.getQuestions());
-            preparedStatement.setInt(9, test_student.getAttitude());
-            preparedStatement.setInt(10, test_student.getSparring());
-            preparedStatement.setInt(11, test_student.getBreaking());
+            preparedStatement.setString(4, test_student.getForm());
+            preparedStatement.setString(5, test_student.getSteps());
+            preparedStatement.setString(6, test_student.getPower());
+            preparedStatement.setString(7, test_student.getKiap());
+            preparedStatement.setString(8, test_student.getQuestions());
+            preparedStatement.setString(9, test_student.getAttitude());
+            preparedStatement.setString(10, test_student.getSparring());
+            preparedStatement.setString(11, test_student.getBreaking());
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -89,6 +90,203 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
     }
 
     @Override
+    public void update(Test_Student test_student, int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE test_student SET " +
+                    "test_id = ?, student_id = ?, rank = ?, form = ?, steps = ?, power = ?, kiap = ?, questions = ?, attitude = ?, sparring = ?, breaking = ? WHERE id = ?");
+            preparedStatement.setInt(1, test_student.getTestId());
+            preparedStatement.setInt(2, test_student.getStudentId());
+            preparedStatement.setInt(3, test_student.getRank());
+            preparedStatement.setString(4, test_student.getForm());
+            preparedStatement.setString(5, test_student.getSteps());
+            preparedStatement.setString(6, test_student.getPower());
+            preparedStatement.setString(7, test_student.getKiap());
+            preparedStatement.setString(8, test_student.getQuestions());
+            preparedStatement.setString(9, test_student.getAttitude());
+            preparedStatement.setString(10, test_student.getSparring());
+            preparedStatement.setString(11, test_student.getBreaking());
+            preparedStatement.setInt(12, id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM test_student WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Student> selectAllStudentsByTestId(int testId) {
+        List<Student> students = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM student join test_student on student.id = test_student.student_id WHERE test_id = ?");
+            preparedStatement.setInt(1, testId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                Student student = new Student();
+                student.setId(resultSet.getInt("id"));
+                student.setFirstName(resultSet.getString("first_name"));
+                student.setLastName(resultSet.getString("last_name"));
+                student.setRankName(resultSet.getString("rank"));
+                student.setClub(resultSet.getString("club"));
+                student.setEmail(resultSet.getString("email"));
+                student.setNumber(resultSet.getString("number"));
+                student.setBirthDate(resultSet.getDate("birthdate"));
+                student.setRankValue(Main.Ranks.indexOf(student.getRankName()));
+
+                students.add(student);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if (resultSet != null){
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return students;
+    }
+
+    @Override
+    public List<Test_Student> selectAllTest_StudentsByTestId(int testId) {
+        List<Test_Student> test_students = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM test_student WHERE test_id = ?");
+            preparedStatement.setInt(1, testId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                Test_Student test_student = new Test_Student();
+                test_student.setId(resultSet.getInt("id"));
+                test_student.setStudentId(resultSet.getInt("student_id"));
+                test_student.setTestId(resultSet.getInt("test_id"));
+                test_student.setRank(resultSet.getInt("rank"));
+                test_student.setForm(resultSet.getString("form"));
+                test_student.setSteps(resultSet.getString("steps"));
+                test_student.setPower(resultSet.getString("power"));
+                test_student.setKiap(resultSet.getString("kiap"));
+                test_student.setQuestions(resultSet.getString("questions"));
+                test_student.setAttitude(resultSet.getString("attitude"));
+                test_student.setSparring(resultSet.getString("sparring"));
+                test_student.setBreaking(resultSet.getString("breaking"));
+
+                test_students.add(test_student);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if (resultSet != null){
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return test_students;
+    }
+
+    @Override
     public List<Test> selectAllStudentTests(int student_id) {
         List<Test_Student> test_studentList = new ArrayList<Test_Student>();
         List<Test> tests = new ArrayList<Test>();
@@ -108,14 +306,14 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
                 test_student.setStudentId(resultSet.getInt("student_id"));
                 test_student.setTestId(resultSet.getInt("test_id"));
                 test_student.setRank(resultSet.getInt("rank"));
-                test_student.setForm(resultSet.getInt("form"));
-                test_student.setSteps(resultSet.getInt("steps"));
-                test_student.setPower(resultSet.getInt("power"));
-                test_student.setKiap(resultSet.getInt("kiap"));
-                test_student.setQuestions(resultSet.getInt("questions"));
-                test_student.setAttitude(resultSet.getInt("attitude"));
-                test_student.setSparring(resultSet.getInt("sparring"));
-                test_student.setBreaking(resultSet.getInt("breaking"));
+                test_student.setForm(resultSet.getString("form"));
+                test_student.setSteps(resultSet.getString("steps"));
+                test_student.setPower(resultSet.getString("power"));
+                test_student.setKiap(resultSet.getString("kiap"));
+                test_student.setQuestions(resultSet.getString("questions"));
+                test_student.setAttitude(resultSet.getString("attitude"));
+                test_student.setSparring(resultSet.getString("sparring"));
+                test_student.setBreaking(resultSet.getString("breaking"));
 
                 test_studentList.add(test_student);
             }
@@ -177,14 +375,14 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
                 test_student.setStudentId(resultSet.getInt("student_id"));
                 test_student.setTestId(resultSet.getInt("test_id"));
                 test_student.setRank(resultSet.getInt("rank"));
-                test_student.setForm(resultSet.getInt("form"));
-                test_student.setSteps(resultSet.getInt("steps"));
-                test_student.setPower(resultSet.getInt("power"));
-                test_student.setKiap(resultSet.getInt("kiap"));
-                test_student.setQuestions(resultSet.getInt("questions"));
-                test_student.setAttitude(resultSet.getInt("attitude"));
-                test_student.setSparring(resultSet.getInt("sparring"));
-                test_student.setBreaking(resultSet.getInt("breaking"));
+                test_student.setForm(resultSet.getString("form"));
+                test_student.setSteps(resultSet.getString("steps"));
+                test_student.setPower(resultSet.getString("power"));
+                test_student.setKiap(resultSet.getString("kiap"));
+                test_student.setQuestions(resultSet.getString("questions"));
+                test_student.setAttitude(resultSet.getString("attitude"));
+                test_student.setSparring(resultSet.getString("sparring"));
+                test_student.setBreaking(resultSet.getString("breaking"));
 
                 testScores.add(test_student);
             }
@@ -264,6 +462,20 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         ObservableList<Test_Student> testScores = FXCollections.observableArrayList(selectAllStudentTestScores(student.getId()));
 
         return testScores;
+    }
+
+    @Override
+    public ObservableList<Student> selectAllObservableStudentsByTestId(int testId) {
+        ObservableList<Student> students = FXCollections.observableArrayList(selectAllStudentsByTestId(testId));
+
+        return students;
+    }
+
+    @Override
+    public ObservableList<Test_Student> selectAllObservableTest_StudentsByTestId(int testId) {
+        ObservableList<Test_Student> test_students = FXCollections.observableArrayList(selectAllTest_StudentsByTestId(testId));
+
+        return test_students;
     }
 
 }

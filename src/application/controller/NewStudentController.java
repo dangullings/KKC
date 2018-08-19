@@ -4,9 +4,13 @@ import application.CLUB;
 import application.LOCATION;
 import application.Main;
 import application.model.Student;
+import application.model.Test;
+import application.model.Test_Student;
 import application.util.StudentDAOImpl;
+import application.util.Test_StudentDAOImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,12 +23,28 @@ import javax.swing.text.MaskFormatter;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NewStudentController implements Initializable {
+
+    private static NewStudentController instance;
+
+    public NewStudentController(){
+        instance = this;
+    }
+
+    public static NewStudentController getInstance(){
+        return instance;
+    }
+
+    Student student;
+
+    boolean isNewStudent;
 
     @FXML ComboBox<CLUB> cboClub = new ComboBox<>();
     @FXML ComboBox<String> cboRank = new ComboBox<>();
@@ -39,7 +59,7 @@ public class NewStudentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        setNewStudent(true);
         cboRank.setItems(Main.Ranks);
         cboRank.setValue(Main.Ranks.get(0));
 
@@ -111,23 +131,57 @@ public class NewStudentController implements Initializable {
         });
 
         cboClub.getItems().addAll(CLUB.values());
-        cboClub.setValue(CLUB.CLUB_ONE);
+        //cboClub.setValue(CLUB.Waconia);
+    }
+
+    private void loadStudentData(Student s){
+        student = new Student();
+        student = s;
+
+        StudentDAOImpl sdi = new StudentDAOImpl();
+
+        txtFirstName.setText(student.getFirstName());
+        txtLastName.setText(student.getLastName());
+        txtEmail.setText(student.getEmail());
+        txtNumber.setText(stripPhoneNumber(student.getNumber()));
+        cboRank.setValue(Main.Ranks.get(student.getRankValue()));
+        cboClub.setValue(CLUB.valueOf(student.getClub()));
+        datePickerDOB.setValue(student.getBirthDate());
+
+        setNewStudent(false);
+    }
+
+    public void initData(Student student) {
+        this.student = new Student();
+        this.student = student;
+
+        loadStudentData(student);
     }
 
     public void pressSave(ActionEvent event){
         StudentDAOImpl sdi = new StudentDAOImpl();
 
         if (validStudent()){
-            Student student = new Student(txtFirstName.getText(), txtLastName.getText(), cboRank.getValue(), cboClub.getValue().name(), txtEmail.getText(), formatPhoneNumber(txtNumber.getText()), datePickerDOB.getValue());
-            sdi.insert(student);
+            if (isNewStudent){
+                Student student = new Student(txtFirstName.getText(), txtLastName.getText(), cboRank.getValue(), cboClub.getValue().name(), txtEmail.getText(), formatPhoneNumber(txtNumber.getText()), datePickerDOB.getValue());
+                this.student = student;
+                sdi.insert(student);
+            }else{
+                student.setFirstName(txtFirstName.getText());
+                student.setLastName(txtLastName.getText());
+                student.setRankValue(Main.Ranks.indexOf(cboRank.getValue()));
+                student.setClub(cboClub.getValue().name());
+                student.setEmail(txtEmail.getText());
+                student.setNumber(formatPhoneNumber(txtNumber.getText()));
+                student.setBirthDate(datePickerDOB.getValue());
+
+                sdi.update(student, student.getId());
+            }
 
             txtFirstName.clear();
             txtLastName.clear();
             txtEmail.clear();
             txtNumber.clear();
-
-            Stage stage = (Stage) btnSave.getScene().getWindow();
-            stage.close();
 
             if (StudentController.getInstance() != null) {
                 StudentController.getInstance().studentTableInsert(student);
@@ -136,6 +190,9 @@ public class NewStudentController implements Initializable {
             if (NewTestController.getInstance() != null){
                 NewTestController.getInstance().studentTableInsert(student);
             }
+
+            Stage stage = (Stage) btnSave.getScene().getWindow();
+            stage.close();
         }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Invalid Student Information");
@@ -207,9 +264,13 @@ public class NewStudentController implements Initializable {
     final String cssClear = "";
 
     public String formatPhoneNumber(String number){
-        number = "("+number.substring(0, 3)+")-"+number.substring(3, 6)+"-"+number.substring(6, 10);
+        number = ""+number.substring(0, 3)+"-"+number.substring(3, 6)+"-"+number.substring(6, 10);
 
         return number;
+    }
+
+    private String stripPhoneNumber(String number){
+        return number.replace("-", "");
     }
 
     public boolean validPhoneNumber(String input) {
@@ -244,5 +305,13 @@ public class NewStudentController implements Initializable {
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(value);
         return matcher.matches();
+    }
+
+    public boolean isNewStudent() {
+        return isNewStudent;
+    }
+
+    public void setNewStudent(boolean newStudent) {
+        isNewStudent = newStudent;
     }
 }

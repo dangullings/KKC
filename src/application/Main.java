@@ -1,22 +1,23 @@
 package application;
 
+import application.util.Test_StudentDAOImpl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 //Main class which extends from Application Class
 public class Main extends Application {
 
     public static ObservableList<String> Ranks;
+    public static Test_StudentDAOImpl stdi = new Test_StudentDAOImpl();
 
     //This is our PrimaryStage (It contains everything)
     private Stage primaryStage;
@@ -30,8 +31,8 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
 
         //Optional: Set a title for primary stage
-        this.primaryStage.setTitle("KKC");
-
+        this.primaryStage.setTitle("Kroells Karate Club");
+        this.primaryStage.getIcons().add(new Image("file:duncan.png"));
         //2) Initialize RootLayout
         initRootLayout();
 
@@ -91,10 +92,9 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-
+        stdi.createTest_StudentTable();
         Ranks = RankFill();
 
-        Ranks.add("White Belt");
         Ranks.add("Gold Stripe");
         Ranks.add("Gold Belt");
         Ranks.add("Green Stripe");

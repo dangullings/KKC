@@ -1,0 +1,16 @@
+.root{
+    -fx-background-color: #383838;
+}
+
+.red-button {
+    -fx-background-color: red;
+}
+
+.white-button {
+    -fx-background-color: white;
+}
+
+.toggle{
+    -fx-background-color: white;
+}
+

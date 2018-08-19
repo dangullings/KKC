@@ -14,9 +14,11 @@ public interface StudentDAO {
 
     Student selectById(int id);
 
-    List<Student> selectAll();
+    List<Student> selectAllInactive();
+    List<Student> selectAllActive();
 
-    ObservableList<Student> selectAllObservable();
+    ObservableList<Student> selectAllInactiveObservable();
+    ObservableList<Student> selectAllActiveObservable();
 
     void delete(String firstName, String lastName);
 

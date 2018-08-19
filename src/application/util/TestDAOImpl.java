@@ -26,7 +26,7 @@ public class TestDAOImpl implements TestDAO {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS test (id int primary key unique auto_increment," +
-                    "type varchar(12), date date, location varchar(50))");
+                    "type varchar(12), date date, location varchar(50), numStudents int(3))");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,11 +57,12 @@ public class TestDAOImpl implements TestDAO {
         //preparedStatement.setString(3, test.getLocation().name());
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO test (type, date, location)" +
-                    "VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement("INSERT INTO test (type, date, location, numStudents)" +
+                    "VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, test.getType());
             preparedStatement.setDate(2, Date.valueOf(test.getDate()));
             preparedStatement.setString(3, test.getLocation());
+            preparedStatement.setInt(4, test.getNumStudents());
             preparedStatement.executeUpdate();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -114,6 +115,7 @@ public class TestDAOImpl implements TestDAO {
                 test.setType(resultSet.getString("type"));
                 test.setDate(resultSet.getDate("date"));
                 test.setLocation(resultSet.getString("location"));
+                test.setNumStudents(resultSet.getInt("numStudents"));
             }
 
         } catch (Exception e){
@@ -165,6 +167,7 @@ public class TestDAOImpl implements TestDAO {
                 test.setType(resultSet.getString("type"));
                 test.setDate(resultSet.getDate("date"));
                 test.setLocation(resultSet.getString("location"));
+                test.setNumStudents(resultSet.getInt("numStudents"));
 
                 tests.add(test);
             }
@@ -214,7 +217,7 @@ public class TestDAOImpl implements TestDAO {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM test WHERE first_name = ? AND last_name = ?");
+            preparedStatement = connection.prepareStatement("DELETE FROM test WHERE id = ?");
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -243,13 +246,17 @@ public class TestDAOImpl implements TestDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        try {
+        try {//type, date, location, numStudents
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE test SET " +
-                    "first_name = ?, last_name = ? WHERE id = ?");
-
-            preparedStatement.setInt(3, id);
+                    "type = ?, date = ?, location = ?, numStudents = ? WHERE id = ?");
+            preparedStatement.setString(1, test.getType());
+            preparedStatement.setDate(2, Date.valueOf(test.getDate()));
+            preparedStatement.setString(3, test.getLocation());
+            preparedStatement.setInt(4, test.getNumStudents());
+            preparedStatement.setInt(5, id);
             preparedStatement.executeUpdate();
+
 
         } catch (Exception e){
             e.printStackTrace();

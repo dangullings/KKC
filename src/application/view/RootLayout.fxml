@@ -17,7 +17,7 @@
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Options">
             <items>
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
@@ -36,6 +36,9 @@
               <Tab fx:id="students" onSelectionChanged="#studentTabSelected" text="Students">
                   <fx:include fx:id="studentOperations" source="StudentOperations.fxml" />
               </Tab>
+              <Tab fx:id="tests" text="Tests">
+                  <fx:include fx:id="testOperations" source="TestOperations.fxml" />
+              </Tab>
               <Tab fx:id="finances" text="Finances">
                   <fx:include fx:id="financeOperations" source="FinanceOperations.fxml" />
               </Tab>
@@ -44,9 +47,6 @@
               </Tab>
               <Tab fx:id="items" text="Items">
                   <fx:include fx:id="itemsOperations" source="ItemOperations.fxml" />
-              </Tab>
-              <Tab fx:id="tests" text="Tests">
-                  <fx:include fx:id="testOperations" source="TestOperations.fxml" />
               </Tab>
           </tabs>
       </TabPane>

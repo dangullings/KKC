@@ -36,9 +36,11 @@
                   <Separator prefWidth="200.0" />
                   <Button fx:id="btnStudentDetail" mnemonicParsing="false" onAction="#pressStudentDetail" prefHeight="175.0" prefWidth="120.0" text="Student Detail" />
                   <Separator prefWidth="200.0" />
+                  <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#pressEditStudent" prefHeight="175.0" prefWidth="120.0" text="Edit Student" />
+                  <Separator prefWidth="200.0" />
                   <Button fx:id="btnRemoveStudent" mnemonicParsing="false" onAction="#pressRemove" prefHeight="175.0" prefWidth="120.0" text="Remove Student" />
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnInactivateStudent" alignment="CENTER" mnemonicParsing="false" prefHeight="175.0" prefWidth="120.0" text="Inactivate Student" />
+                  <Button fx:id="btnActiveView" mnemonicParsing="false" onAction="#pressActiveView" prefHeight="175.0" prefWidth="120.0" text="View Inactive" />
                </children>
                <BorderPane.margin>
                   <Insets />

@@ -16,7 +16,7 @@ public class FinanceController{
 
     public void pressPopulate() {
         StudentDAOImpl sdi = new StudentDAOImpl();
-        ObservableList<Student> students = sdi.selectAllObservable();
+        //ObservableList<Student> students = sdi.selectAllObservable();
 
         TableColumn<Student, String> colFirstName = new TableColumn<>("First Name");
         colFirstName.setMinWidth(100);
@@ -27,7 +27,7 @@ public class FinanceController{
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
         //studentTable = new TableView<>();
-        studentTable.setItems(students);
-        studentTable.getColumns().addAll(colFirstName, colLastName);
+        //studentTable.setItems(students);
+        //studentTable.getColumns().addAll(colFirstName, colLastName);
     }
 }

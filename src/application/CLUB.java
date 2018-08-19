@@ -1,6 +1,8 @@
 package application;
 
 public enum CLUB {
-    CLUB_ONE,
-    CLUB_TWO;
+    Waconia,
+    Arlington,
+    Jordan,
+    Shakopee;
 }
