@@ -5,6 +5,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
@@ -35,9 +37,23 @@
           <tabs>
               <Tab fx:id="students" onSelectionChanged="#studentTabSelected" text="Students">
                   <fx:include fx:id="studentOperations" source="StudentOperations.fxml" />
+               <graphic>
+                  <ImageView fitHeight="17.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/students.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
               </Tab>
               <Tab fx:id="tests" text="Tests">
                   <fx:include fx:id="testOperations" source="TestOperations.fxml" />
+               <graphic>
+                  <ImageView fitHeight="90.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/detail.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
               </Tab>
               <Tab fx:id="finances" text="Finances">
                   <fx:include fx:id="financeOperations" source="FinanceOperations.fxml" />

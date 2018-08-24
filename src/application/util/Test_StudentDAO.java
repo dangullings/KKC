@@ -14,6 +14,7 @@ public interface Test_StudentDAO {
     void insert(Test_Student test_student);
     void update(Test_Student test_student, int id);
     void deleteByStudentId(int studentId);
+    void deleteByTestId(int studentId);
     void delete(int id);
 
     List<Student> selectAllStudentsByTestId(int id);

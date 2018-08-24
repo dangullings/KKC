@@ -17,10 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Border;
@@ -33,6 +30,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,6 +60,7 @@ public class TestController implements Initializable {
 
     @FXML private Button btnNewTest;
     @FXML private Button btnEditTest;
+    @FXML private Button btnRemoveTest;
 
     @FXML
     TableView<Test> testTable;
@@ -114,9 +114,12 @@ public class TestController implements Initializable {
     }
 
     public void loadTest(){
-        ObservableList<Test> testSelected, tests;
-        tests = testTable.getItems();
-        testSelected = testTable.getSelectionModel().getSelectedItems();
+        Test testSelected;
+        testSelected = testTable.getSelectionModel().getSelectedItem();
+
+        if (testSelected == null) {
+            return;
+        }
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/NewTest.fxml"));
@@ -127,7 +130,7 @@ public class TestController implements Initializable {
             stage.setTitle("Edit Test");
             stage.setScene(new Scene((Pane) loader.load()));
             NewTestController controller = loader.<NewTestController>getController();
-            controller.initData(testSelected.get(0));
+            controller.initData(testSelected);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,8 +148,38 @@ public class TestController implements Initializable {
         testTable.getItems().add(test);
     }
 
-    public void pressDelete(ActionEvent event){
+    public void pressRemoveTest(ActionEvent event){
+        Test testSelected;
+        testSelected = testTable.getSelectionModel().getSelectedItem();
 
+        if (testSelected == null) {
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Remove Test? (Test will be deleted, and all data will be lost)");
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if (action.get() == ButtonType.OK){
+            Test_StudentDAOImpl tsdi = new Test_StudentDAOImpl();
+            tsdi.deleteByTestId(testSelected.getId());
+
+            List<Student> studentsInTest = tsdi.selectAllStudentsByTestId(testSelected.getId());
+
+            StudentDAOImpl sdi = new StudentDAOImpl();
+
+            for (Student student : studentsInTest){
+                student.decreaseRank();
+                sdi.update(student, student.getId());
+            }
+
+            testTable.getItems().remove(testSelected);
+
+            TestDAOImpl tdi = new TestDAOImpl();
+            tdi.delete(testSelected.getId());
+        }
     }
 
     private boolean isRegexMatch(String pattern, String value) {

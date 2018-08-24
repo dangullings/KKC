@@ -9,8 +9,10 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableListValue;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -34,6 +38,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 public class StudentController implements Initializable{
 
@@ -54,6 +59,8 @@ public class StudentController implements Initializable{
     @FXML private Button btnRemoveStudent;
     @FXML private Button btnActiveView;
     @FXML private Button btnEdit;
+
+    @FXML TextField filterInput;
 
     @FXML
     TableView<Student> studentTable;
@@ -137,7 +144,11 @@ public class StudentController implements Initializable{
                         ).updateNumber(t.getNewValue())
         );
 
+
         studentTable.setItems(students);
+
+        initFilter(students);
+
         studentTable.getColumns().addAll(colFirstName, colLastName, colRank, colClub, colEmail, colNumber, colAge, colBirthdate);
         studentTable.setEditable(true);
 
@@ -150,14 +161,48 @@ public class StudentController implements Initializable{
         }
     }
 
+
+    private void initFilter(ObservableList<Student> students) {
+        filterInput.textProperty().addListener(new InvalidationListener() {
+
+            @Override
+            public void invalidated(javafx.beans.Observable observable) {
+                if(filterInput.textProperty().get().isEmpty()) {
+                    studentTable.setItems(students);
+                    return;
+                }
+
+                ObservableList<Student> tableItems = FXCollections.observableArrayList();
+                ObservableList<TableColumn<Student, ?>> cols = studentTable.getColumns();
+
+                for(int i=0; i<students.size(); i++) {
+                    for(int j=0; j<cols.size(); j++) {
+                        TableColumn col = cols.get(j);
+                        String cellValue = col.getCellData(students.get(i)).toString();
+                        cellValue = cellValue.toLowerCase();
+                        if(cellValue.contains(filterInput.textProperty().get().toLowerCase())) {
+                            tableItems.add(students.get(i));
+                            break;
+                        }
+                    }
+                }
+                studentTable.setItems(tableItems);
+            }
+        });
+    }
+
+
     public void pressStudentDetail(){
         loadStudentDetail();
     }
 
     public void loadStudentDetail(){
-        ObservableList<Student> studentSelected, students;
-        students = studentTable.getItems();
-        studentSelected = studentTable.getSelectionModel().getSelectedItems();
+        Student studentSelected;
+        studentSelected = studentTable.getSelectionModel().getSelectedItem();
+
+        if (studentSelected == null) {
+            return;
+        }
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/StudentDetail.fxml"));
@@ -168,7 +213,7 @@ public class StudentController implements Initializable{
             stage.setTitle("Student Detail");
             stage.setScene(new Scene((Pane) loader.load()));
             StudentDetailController controller = loader.<StudentDetailController>getController();
-            controller.initData(studentSelected.get(0));
+            controller.initData(studentSelected);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -193,9 +238,12 @@ public class StudentController implements Initializable{
 
     @FXML
     public void pressEditStudent(ActionEvent event){
-        ObservableList<Student> studentSelected, students;
-        students = studentTable.getItems();
-        studentSelected = studentTable.getSelectionModel().getSelectedItems();
+        Student studentSelected;
+        studentSelected = studentTable.getSelectionModel().getSelectedItem();
+
+        if (studentSelected == null) {
+            return;
+        }
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/NewStudent.fxml"));
@@ -206,7 +254,7 @@ public class StudentController implements Initializable{
             stage.setTitle("Edit Student");
             stage.setScene(new Scene((Pane) loader.load()));
             NewStudentController controller = loader.<NewStudentController>getController();
-            controller.initData(studentSelected.get(0));
+            controller.initData(studentSelected);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -218,6 +266,13 @@ public class StudentController implements Initializable{
     }
 
     public void pressRemove(ActionEvent event){ // remove test_student
+        Student studentSelected;
+        studentSelected = studentTable.getSelectionModel().getSelectedItem();
+
+        if (studentSelected == null) {
+            return;
+        }
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText(null);
@@ -225,17 +280,13 @@ public class StudentController implements Initializable{
         Optional<ButtonType> action = alert.showAndWait();
 
         if (action.get() == ButtonType.OK){
-            ObservableList<Student> studentSelected, students;
-            students = studentTable.getItems();
-            studentSelected = studentTable.getSelectionModel().getSelectedItems();
-
             StudentDAOImpl sdi = new StudentDAOImpl();
-            sdi.delete(studentSelected.get(0).getFirstName(), studentSelected.get(0).getLastName());
+            sdi.delete(studentSelected.getFirstName(), studentSelected.getLastName());
 
             Test_StudentDAOImpl tsdi = new Test_StudentDAOImpl();
-            tsdi.deleteByStudentId(studentSelected.get(0).getId());
+            tsdi.deleteByStudentId(studentSelected.getId());
 
-            studentSelected.forEach(students::remove);
+            studentTable.getItems().remove(studentSelected);
         }
     }
 
@@ -252,6 +303,7 @@ public class StudentController implements Initializable{
         }
 
         studentTable.setItems(students);
+        initFilter(students);
     }
 
     public void pressActiveView(){

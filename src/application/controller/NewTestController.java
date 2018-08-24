@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -107,6 +108,10 @@ public class NewTestController implements Initializable {
         ObservableList<Student> studentsSelected;
         studentsSelected = studentsTable.getSelectionModel().getSelectedItems();
 
+        if (studentsSelected.size() == 0){
+            return;
+        }
+
         for (Student student : studentsSelected) {
             Test_Student test_student = new Test_Student(student.getId());
             test_student.setRank(student.getRankValue());
@@ -119,6 +124,10 @@ public class NewTestController implements Initializable {
 
     public void pressRemoveStudent(ActionEvent event){
         Student selectedStudent = testStudentsTable.getSelectionModel().getSelectedItem();
+
+        if (selectedStudent == null){
+            return;
+        }
 
         for (Test_Student test_student : test_students){
             if (test_student.getStudentId() == selectedStudent.getId()){
@@ -241,6 +250,16 @@ public class NewTestController implements Initializable {
 
             }
         }
+    }
+
+    public void updateStudentsTable(){
+        StudentDAOImpl sdi = new StudentDAOImpl();
+        studentsTable.getItems().clear();
+        ObservableList<Student> students;
+
+        students = sdi.selectAllActiveObservable();
+
+        studentsTable.setItems(students);
     }
 
     public void pressCancel(){
@@ -472,13 +491,20 @@ public class NewTestController implements Initializable {
         testStudentsTable.getColumns().addAll(colFirstName, colLastName, colRank, colClub);
 
         choiceLocation.getItems().addAll(LOCATION.values());
-        //choiceLocation.setValue(LOCATION.Waconia);
+        choiceLocation.setValue(LOCATION.Waconia);
         type = "Color";
 
         txtForm.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
+
+                if (newValue.length() > oldValue.length()) {
+                    if (txtForm.getText().length() > 1) {
+                        txtForm.setText(txtForm.getText().substring(0, 1));
+                    }
+                }
+
                 if (newValue.isEmpty()){
                     selectedTest_Student.setForm("-");
                 }else {
@@ -491,6 +517,13 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
+
+                if (newValue.length() > oldValue.length()) {
+                    if (txtSteps.getText().length() > 1) {
+                        txtSteps.setText(txtSteps.getText().substring(0, 1));
+                    }
+                }
+
                 if (newValue.isEmpty()){
                     selectedTest_Student.setSteps("-");
                 }else {
@@ -503,6 +536,13 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
+
+                if (newValue.length() > oldValue.length()) {
+                    if (txtPower.getText().length() > 1) {
+                        txtPower.setText(txtPower.getText().substring(0, 1));
+                    }
+                }
+
                 if (newValue.isEmpty()){
                     selectedTest_Student.setPower("-");
                 }else {
@@ -515,6 +555,13 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
+
+                if (newValue.length() > oldValue.length()) {
+                    if (txtKiap.getText().length() > 1) {
+                        txtKiap.setText(txtKiap.getText().substring(0, 1));
+                    }
+                }
+
                 if (newValue.isEmpty()){
                     selectedTest_Student.setKiap("-");
                 }else {
@@ -527,6 +574,13 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
+
+                if (newValue.length() > oldValue.length()) {
+                    if (txtQuestions.getText().length() > 1) {
+                        txtQuestions.setText(txtQuestions.getText().substring(0, 1));
+                    }
+                }
+
                 if (newValue.isEmpty()){
                     selectedTest_Student.setQuestions("-");
                 }else {
@@ -539,6 +593,13 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
+
+                if (newValue.length() > oldValue.length()) {
+                    if (txtAttitude.getText().length() > 1) {
+                        txtAttitude.setText(txtAttitude.getText().substring(0, 1));
+                    }
+                }
+
                 if (newValue.isEmpty()){
                     selectedTest_Student.setAttitude("-");
                 }else {
@@ -551,6 +612,13 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
+
+                if (newValue.length() > oldValue.length()) {
+                    if (txtSparring.getText().length() > 1) {
+                        txtSparring.setText(txtSparring.getText().substring(0, 1));
+                    }
+                }
+
                 if (newValue.isEmpty()){
                     selectedTest_Student.setSparring("-");
                 }else {
@@ -563,6 +631,13 @@ public class NewTestController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
+
+                if (newValue.length() > oldValue.length()) {
+                    if (txtBreaking.getText().length() > 1) {
+                        txtBreaking.setText(txtBreaking.getText().substring(0, 1));
+                    }
+                }
+
                 if (newValue.isEmpty()){
                     selectedTest_Student.setBreaking("-");
                 }else {

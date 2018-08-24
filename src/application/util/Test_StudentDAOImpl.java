@@ -451,6 +451,38 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
     }
 
     @Override
+    public void deleteByTestId(int testId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM test_student WHERE test_id = ?");
+            preparedStatement.setInt(1, testId);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
     public ObservableList<Test> selectAllObservable(Student student) {
         ObservableList<Test> tests = FXCollections.observableArrayList(selectAllStudentTests(student.getId()));
 

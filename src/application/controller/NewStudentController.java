@@ -23,10 +23,7 @@ import javax.swing.text.MaskFormatter;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,11 +83,6 @@ public class NewStudentController implements Initializable {
                 } else{
                     txtNumber.setStyle(cssError);
                 }
-                //if (!validPhoneNumber(txtNumber.getText())){
-                //    txtNumber.setStyle("-fx-text-inner-color: red");
-                //}else{
-                //    txtNumber.setStyle("-fx-text-inner-color: black");
-                //}
             }
         });
 
@@ -104,11 +96,6 @@ public class NewStudentController implements Initializable {
                 } else{
                     txtFirstName.setStyle(cssError);
                 }
-                //if (!validPhoneNumber(txtNumber.getText())){
-                //    txtNumber.setStyle("-fx-text-inner-color: red");
-                //}else{
-                //    txtNumber.setStyle("-fx-text-inner-color: black");
-                //}
             }
         });
 
@@ -122,16 +109,11 @@ public class NewStudentController implements Initializable {
                 } else{
                     txtLastName.setStyle(cssError);
                 }
-                //if (!validPhoneNumber(txtNumber.getText())){
-                //    txtNumber.setStyle("-fx-text-inner-color: red");
-                //}else{
-                //    txtNumber.setStyle("-fx-text-inner-color: black");
-                //}
             }
         });
 
         cboClub.getItems().addAll(CLUB.values());
-        //cboClub.setValue(CLUB.Waconia);
+        cboClub.setValue(CLUB.Waconia);
     }
 
     private void loadStudentData(Student s){
@@ -170,6 +152,7 @@ public class NewStudentController implements Initializable {
                 student.setFirstName(txtFirstName.getText());
                 student.setLastName(txtLastName.getText());
                 student.setRankValue(Main.Ranks.indexOf(cboRank.getValue()));
+                student.setRankName(cboRank.getValue());
                 student.setClub(cboClub.getValue().name());
                 student.setEmail(txtEmail.getText());
                 student.setNumber(formatPhoneNumber(txtNumber.getText()));
@@ -185,10 +168,12 @@ public class NewStudentController implements Initializable {
 
             if (StudentController.getInstance() != null) {
                 StudentController.getInstance().studentTableInsert(student);
+                StudentController.getInstance().updateStudentTable();
             }
 
             if (NewTestController.getInstance() != null){
                 NewTestController.getInstance().studentTableInsert(student);
+                NewTestController.getInstance().updateStudentsTable();
             }
 
             Stage stage = (Stage) btnSave.getScene().getWindow();

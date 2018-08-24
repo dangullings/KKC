@@ -211,13 +211,14 @@ public class TestDAOImpl implements TestDAO {
     }
 
     @Override
-    public void delete() {
+    public void delete(int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("DELETE FROM test WHERE id = ?");
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
 
         } catch (Exception e){

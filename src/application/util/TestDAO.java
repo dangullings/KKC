@@ -18,7 +18,7 @@ public interface TestDAO {
 
     ObservableList<Test> selectAllObservable();
 
-    void delete();
+    void delete(int id);
 
     void update(Test test, int id);
 }
