@@ -1,22 +1,24 @@
 package application.model;
 
+import java.math.BigDecimal;
+
 public class Item {
 
     private int id;
     private String name;
-    private int quantity;
-    private int cost;
-    private int sale;
+    private BigDecimal produceCost;
+    private BigDecimal saleCost;
+    private String description;
 
     public Item(){
 
     }
 
-    public Item(String name, int quantity, int cost, int sale){
+    public Item(String name, BigDecimal produceCost, BigDecimal saleCost, String description){
         this.name = name;
-        this.quantity = quantity;
-        this.cost = cost;
-        this.sale = sale;
+        this.produceCost = produceCost;
+        this.saleCost = saleCost;
+        this.description = description;
     }
 
     public int getId() {
@@ -35,27 +37,27 @@ public class Item {
         this.name = name;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public BigDecimal getProduceCost() {
+        return produceCost;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setProduceCost(BigDecimal produceCost) {
+        this.produceCost = produceCost;
     }
 
-    public int getCost() {
-        return cost;
+    public BigDecimal getSaleCost() {
+        return saleCost;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
+    public void setSaleCost(BigDecimal saleCost) {
+        this.saleCost = saleCost;
     }
 
-    public int getSale() {
-        return sale;
+    public String getDescription() {
+        return description;
     }
 
-    public void setSale(int sale) {
-        this.sale = sale;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

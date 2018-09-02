@@ -4,12 +4,10 @@ import application.Main;
 import application.model.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.CheckBox;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 public class StudentDAOImpl implements StudentDAO{
 
@@ -265,17 +263,13 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public ObservableList<Student> selectAllInactiveObservable() {
-        ObservableList<Student> students = FXCollections.observableArrayList(selectAllInactive());
-
-        return students;
+        return FXCollections.observableArrayList(selectAllInactive());
 
     }
 
     @Override
     public ObservableList<Student> selectAllActiveObservable() {
-        ObservableList<Student> students = FXCollections.observableArrayList(selectAllActive());
-
-        return students;
+        return FXCollections.observableArrayList(selectAllActive());
 
     }
 

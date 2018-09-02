@@ -10,8 +10,6 @@ public class Test {
     private String location;
     private int numStudents;
 
-    //ArrayList<Student> students;
-
     public Test(){
 
     }

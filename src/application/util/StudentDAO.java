@@ -4,7 +4,6 @@ import application.model.Student;
 import javafx.collections.ObservableList;
 
 import java.util.List;
-import java.util.Observable;
 
 public interface StudentDAO {
 

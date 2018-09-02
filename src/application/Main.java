@@ -1,5 +1,6 @@
 package application;
 
+import application.util.ItemDAOImpl;
 import application.util.Test_StudentDAOImpl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -7,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -17,7 +17,8 @@ import java.io.IOException;
 public class Main extends Application {
 
     public static ObservableList<String> Ranks;
-    public static Test_StudentDAOImpl stdi = new Test_StudentDAOImpl();
+    private static Test_StudentDAOImpl stdi = new Test_StudentDAOImpl();
+    private static ItemDAOImpl idi = new ItemDAOImpl();
 
     //This is our PrimaryStage (It contains everything)
     private Stage primaryStage;
@@ -35,12 +36,6 @@ public class Main extends Application {
         this.primaryStage.getIcons().add(new Image("file:duncan.png"));
         //2) Initialize RootLayout
         initRootLayout();
-
-        //3) Display the StudentOperations View
-        //showStudentOperationsView();
-
-        //showFinanceOperationsView();
-
     }
 
     //Initializes the root layout.
@@ -62,37 +57,10 @@ public class Main extends Application {
         }
     }
 
-    //Shows the student operations view inside the root layout.
-    public void showStudentOperationsView() {
-        try {
-            //First, load StudentOperationsView from StudentOperations.fxml
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/StudentOperations.fxml"));
-            AnchorPane studentOperationsView = (AnchorPane) loader.load();
-
-            // Set Student Operations view into the center of root layout.
-            rootLayout.setCenter(studentOperationsView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showFinanceOperationsView() {
-        try {
-            //First, load StudentOperationsView from StudentOperations.fxml
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/FinanceOperations.fxml"));
-            AnchorPane financeOperationsView = (AnchorPane) loader.load();
-
-            // Set Student Operations view into the center of root layout.
-            rootLayout.setCenter(financeOperationsView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
         stdi.createTest_StudentTable();
+        idi.createItemTable();
+
         Ranks = RankFill();
 
         Ranks.add("Gold Stripe");
@@ -124,7 +92,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public static ObservableList<String> RankFill() {
+    private static ObservableList<String> RankFill() {
 
         ObservableList<String> rank = FXCollections.observableArrayList();
 

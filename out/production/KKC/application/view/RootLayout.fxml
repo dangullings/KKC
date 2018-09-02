@@ -56,13 +56,13 @@
                </graphic>
               </Tab>
               <Tab fx:id="finances" text="Finances">
-                  <fx:include fx:id="financeOperations" source="FinanceOperations.fxml" />
+                  <fx:include fx:id="financeOperations" source="TransactionOperations.fxml" />
               </Tab>
               <Tab fx:id="events" text="Events">
                   <fx:include fx:id="eventOperations" source="EventOperations.fxml" />
               </Tab>
-              <Tab fx:id="items" text="Items">
-                  <fx:include fx:id="itemsOperations" source="ItemOperations.fxml" />
+              <Tab fx:id="items" text="Inventory">
+                  <fx:include fx:id="itemsOperations" source="InventoryOperations.fxml" />
               </Tab>
           </tabs>
       </TabPane>

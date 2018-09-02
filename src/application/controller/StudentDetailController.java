@@ -1,44 +1,34 @@
 package application.controller;
 
-import application.Main;
 import application.model.Student;
 import application.model.Test;
 import application.model.Test_Student;
 import application.util.StudentDAOImpl;
-import application.util.TestDAOImpl;
 import application.util.Test_StudentDAOImpl;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.Border;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class StudentDetailController implements Initializable {
 
     @FXML TableView<Student.TestView> studentTestsTable;
-
-    Student student;
-
     @FXML Label lblName;
     @FXML Label lblDOB;
     @FXML Label lblRank;
     @FXML Label lblClub;
     @FXML Label lblNumber;
     @FXML Label lblEmail;
-
     @FXML Button btnOk;
     @FXML ToggleButton toggleActive;
+
+    private Student student;
 
     public void initData(Student student) {
         this.student = new Student();
@@ -113,7 +103,6 @@ public class StudentDetailController implements Initializable {
         studentTestsTable.getColumns().addAll(colTest, colDate, colLocation, colScores);
         colDate.setSortType(TableColumn.SortType.DESCENDING);
         studentTestsTable.getSortOrder().setAll(colDate);
-        //studentTestsTable_Test.setEditable(true);
 
         lblName.setText(student.getFirstName() + " " + student.getLastName());
         lblDOB.setText("DOB: " + student.getBirthDate().toString());
@@ -146,7 +135,6 @@ public class StudentDetailController implements Initializable {
         StudentDAOImpl sdi = new StudentDAOImpl();
 
         student.setActive(toggleActive.isSelected());
-
         sdi.update(student, student.getId());
 
         if (student.getActive()){
@@ -158,7 +146,3 @@ public class StudentDetailController implements Initializable {
         }
     }
 }
-
-/*
-
-*/

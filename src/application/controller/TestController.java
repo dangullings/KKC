@@ -1,35 +1,28 @@
 package application.controller;
 
 import application.Main;
-import application.RANK;
 import application.model.Student;
 import application.model.Test;
 import application.util.StudentDAOImpl;
 import application.util.TestDAOImpl;
 import application.util.Test_StudentDAOImpl;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -47,8 +40,6 @@ public class TestController implements Initializable {
     public static TestController getInstance(){
         return instance;
     }
-
-    //ArrayList<Student> students = new ArrayList<>();
 
     @FXML private TextField txtFirstName;
     @FXML private TextField txtLastName;
@@ -94,7 +85,7 @@ public class TestController implements Initializable {
     }
 
     @FXML
-    public void pressNewTest(ActionEvent event){
+    public void pressNewTest(){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/NewTest.fxml"));
         try {
@@ -102,6 +93,7 @@ public class TestController implements Initializable {
             Stage stage = new Stage();
             stage.initStyle(StageStyle.DECORATED);
             stage.setTitle("New Test");
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root1));
             stage.show();
         } catch (IOException e) {
@@ -113,7 +105,7 @@ public class TestController implements Initializable {
         loadTest();
     }
 
-    public void loadTest(){
+    private void loadTest(){
         Test testSelected;
         testSelected = testTable.getSelectionModel().getSelectedItem();
 
@@ -128,6 +120,7 @@ public class TestController implements Initializable {
             Stage stage = new Stage();
             stage.initStyle(StageStyle.DECORATED);
             stage.setTitle("Edit Test");
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene((Pane) loader.load()));
             NewTestController controller = loader.<NewTestController>getController();
             controller.initData(testSelected);
@@ -137,18 +130,7 @@ public class TestController implements Initializable {
         }
     }
 
-    public void updateTestTable(){
-        TestDAOImpl tdi = new TestDAOImpl();
-        testTable.getItems().clear();
-        ObservableList<Test> tests = tdi.selectAllObservable();
-        testTable.setItems(tests);
-    }
-
-    public void testTableInsert(Test test){
-        testTable.getItems().add(test);
-    }
-
-    public void pressRemoveTest(ActionEvent event){
+    public void pressRemoveTest(){
         Test testSelected;
         testSelected = testTable.getSelectionModel().getSelectedItem();
 
@@ -186,5 +168,16 @@ public class TestController implements Initializable {
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(value);
         return matcher.matches();
+    }
+
+    public void updateTestTable(){
+        TestDAOImpl tdi = new TestDAOImpl();
+        testTable.getItems().clear();
+        ObservableList<Test> tests = tdi.selectAllObservable();
+        testTable.setItems(tests);
+    }
+
+    public void testTableInsert(Test test){
+        testTable.getItems().add(test);
     }
 }

@@ -2,12 +2,12 @@ package application.model;
 
 public class Test_Student {
 
-    int id;
-    int testId;
-    int studentId;
-    int rank;
+    private int id;
+    private int testId;
+    private int studentId;
+    private int rank;
 
-    String form, steps, power, kiap, questions, attitude, sparring, breaking;
+    private String form, steps, power, kiap, questions, attitude, sparring, breaking;
 
     public Test_Student() {
 
@@ -31,10 +31,7 @@ public class Test_Student {
     }
 
     public boolean inRange(String score){
-        if ((score.equalsIgnoreCase("5")) || (score.equalsIgnoreCase("6")) || (score.equalsIgnoreCase("7")) || (score.equalsIgnoreCase("8")) || (score.equalsIgnoreCase("9")))
-            return true;
-
-        return false;
+        return ((score.equalsIgnoreCase("5")) || (score.equalsIgnoreCase("6")) || (score.equalsIgnoreCase("7")) || (score.equalsIgnoreCase("8")) || (score.equalsIgnoreCase("9")));
     }
 
     public int getId() {

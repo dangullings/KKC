@@ -484,30 +484,22 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
 
     @Override
     public ObservableList<Test> selectAllObservable(Student student) {
-        ObservableList<Test> tests = FXCollections.observableArrayList(selectAllStudentTests(student.getId()));
-
-        return tests;
+        return FXCollections.observableArrayList(selectAllStudentTests(student.getId()));
     }
 
     @Override
     public ObservableList<Test_Student> selectAllObservableScores(Student student) {
-        ObservableList<Test_Student> testScores = FXCollections.observableArrayList(selectAllStudentTestScores(student.getId()));
-
-        return testScores;
+        return FXCollections.observableArrayList(selectAllStudentTestScores(student.getId()));
     }
 
     @Override
     public ObservableList<Student> selectAllObservableStudentsByTestId(int testId) {
-        ObservableList<Student> students = FXCollections.observableArrayList(selectAllStudentsByTestId(testId));
-
-        return students;
+        return FXCollections.observableArrayList(selectAllStudentsByTestId(testId));
     }
 
     @Override
     public ObservableList<Test_Student> selectAllObservableTest_StudentsByTestId(int testId) {
-        ObservableList<Test_Student> test_students = FXCollections.observableArrayList(selectAllTest_StudentsByTestId(testId));
-
-        return test_students;
+        return FXCollections.observableArrayList(selectAllTest_StudentsByTestId(testId));
     }
 
 }

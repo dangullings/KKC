@@ -4,14 +4,14 @@ import application.Main;
 import application.util.StudentDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.CheckBox;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class Student {
+public class Student implements Comparable<Student>{
 
     private ArrayList<TestView> testViews;
 
@@ -196,30 +196,23 @@ public class Student {
     }
 
     public void increaseRank(){
-        //setRankValue(Main.Ranks.indexOf(getRankName()));
         setRankName(Main.Ranks.get(++rankValue));
     }
 
     public void decreaseRank(){
-        //setRankValue(Main.Ranks.indexOf(getRankName()));
         setRankName(Main.Ranks.get(--rankValue));
     }
 
-    /*
     @Override
-    public int compareTo(Student other) {
+    public int compareTo(Student other) { // natural order
         if (getRankValue() < other.getRankValue())
             return -1;
         else if (getRankValue() == other.getRankValue()){
-            return getAge().compareTo(other.getAge());
+            Integer i = new Integer(getAge());
+            return i.compareTo(other.getAge());
         }
         else
             return 1;
-    }
-
-    @Override
-    public int compareTo(Student o) {
-        return getRankValue().compareTo(o.getRankValue());
     }
 
     static final Comparator<Student> BY_RANK =
@@ -227,10 +220,21 @@ public class Student {
 
                 @Override
                 public int compare(Student o1, Student o2) {
-                    return o1.getRankValue().compareTo(o2.getRankValue());
+                    Integer i = new Integer(o1.getRankValue());
+                    return i.compareTo(o2.getRankValue());
                 }
             };
-*/
+
+    static final Comparator<Student> BY_AGE =
+            new Comparator<Student>() {
+
+                @Override
+                public int compare(Student o1, Student o2) {
+                    Integer i = new Integer(o1.getAge());
+                    return i.compareTo(o2.getAge());
+                }
+            };
+
 
     public ObservableList<Student.TestView> getObservableTestViews() {
         ObservableList<Student.TestView> testViews = FXCollections.observableArrayList(getTestViews());
@@ -265,7 +269,7 @@ public class Student {
         }
     }
 
-    public class AgeCalculator {
+    private class AgeCalculator {
 
         private int calculateAge(LocalDate birthDate, LocalDate currentDate) {
             if ((birthDate != null) && (currentDate != null)) {

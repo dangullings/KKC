@@ -19,7 +19,7 @@ public class ItemDAOImpl implements ItemDAO{
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS item (id int primary key unique auto_increment," +
-                    "name varchar(55), quantity int(3), cost int(3), sale int(3))");
+                    "name varchar(55), produce_cost decimal(6,2), sale_cost decimal(6,2), description varchar(55))");
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -50,13 +50,22 @@ public class ItemDAOImpl implements ItemDAO{
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO item (name, quantity, cost, sale)" +
-                    "VALUES (?, ?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO item (name, produce_cost, sale_cost, description)" +
+                    "VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, item.getName());
-            preparedStatement.setInt(2, item.getQuantity());
-            preparedStatement.setInt(3, item.getCost());
-            preparedStatement.setInt(4, item.getSale());
+            preparedStatement.setBigDecimal(2, item.getProduceCost());
+            preparedStatement.setBigDecimal(3, item.getSaleCost());
+            preparedStatement.setString(4, item.getDescription());
             preparedStatement.executeUpdate();
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    item.setId(generatedKeys.getInt(1));
+                }
+                else {
+                    throw new SQLException("Creating item failed, no ID obtained.");
+                }
+            }
 
         } catch (Exception e){
             e.printStackTrace();
@@ -90,16 +99,16 @@ public class ItemDAOImpl implements ItemDAO{
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM item WHERE is = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM item WHERE id = ?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
                 item.setId(resultSet.getInt("id"));
                 item.setName(resultSet.getString("name"));
-                item.setQuantity(resultSet.getInt("quantity"));
-                item.setCost(resultSet.getInt("cost"));
-                item.setSale(resultSet.getInt("sale"));
+                item.setProduceCost(resultSet.getBigDecimal("produce_cost"));
+                item.setSaleCost(resultSet.getBigDecimal("sale_cost"));
+                item.setDescription(resultSet.getString("description"));
             }
 
         } catch (Exception e){
@@ -149,9 +158,9 @@ public class ItemDAOImpl implements ItemDAO{
                 Item item = new Item();
                 item.setId(resultSet.getInt("id"));
                 item.setName(resultSet.getString("name"));
-                item.setQuantity(resultSet.getInt("quantity"));
-                item.setCost(resultSet.getInt("cost"));
-                item.setSale(resultSet.getInt("sale"));
+                item.setProduceCost(resultSet.getBigDecimal("produce_cost"));
+                item.setSaleCost(resultSet.getBigDecimal("sale_cost"));
+                item.setDescription(resultSet.getString("description"));
 
                 items.add(item);
             }
@@ -235,10 +244,14 @@ public class ItemDAOImpl implements ItemDAO{
         try {
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE item SET " +
-                    "name = ? WHERE id = ?");
+                    "name = ?, produce_cost = ?, sale_cost = ?, description = ? WHERE id = ?");
             preparedStatement.setString(1, item.getName());
-            preparedStatement.setInt(2, id);
+            preparedStatement.setBigDecimal(2, item.getProduceCost());
+            preparedStatement.setBigDecimal(3, item.getSaleCost());
+            preparedStatement.setString(4, item.getDescription());
+            preparedStatement.setInt(5, id);
             preparedStatement.executeUpdate();
+
 
         } catch (Exception e){
             e.printStackTrace();

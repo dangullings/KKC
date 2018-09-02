@@ -1,7 +1,5 @@
 package application.util;
 
-import application.LOCATION;
-import application.RANK;
 import application.model.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +16,6 @@ public class TestDAOImpl implements TestDAO {
     public void createTestTable() {
         Connection connection = null;
         Statement statement = null;
-
-        //statement.execute("CREATE TABLE IF NOT EXISTS test (id int primary key unique auto_increment," +
-        //        "isBlackbelt Boolean, date date, LOCATION ENUM('LOC_ONE', 'LOC_TWO'))");
 
         try {
             connection = DBUtil.getConnection();
@@ -54,7 +49,7 @@ public class TestDAOImpl implements TestDAO {
     public void insert(Test test) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        //preparedStatement.setString(3, test.getLocation().name());
+
         try {
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO test (type, date, location, numStudents)" +
@@ -155,7 +150,7 @@ public class TestDAOImpl implements TestDAO {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        //test.setLocation(LOCATION.valueOf(resultSet.getString("LOCATION")));
+
         try {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();

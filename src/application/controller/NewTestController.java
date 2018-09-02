@@ -11,8 +11,6 @@ import application.util.Test_StudentDAOImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,13 +18,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -46,17 +41,17 @@ public class NewTestController implements Initializable {
         return instance;
     }
 
-    ArrayList<Test_Student> test_students;
-    ArrayList<Test_Student> test_studentsBeforeEdit;
+    private ArrayList<Test_Student> test_students;
+    private ArrayList<Test_Student> test_studentsBeforeEdit;
 
-    boolean isNewTest;
+    private boolean isNewTest;
 
-    Test test;
-    Test_Student test_student;
-    Student selectedStudent = new Student();
-    Test_Student selectedTest_Student = new Test_Student();
+    private Test test;
+    private Test_Student test_student;
+    private Student selectedStudent = new Student();
+    private Test_Student selectedTest_Student = new Test_Student();
 
-    Test_StudentDAOImpl stdi = new Test_StudentDAOImpl();
+    private Test_StudentDAOImpl stdi = new Test_StudentDAOImpl();
 
     @FXML TableView<Student> studentsTable;
     @FXML TableView<Student> testStudentsTable;
@@ -80,17 +75,14 @@ public class NewTestController implements Initializable {
     @FXML TextField txtSparring;
     @FXML TextField txtBreaking;
 
-    LocalDate testDate;
-    String location;
-    String type;
-    int numStudents;
+    @FXML private Button btnSave;
+    @FXML private Button btnCancel;
+    @FXML private Button btnAdd;
 
-    @FXML
-    private Button btnSave;
-    @FXML
-    private Button btnCancel;
-    @FXML
-    private Button btnAdd;
+    private LocalDate testDate;
+    private String location;
+    private String type;
+    private int numStudents;
 
     public void initData(Test test) {
         this.test = new Test();
@@ -122,7 +114,7 @@ public class NewTestController implements Initializable {
         studentsTable.getItems().removeAll(studentsSelected);
     }
 
-    public void pressRemoveStudent(ActionEvent event){
+    public void pressRemoveStudent(){
         Student selectedStudent = testStudentsTable.getSelectionModel().getSelectedItem();
 
         if (selectedStudent == null){
@@ -141,7 +133,7 @@ public class NewTestController implements Initializable {
     }
 
     @FXML
-    public void pressNewStudent(ActionEvent event){
+    public void pressNewStudent(){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/NewStudent.fxml"));
         try {
@@ -154,14 +146,6 @@ public class NewTestController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void locationSelected(){
-        //location = choiceLocation.getValue().name();
-    }
-
-    public void setTestDate(){
-        //testDate = datePicker.getValue();
     }
 
     public void saveTest(){
@@ -229,8 +213,6 @@ public class NewTestController implements Initializable {
                     student.increaseRank();
                     sdi.update(student, student.getId());
                 }
-            }else{
-
             }
 
             Stage stage = (Stage) btnSave.getScene().getWindow();
@@ -245,12 +227,10 @@ public class NewTestController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Check for a valid date, type and location.");
             Optional <ButtonType> action = alert.showAndWait();
-
-            if (action.get() == ButtonType.OK){
-
-            }
         }
     }
+
+    public void studentTableInsert(Student student){ studentsTable.getItems().add(student); }
 
     public void updateStudentsTable(){
         StudentDAOImpl sdi = new StudentDAOImpl();
@@ -260,6 +240,15 @@ public class NewTestController implements Initializable {
         students = sdi.selectAllActiveObservable();
 
         studentsTable.setItems(students);
+
+        for (Student studento : testStudentsTable.getItems()){
+            for (Student studenti : studentsTable.getItems()){
+                if (studenti.getId() == studento.getId()){
+                    studentsTable.getItems().remove(studenti);
+                    break;
+                }
+            }
+        }
     }
 
     public void pressCancel(){
@@ -341,27 +330,25 @@ public class NewTestController implements Initializable {
         return true;
     }
 
-    public void studentTableInsert(Student student){ studentsTable.getItems().add(student); }
+    @FXML private void cleartxtForm() { txtForm.clear(); }
 
-    @FXML private void cleartxtForm(MouseEvent event) { txtForm.clear(); }
+    @FXML private void cleartxtSteps() { txtSteps.clear(); }
 
-    @FXML private void cleartxtSteps(MouseEvent event) { txtSteps.clear(); }
+    @FXML private void cleartxtPower() { txtPower.clear(); }
 
-    @FXML private void cleartxtPower(MouseEvent event) { txtPower.clear(); }
+    @FXML private void cleartxtKiap() { txtKiap.clear(); }
 
-    @FXML private void cleartxtKiap(MouseEvent event) { txtKiap.clear(); }
+    @FXML private void cleartxtQuestions() { txtQuestions.clear(); }
 
-    @FXML private void cleartxtQuestions(MouseEvent event) { txtQuestions.clear(); }
+    @FXML private void cleartxtAttitude() { txtAttitude.clear(); }
 
-    @FXML private void cleartxtAttitude(MouseEvent event) { txtAttitude.clear(); }
+    @FXML private void cleartxtSparring() { txtSparring.clear(); }
 
-    @FXML private void cleartxtSparring(MouseEvent event) { txtSparring.clear(); }
-
-    @FXML private void cleartxtBreaking(MouseEvent event) { txtBreaking.clear(); }
+    @FXML private void cleartxtBreaking() { txtBreaking.clear(); }
 
     public boolean isNewTest() { return isNewTest; }
 
-    public void setNewTest(boolean newTest) { isNewTest = newTest; }
+    private void setNewTest(boolean newTest) { isNewTest = newTest; }
 
     private void loadTestData(Test test){
         this.test = new Test();
@@ -410,23 +397,15 @@ public class NewTestController implements Initializable {
         ObservableList<Student> students = sdi.selectAllActiveObservable();
 
         TableColumn<Student, String> colFirstNameList = new TableColumn<>("First");
-        //colFirstNameList.setMinWidth(50);
-        //colFirstNameList.setMaxWidth(50);
         colFirstNameList.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 
         TableColumn<Student, String> colLastNameList = new TableColumn<>("Last");
-        //colLastNameList.setMinWidth(50);
-        //colLastNameList.setMaxWidth(50);
         colLastNameList.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
         TableColumn<Student, String> colRankList = new TableColumn<>("Rank");
-        //colRankList.setMinWidth(50);
-        //colRankList.setMaxWidth(75);
         colRankList.setCellValueFactory(new PropertyValueFactory<>("rankName"));
 
         TableColumn<Student, String> colClubList = new TableColumn<>("Club");
-        //colClubList.setMinWidth(50);
-        //colClubList.setMaxWidth(75);
         colClubList.setCellValueFactory(new PropertyValueFactory<>("club"));
 
         studentsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -434,19 +413,15 @@ public class NewTestController implements Initializable {
         studentsTable.getColumns().addAll(colFirstNameList, colLastNameList, colRankList, colClubList);
 
         TableColumn<Student, String> colFirstName = new TableColumn<>("First Name");
-        //colFirstName.setMinWidth(120);
         colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 
         TableColumn<Student, String> colLastName = new TableColumn<>("Last Name");
-        //colLastName.setMinWidth(120);
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
         TableColumn<Student, String> colRank = new TableColumn<>("Rank");
-        //colRank.setMinWidth(120);
         colRank.setCellValueFactory(new PropertyValueFactory<>("rankName"));
 
         TableColumn<Student, String> colClub = new TableColumn<>("Club");
-        //colClub.setMinWidth(120);
         colClub.setCellValueFactory(new PropertyValueFactory<>("club"));
 
         txtForm.setDisable(true);
@@ -502,6 +477,7 @@ public class NewTestController implements Initializable {
                 if (newValue.length() > oldValue.length()) {
                     if (txtForm.getText().length() > 1) {
                         txtForm.setText(txtForm.getText().substring(0, 1));
+                        newValue = txtForm.getText();
                     }
                 }
 
@@ -521,6 +497,7 @@ public class NewTestController implements Initializable {
                 if (newValue.length() > oldValue.length()) {
                     if (txtSteps.getText().length() > 1) {
                         txtSteps.setText(txtSteps.getText().substring(0, 1));
+                        newValue = txtSteps.getText();
                     }
                 }
 
@@ -540,6 +517,7 @@ public class NewTestController implements Initializable {
                 if (newValue.length() > oldValue.length()) {
                     if (txtPower.getText().length() > 1) {
                         txtPower.setText(txtPower.getText().substring(0, 1));
+                        newValue = txtPower.getText();
                     }
                 }
 
@@ -559,6 +537,7 @@ public class NewTestController implements Initializable {
                 if (newValue.length() > oldValue.length()) {
                     if (txtKiap.getText().length() > 1) {
                         txtKiap.setText(txtKiap.getText().substring(0, 1));
+                        newValue = txtKiap.getText();
                     }
                 }
 
@@ -578,6 +557,7 @@ public class NewTestController implements Initializable {
                 if (newValue.length() > oldValue.length()) {
                     if (txtQuestions.getText().length() > 1) {
                         txtQuestions.setText(txtQuestions.getText().substring(0, 1));
+                        newValue = txtQuestions.getText();
                     }
                 }
 
@@ -597,6 +577,7 @@ public class NewTestController implements Initializable {
                 if (newValue.length() > oldValue.length()) {
                     if (txtAttitude.getText().length() > 1) {
                         txtAttitude.setText(txtAttitude.getText().substring(0, 1));
+                        newValue = txtAttitude.getText();
                     }
                 }
 
@@ -616,6 +597,7 @@ public class NewTestController implements Initializable {
                 if (newValue.length() > oldValue.length()) {
                     if (txtSparring.getText().length() > 1) {
                         txtSparring.setText(txtSparring.getText().substring(0, 1));
+                        newValue = txtSparring.getText();
                     }
                 }
 
@@ -635,6 +617,7 @@ public class NewTestController implements Initializable {
                 if (newValue.length() > oldValue.length()) {
                     if (txtBreaking.getText().length() > 1) {
                         txtBreaking.setText(txtBreaking.getText().substring(0, 1));
+                        newValue = txtBreaking.getText();
                     }
                 }
 
@@ -647,6 +630,3 @@ public class NewTestController implements Initializable {
         });
     }
 }
-
-// some scores won't be judged, allow for null or 0 scores
-// allow edit of test scores later

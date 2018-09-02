@@ -1,27 +1,17 @@
 package application.controller;
 
 import application.CLUB;
-import application.LOCATION;
 import application.Main;
 import application.model.Student;
-import application.model.Test;
-import application.model.Test_Student;
 import application.util.StudentDAOImpl;
-import application.util.Test_StudentDAOImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
 import javafx.stage.Stage;
 
-import javax.swing.text.MaskFormatter;
 import java.net.URL;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -39,9 +29,8 @@ public class NewStudentController implements Initializable {
         return instance;
     }
 
-    Student student;
-
-    boolean isNewStudent;
+    private Student student;
+    private boolean isNewStudent;
 
     @FXML ComboBox<CLUB> cboClub = new ComboBox<>();
     @FXML ComboBox<String> cboRank = new ComboBox<>();
@@ -50,7 +39,6 @@ public class NewStudentController implements Initializable {
     @FXML private TextField txtEmail;
     @FXML private TextField txtNumber;
     @FXML DatePicker datePickerDOB;
-
     @FXML private Button btnSave;
     @FXML private Button btnCancel;
 
@@ -120,8 +108,6 @@ public class NewStudentController implements Initializable {
         student = new Student();
         student = s;
 
-        StudentDAOImpl sdi = new StudentDAOImpl();
-
         txtFirstName.setText(student.getFirstName());
         txtLastName.setText(student.getLastName());
         txtEmail.setText(student.getEmail());
@@ -140,7 +126,7 @@ public class NewStudentController implements Initializable {
         loadStudentData(student);
     }
 
-    public void pressSave(ActionEvent event){
+    public void pressSave(){
         StudentDAOImpl sdi = new StudentDAOImpl();
 
         if (validStudent()){
@@ -189,7 +175,7 @@ public class NewStudentController implements Initializable {
         }
     }
 
-    public void pressCancel(ActionEvent event){
+    public void pressCancel(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText(null);
@@ -211,8 +197,6 @@ public class NewStudentController implements Initializable {
 
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
-        String rank = cboRank.getValue();
-        String club = cboClub.getValue().name();
         String email = txtEmail.getText();
         String number = txtNumber.getText();
         LocalDate dob = datePickerDOB.getValue();
@@ -245,10 +229,10 @@ public class NewStudentController implements Initializable {
         return valid;
     }
 
-    final String cssError = "-fx-border-color: red;";
-    final String cssClear = "";
+    private final String cssError = "-fx-border-color: red;";
+    private final String cssClear = "";
 
-    public String formatPhoneNumber(String number){
+    private String formatPhoneNumber(String number){
         number = ""+number.substring(0, 3)+"-"+number.substring(3, 6)+"-"+number.substring(6, 10);
 
         return number;
@@ -258,32 +242,14 @@ public class NewStudentController implements Initializable {
         return number.replace("-", "");
     }
 
-    public boolean validPhoneNumber(String input) {
-        if (input.length() == 10){
-            return true;
-        } else{
-            return false;
-        }
-
-        //String pattern = "^[1-9]\\d{2}-\\d{3}-\\d{4}";
-
-        //if (isRegexMatch(pattern, input)) {
-        //    return true;
-       // }
-        //else {
-        //    return false;
-        //}
+    private boolean validPhoneNumber(String input) {
+        return (input.length() == 10);
     }
 
-    public boolean validEmail(String input) {
+    private boolean validEmail(String input) {
         String pattern = "^\\w+[\\w-\\.]*\\@\\w+((-\\w+)|(\\w*))\\.[a-z]{2,3}$";
 
-        if (isRegexMatch(pattern, input)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return (isRegexMatch(pattern, input));
     }
 
     private boolean isRegexMatch(String pattern, String value) {
@@ -296,7 +262,7 @@ public class NewStudentController implements Initializable {
         return isNewStudent;
     }
 
-    public void setNewStudent(boolean newStudent) {
+    private void setNewStudent(boolean newStudent) {
         isNewStudent = newStudent;
     }
 }
