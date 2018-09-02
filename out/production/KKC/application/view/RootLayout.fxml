@@ -55,14 +55,14 @@
                   </ImageView>
                </graphic>
               </Tab>
-              <Tab fx:id="finances" text="Finances">
+              <Tab fx:id="finances" text="Transactions">
                   <fx:include fx:id="financeOperations" source="TransactionOperations.fxml" />
-              </Tab>
-              <Tab fx:id="events" text="Events">
-                  <fx:include fx:id="eventOperations" source="EventOperations.fxml" />
               </Tab>
               <Tab fx:id="items" text="Inventory">
                   <fx:include fx:id="itemsOperations" source="InventoryOperations.fxml" />
+              </Tab>
+              <Tab fx:id="events" text="Events">
+                  <fx:include fx:id="eventOperations" source="EventOperations.fxml" />
               </Tab>
           </tabs>
       </TabPane>

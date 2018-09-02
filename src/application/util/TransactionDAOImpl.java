@@ -19,7 +19,7 @@ public class TransactionDAOImpl implements TransactionDAO {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS transaction (id int primary key unique auto_increment," +
-                    "student_id int(6), firstName varchar(55), lastName varchar(55), date date, salePrice decimal(6,2))");
+                    "student_id int(6), firstName varchar(55), lastName varchar(55), date date, salePrice decimal(6,2), note varchar(55))");
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -50,13 +50,14 @@ public class TransactionDAOImpl implements TransactionDAO {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO transaction (student_id, firstName, lastName, date, salePrice)" +
-                    "VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement("INSERT INTO transaction (student_id, firstName, lastName, date, salePrice, note)" +
+                    "VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, transaction.getStudentId());
             preparedStatement.setString(2, transaction.getFirstName());
             preparedStatement.setString(3, transaction.getLastName());
             preparedStatement.setDate(4, Date.valueOf(transaction.getDate()));
             preparedStatement.setBigDecimal(5, transaction.getSalePrice());
+            preparedStatement.setString(6, transaction.getNote());
             preparedStatement.executeUpdate();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -97,13 +98,14 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE transaction SET " +
-                    "student_id = ?, firstName = ?, lastName = ?, date = ?, salePrice = ? WHERE id = ?");
+                    "student_id = ?, firstName = ?, lastName = ?, date = ?, salePrice = ?, note = ? WHERE id = ?");
             preparedStatement.setInt(1, transaction.getStudentId());
             preparedStatement.setString(2, transaction.getFirstName());
             preparedStatement.setString(3, transaction.getLastName());
             preparedStatement.setDate(4, Date.valueOf(transaction.getDate()));
             preparedStatement.setBigDecimal(5, transaction.getSalePrice());
-            preparedStatement.setInt(6, id);
+            preparedStatement.setString(6, transaction.getNote());
+            preparedStatement.setInt(7, id);
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -147,6 +149,7 @@ public class TransactionDAOImpl implements TransactionDAO {
                 transaction.setLastName(resultSet.getString("lastName"));
                 transaction.setDate(resultSet.getDate("date"));
                 transaction.setSalePrice(resultSet.getBigDecimal("salePrice"));
+                transaction.setNote(resultSet.getString("note"));
 
                 transactions.add(transaction);
             }

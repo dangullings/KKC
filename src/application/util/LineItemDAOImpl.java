@@ -18,7 +18,7 @@ public class LineItemDAOImpl implements LineItemDAO {
         try {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS line_item (constraint line_item_pk primary key(transaction_id,item_id)," +
+            statement.execute("CREATE TABLE IF NOT EXISTS line_item (id int primary key unique auto_increment," + // constraint line_item_pk primary key(transaction_id,item_id),
                     "transaction_id int(6), item_id int(6), quantity int(6), price decimal(6,2))");
 
         }catch (Exception e) {
@@ -94,6 +94,7 @@ public class LineItemDAOImpl implements LineItemDAO {
 
             while (resultSet.next()){
                 LineItem lineItem = new LineItem();
+                lineItem.setId(resultSet.getInt("id"));
                 lineItem.setTransactionId(resultSet.getInt("transaction_id"));
                 lineItem.setItemId(resultSet.getInt("item_id"));
                 lineItem.setQuantity(resultSet.getInt("quantity"));
@@ -150,6 +151,7 @@ public class LineItemDAOImpl implements LineItemDAO {
 
             while (resultSet.next()){
                 LineItem lineItem = new LineItem();
+                lineItem.setId(resultSet.getInt("id"));
                 lineItem.setTransactionId(resultSet.getInt("transaction_id"));
                 lineItem.setItemId(resultSet.getInt("item_id"));
                 lineItem.setQuantity(resultSet.getInt("quantity"));
@@ -205,6 +207,7 @@ public class LineItemDAOImpl implements LineItemDAO {
 
             while (resultSet.next()){
                 LineItem lineItem = new LineItem();
+                lineItem.setId(resultSet.getInt("id"));
                 lineItem.setTransactionId(resultSet.getInt("transaction_id"));
                 lineItem.setItemId(resultSet.getInt("item_id"));
                 lineItem.setQuantity(resultSet.getInt("quantity"));

@@ -1,21 +1,26 @@
 package application;
 
+import application.model.User;
 import application.util.ItemDAOImpl;
 import application.util.Test_StudentDAOImpl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 //Main class which extends from Application Class
 public class Main extends Application {
 
+    public static User userLoggedIn;
     public static ObservableList<String> Ranks;
     private static Test_StudentDAOImpl stdi = new Test_StudentDAOImpl();
     private static ItemDAOImpl idi = new ItemDAOImpl();
@@ -40,18 +45,15 @@ public class Main extends Application {
 
     //Initializes the root layout.
     public void initRootLayout() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/Login.fxml"));
         try {
-            //First, load root layout from RootLayout.fxml
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
-
-            //Second, show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout, 1000, 800); //We are sending rootLayout to the Scene.
-            primaryStage.setScene(scene); //Set the scene in primary stage.
-
-            //Third, show the primary stage
-            primaryStage.show(); //Display the primary stage
+            Parent root1 = (Parent) loader.load();
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Login");
+            stage.setScene(new Scene(root1));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

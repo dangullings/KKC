@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,6 +35,14 @@ public class TransactionController implements Initializable {
     public static TransactionController getInstance(){
         return instance;
     }
+
+    boolean isStudentTran;
+
+    @FXML
+    RadioButton radioStudent;
+
+    @FXML
+    RadioButton radioBusiness;
 
     @FXML
     Button btnNewTransaction;
@@ -71,10 +80,14 @@ public class TransactionController implements Initializable {
         colSalePrice.setMinWidth(120);
         colSalePrice.setCellValueFactory(new PropertyValueFactory<>("salePrice"));
 
+        TableColumn<Transaction, String> colDesc = new TableColumn<>("Note");
+        colDesc.setMinWidth(120);
+        colDesc.setCellValueFactory(new PropertyValueFactory<>("note"));
+
         colStudentInfo.getColumns().addAll(colFirstName, colLastName);
 
         transactionsTable.setItems(transactions);
-        transactionsTable.getColumns().addAll(colNumber, colDate, colStudentInfo, colSalePrice);
+        transactionsTable.getColumns().addAll(colNumber, colDate, colStudentInfo, colSalePrice, colDesc);
         transactionsTable.setEditable(true);
     }
 

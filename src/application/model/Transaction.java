@@ -1,12 +1,11 @@
 package application.model;
 
-import application.util.LineItemDAOImpl;
 import application.util.StudentDAOImpl;
+import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Transaction {
 
@@ -16,6 +15,7 @@ public class Transaction {
     private String lastName;
     private LocalDate date;
     private BigDecimal salePrice;
+    private String note;
 
     public Transaction(){
 
@@ -65,6 +65,10 @@ public class Transaction {
         this.lastName = lastName;
     }
 
+    public String getNote() { return note; }
+
+    public void setNote(String note) { this.note = note; }
+
     public BigDecimal getSalePrice() {
         return salePrice;
     }
@@ -82,12 +86,10 @@ public class Transaction {
         setLastName(student.getLastName());
     }
 
-    public void setSalePrice(ArrayList<LineItem> lineItems){
+    public void setSalePrice(ObservableList<LineItem> lineItems){
         salePrice = BigDecimal.ZERO;
         for (LineItem lineItem : lineItems){
             salePrice = salePrice.add(new BigDecimal(lineItem.getPrice().toString()));
         }
-
-        System.out.println(salePrice + "");
     }
 }

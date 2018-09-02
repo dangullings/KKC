@@ -255,7 +255,7 @@ public class NewTestController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Exit test creation? (all data will be lost)");
+        alert.setContentText("Exit? (all changed data will be lost)");
         Optional <ButtonType> action = alert.showAndWait();
 
         if (action.get() == ButtonType.OK){

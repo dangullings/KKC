@@ -1,25 +1,21 @@
 package application.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class Inventory {
 
     private ItemView itemView;
 
-    int itemId;
-    int produced;
-    int sold;
-    BigDecimal salesCost;
-    BigDecimal producedCost;
-    int quantity;
+    private int itemId;
+    private int produced;
+    private int sold;
+    private BigDecimal salesCost;
+    private BigDecimal producedCost;
+    private int quantity;
 
     public Inventory (){
         itemView = new ItemView();

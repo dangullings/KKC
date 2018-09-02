@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 public class LineItem {
 
+    private int id;
     private int transactionId;
     private int itemId;
     private String itemName;
@@ -62,5 +63,13 @@ public class LineItem {
         Item item = idi.selectById(getItemId());
 
         setItemName(item.getName());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

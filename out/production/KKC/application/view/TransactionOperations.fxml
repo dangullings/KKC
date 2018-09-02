@@ -78,7 +78,7 @@
             </VBox>
          </right>
          <top>
-            <VBox prefHeight="314.0" prefWidth="823.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="167.0" prefWidth="823.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox prefHeight="93.0" prefWidth="823.0">
                      <children>

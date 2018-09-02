@@ -179,7 +179,7 @@ public class NewStudentController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Exit student creation? (all data will be lost)");
+        alert.setContentText("Exit? (all changed data will be lost)");
         Optional<ButtonType> action = alert.showAndWait();
 
         if (action.get() == ButtonType.OK){
