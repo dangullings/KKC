@@ -10,11 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -36,36 +34,40 @@ public class TransactionController implements Initializable {
         return instance;
     }
 
-    boolean isStudentTran;
+    private TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
+
+    private boolean completeOrdersOnly;
 
     @FXML
-    RadioButton radioStudent;
+    Button btnNewOrder;
+    @FXML
+    Button btnEditOrder;
+    @FXML
+    Button btnRemoveOrder;
+    @FXML
+    Button btnOrderView;
 
     @FXML
-    RadioButton radioBusiness;
-
-    @FXML
-    Button btnNewTransaction;
+    Label lblTableHeader;
 
     @FXML
     TableView<Transaction> transactionsTable;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TransactionDAOImpl tdi = new TransactionDAOImpl();
-        tdi.createTransactionTable();
+        transactionDAO.createTransactionTable();
 
-        ObservableList<Transaction> transactions = tdi.selectAllObservableTransactions();
+        ObservableList<Transaction> transactions = transactionDAO.selectAllObservableTransactions(completeOrdersOnly);
 
         TableColumn<Transaction, Integer> colNumber = new TableColumn<>("id");
-        colNumber.setMinWidth(120);
+        colNumber.setMinWidth(50);
         colNumber.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         TableColumn<Transaction, LocalDate> colDate = new TableColumn<>("Date");
         colDate.setMinWidth(120);
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        TableColumn<Transaction, String> colStudentInfo = new TableColumn<>("Student");
+        TableColumn<Transaction, String> colStudentInfo = new TableColumn<>("Buyer");
         colStudentInfo.setMinWidth(120);
 
         TableColumn<Transaction, String> colFirstName = new TableColumn<>("First Name");
@@ -81,7 +83,7 @@ public class TransactionController implements Initializable {
         colSalePrice.setCellValueFactory(new PropertyValueFactory<>("salePrice"));
 
         TableColumn<Transaction, String> colDesc = new TableColumn<>("Note");
-        colDesc.setMinWidth(120);
+        colDesc.setMinWidth(300);
         colDesc.setCellValueFactory(new PropertyValueFactory<>("note"));
 
         colStudentInfo.getColumns().addAll(colFirstName, colLastName);
@@ -92,7 +94,7 @@ public class TransactionController implements Initializable {
     }
 
     @FXML
-    public void pressNewTransaction(){
+    public void pressNewOrder(){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/NewTransaction.fxml"));
         try {
@@ -108,16 +110,60 @@ public class TransactionController implements Initializable {
         }
     }
 
+    @FXML
+    public void pressEditOrder(){
+        Transaction transactionSelected;
+        transactionSelected = transactionsTable.getSelectionModel().getSelectedItem();
+
+        if (transactionSelected == null) {
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/NewTransaction.fxml"));
+        try {
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Edit Order");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene((Pane) loader.load()));
+            NewTransactionController controller = loader.<NewTransactionController>getController();
+            controller.initData(transactionSelected);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void pressRemoveOrder(){
+
+    }
+
+    public void pressOrderView(){
+        completeOrdersOnly = !completeOrdersOnly;
+
+        if (completeOrdersOnly){
+            btnOrderView.setText("View Orders");
+            lblTableHeader.setText("Completed Transactions");
+        }else{
+            btnOrderView.setText("View Transactions");
+            lblTableHeader.setText("Pending Orders");
+        }
+
+        updateTransactionTable();
+    }
+
     public void transactionsTableInsert(Transaction item){
         transactionsTable.getItems().add(item);
     }
 
     public void updateTransactionTable(){
-        TransactionDAOImpl tdi = new TransactionDAOImpl();
         transactionsTable.getItems().clear();
         ObservableList<Transaction> transactions;
 
-        transactions = tdi.selectAllObservableTransactions();
+        transactions = transactionDAO.selectAllObservableTransactions(completeOrdersOnly);
+
         transactionsTable.setItems(transactions);
     }
 }

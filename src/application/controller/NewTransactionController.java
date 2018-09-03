@@ -19,18 +19,22 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class NewTransactionController implements Initializable {
 
     private NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
+    private TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
     private LineItemDAOImpl lineItemDAO = new LineItemDAOImpl();
     private InventoryDAOImpl inventoryDAO = new InventoryDAOImpl();
+    private StudentDAOImpl studentDAO = new StudentDAOImpl();
 
     private ArrayList<Student> students;
     private ArrayList<Item> items;
     private ObservableList<LineItem> lineItems;
+    private ArrayList<LineItem> lineItemsBeforeEdit;
 
     private Transaction transaction;
     private Student selectedStudent = new Student();
@@ -39,6 +43,7 @@ public class NewTransactionController implements Initializable {
 
     private boolean isStudentOrder;
     private boolean isItemOrder;
+    private boolean isNewTransaction;
 
     @FXML
     ComboBox<Student> studentCombobox;
@@ -77,6 +82,8 @@ public class NewTransactionController implements Initializable {
     @FXML
     private Button btnSave;
     @FXML
+    private Button btnSaveComplete;
+    @FXML
     private Button btnCancel;
     @FXML
     private Button btnAddItem;
@@ -89,6 +96,7 @@ public class NewTransactionController implements Initializable {
     }
 
     public void initializeData() {
+        setNewTransaction(true);
         transaction = new Transaction();
         lineItemDAO.createLineItemTable();
 
@@ -166,6 +174,45 @@ public class NewTransactionController implements Initializable {
         });
     }
 
+    private void loadTransactionData(Transaction t){
+        lineItemsBeforeEdit = new ArrayList<>();
+        transaction = new Transaction();
+        transaction = t;
+
+        Student student = studentDAO.selectById(transaction.getStudentId());
+
+        lineItems = lineItemDAO.selectAllObservableByTransactionId(transaction.getId());
+        lineItemsBeforeEdit.addAll(lineItems);
+
+        if (transaction.getFirstName().equals("Business")){
+            studentCombobox.setDisable(true);
+            radioStudent.setSelected(false);
+            radioBusiness.setSelected(true);
+            setStudentOrder(false);
+        }else{
+            studentCombobox.setValue(student);
+            studentCombobox.setDisable(false);
+            radioStudent.setSelected(true);
+            radioBusiness.setSelected(false);
+            setStudentOrder(true);
+            selectedStudent = student;
+        }
+
+        lineItemsTable.setItems(lineItems);
+
+        datePicker.setValue(transaction.getDate());
+        txtNote.setText(transaction.getNote());
+
+        setNewTransaction(false);
+    }
+
+    public void initData(Transaction transaction) {
+        this.transaction = new Transaction();
+        this.transaction = transaction;
+
+        loadTransactionData(transaction);
+    }
+
     public void pressAddLineItem(){
         LineItem lineItem = new LineItem();
 
@@ -200,9 +247,15 @@ public class NewTransactionController implements Initializable {
     }
 
     public void pressSaveTransaction(){
-        TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
-        LineItemDAOImpl lineItemsDAO = new LineItemDAOImpl();
+        saveOrder();
+    }
 
+    public void pressSaveComplete(){
+        saveOrder();
+        completeOrder();
+    }
+
+    private void saveOrder(){
         transaction.setDate(LocalDate.now());
         transaction.setSalePrice(lineItems);
         transaction.setNote(txtNote.getText());
@@ -215,18 +268,35 @@ public class NewTransactionController implements Initializable {
             transaction.setLastName("Business");
         }
 
-        transactionDAO.insert(transaction);
+        if (isNewTransaction) {
+            transactionDAO.insert(transaction);
+        }else{
+            transactionDAO.update(transaction, transaction.getId());
+        }
 
         for (LineItem lineItem : lineItems){
             lineItem.setTransactionId(transaction.getId());
-            lineItemsDAO.insert(lineItem);
 
-            if (isItemOrder) {
-                Inventory inventory = inventoryDAO.selectById(lineItem.getItemId());
-                inventory.sellItem(lineItem.getQuantity(), lineItem.getPrice());
-                inventoryDAO.update(inventory, inventory.getItemId());
+            if (isNewTransaction()){
+                lineItemDAO.insert(lineItem);
+            }else{
+                if (lineItemsBeforeEdit.contains(lineItem)){
+                    lineItemDAO.update(lineItem, lineItem.getId());
+                }else{
+                    lineItemDAO.insert(lineItem);
+                }
+            }
+
+        }
+
+        if (!isNewTransaction()) {
+            for (LineItem lineItem_b : lineItemsBeforeEdit) {
+                if (!lineItems.contains(lineItem_b)) {
+                    lineItemDAO.delete(lineItem_b.getId());
+                }
             }
         }
+
 
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
@@ -236,6 +306,36 @@ public class NewTransactionController implements Initializable {
 
         if (InventoryController.getInstance() != null) {
             InventoryController.getInstance().updateInventoryTable();
+        }
+    }
+
+    private void completeOrder(){
+        transaction.setComplete(true);
+        transactionDAO.update(transaction, transaction.getId());
+
+        for (LineItem lineItem : lineItems){
+            if (lineItem.getItemId() != 0) {
+                Inventory inventory = inventoryDAO.selectById(lineItem.getItemId());
+                inventory.sellItem(lineItem.getQuantity(), lineItem.getPrice());
+                inventoryDAO.update(inventory, inventory.getItemId());
+            }
+        }
+
+        TransactionController.getInstance().transactionsTableInsert(transaction);
+        TransactionController.getInstance().updateTransactionTable();
+    }
+
+    @FXML
+    private void pressCancel(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Exit? (all changed data will be lost)");
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if (action.get() == ButtonType.OK){
+            Stage stage = (Stage) btnCancel.getScene().getWindow();
+            stage.close();
         }
     }
 
@@ -262,6 +362,8 @@ public class NewTransactionController implements Initializable {
 
     public void selectRadioInventory(){
         radioOther.setSelected(false);
+        txtOther.clear();
+        txtOther.setDisable(true);
         itemCombobox.setDisable(false);
         txtOther.setDisable(true);
         if ((selectedItem != null) && (selectedItem.getProduceCost() != null)) {
@@ -275,6 +377,7 @@ public class NewTransactionController implements Initializable {
         radioInventory.setSelected(false);
         itemCombobox.setDisable(true);
         txtOther.setDisable(false);
+        txtOther.setDisable(false);
         txtPrice.setDisable(false);
         setItemOrder(false);
     }
@@ -283,7 +386,7 @@ public class NewTransactionController implements Initializable {
         return isStudentOrder;
     }
 
-    public void setStudentOrder(boolean studentOrder) {
+    private void setStudentOrder(boolean studentOrder) {
         isStudentOrder = studentOrder;
     }
 
@@ -291,7 +394,15 @@ public class NewTransactionController implements Initializable {
         return isItemOrder;
     }
 
-    public void setItemOrder(boolean itemOrder) {
+    private void setItemOrder(boolean itemOrder) {
         isItemOrder = itemOrder;
+    }
+
+    public boolean isNewTransaction() {
+        return isNewTransaction;
+    }
+
+    private void setNewTransaction(boolean newTransaction) {
+        isNewTransaction = newTransaction;
     }
 }

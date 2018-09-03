@@ -16,6 +16,7 @@ public class Transaction {
     private LocalDate date;
     private BigDecimal salePrice;
     private String note;
+    private boolean isComplete;
 
     public Transaction(){
 
@@ -68,6 +69,10 @@ public class Transaction {
     public String getNote() { return note; }
 
     public void setNote(String note) { this.note = note; }
+
+    public boolean isComplete() { return isComplete; }
+
+    public void setComplete(boolean complete) { isComplete = complete; }
 
     public BigDecimal getSalePrice() {
         return salePrice;

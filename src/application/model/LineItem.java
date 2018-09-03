@@ -58,18 +58,14 @@ public class LineItem {
     }
 
     public void setItemInfo(){
-        ItemDAOImpl idi = new ItemDAOImpl();
+        //ItemDAOImpl idi = new ItemDAOImpl();
 
-        Item item = idi.selectById(getItemId());
+        //Item item = idi.selectById(getItemId());
 
-        setItemName(item.getName());
+        //setItemName(item.getName());
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 }

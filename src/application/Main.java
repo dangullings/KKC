@@ -3,6 +3,7 @@ package application;
 import application.model.User;
 import application.util.ItemDAOImpl;
 import application.util.Test_StudentDAOImpl;
+import application.util.TransactionDAOImpl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,8 +23,6 @@ public class Main extends Application {
 
     public static User userLoggedIn;
     public static ObservableList<String> Ranks;
-    private static Test_StudentDAOImpl stdi = new Test_StudentDAOImpl();
-    private static ItemDAOImpl idi = new ItemDAOImpl();
 
     //This is our PrimaryStage (It contains everything)
     private Stage primaryStage;
@@ -60,8 +59,13 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        stdi.createTest_StudentTable();
-        idi.createItemTable();
+        Test_StudentDAOImpl test_studentDAO = new Test_StudentDAOImpl();
+        ItemDAOImpl itemDAO = new ItemDAOImpl();
+        TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
+
+        test_studentDAO.createTest_StudentTable();
+        itemDAO.createItemTable();
+        transactionDAO.createTransactionTable();
 
         Ranks = RankFill();
 

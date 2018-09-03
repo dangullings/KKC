@@ -55,7 +55,7 @@
                   </ImageView>
                </graphic>
               </Tab>
-              <Tab fx:id="finances" text="Transactions">
+              <Tab fx:id="finances" text="Orders/Transactions">
                   <fx:include fx:id="financeOperations" source="TransactionOperations.fxml" />
               </Tab>
               <Tab fx:id="items" text="Inventory">

@@ -36,22 +36,25 @@
          </bottom>
          <center>
             <VBox prefHeight="529.0" prefWidth="119.0" spacing="5.0" BorderPane.alignment="CENTER">
-               <Label text="Transactions">
+               <Label fx:id="lblTableHeader" text="Orders">
                   <font>
                      <Font size="18.0" />
                   </font>
                </Label>
-            <TableView fx:id="transactionsTable" prefHeight="331.0" prefWidth="704.0">
+            <TableView fx:id="transactionsTable" prefHeight="331.0" prefWidth="657.0">
                <BorderPane.margin>
                   <Insets right="10.0" />
                </BorderPane.margin>
             </TableView>
+               <BorderPane.margin>
+                  <Insets right="10.0" />
+               </BorderPane.margin>
             </VBox>
          </center>
          <right>
-            <VBox prefHeight="284.0" prefWidth="119.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="363.0" prefWidth="161.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnNewTransaction" mnemonicParsing="false" onAction="#pressNewTransaction" prefHeight="175.0" prefWidth="120.0" text="New" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                  <Button fx:id="btnNewOrder" mnemonicParsing="false" onAction="#pressNewOrder" prefHeight="94.0" prefWidth="186.0" text="New Order" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -60,7 +63,17 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnRemoveTransaction" mnemonicParsing="false" prefHeight="175.0" prefWidth="120.0" text="Remove" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnEditOrder" mnemonicParsing="false" onAction="#pressEditOrder" prefHeight="94.0" prefWidth="186.0" text="Edit Order" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/addstudent.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator prefWidth="200.0" />
+                  <Button fx:id="btnRemoveOrder" mnemonicParsing="false" onAction="#pressRemoveOrder" prefHeight="91.0" prefWidth="240.0" text="Remove Order" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -68,6 +81,16 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
+                  <Separator prefWidth="200.0" />
+                  <Button fx:id="btnOrderView" mnemonicParsing="false" onAction="#pressOrderView" prefHeight="91.0" prefWidth="222.0" text="View Transactions" textAlignment="CENTER" wrapText="true">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/removestudent.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
                <BorderPane.margin>
                   <Insets />

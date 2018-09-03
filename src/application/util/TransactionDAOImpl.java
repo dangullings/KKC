@@ -8,9 +8,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionDAOImpl implements TransactionDAO {
+public class TransactionDAOImpl {
 
-    @Override
     public void createTransactionTable(){
         Connection connection = null;
         Statement statement = null;
@@ -19,7 +18,7 @@ public class TransactionDAOImpl implements TransactionDAO {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS transaction (id int primary key unique auto_increment," +
-                    "student_id int(6), firstName varchar(55), lastName varchar(55), date date, salePrice decimal(6,2), note varchar(55))");
+                    "student_id int(6), firstName varchar(55), lastName varchar(55), date date, salePrice decimal(6,2), note varchar(55), complete boolean)");
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -43,21 +42,21 @@ public class TransactionDAOImpl implements TransactionDAO {
         }
     }
 
-    @Override
     public void insert(Transaction transaction) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO transaction (student_id, firstName, lastName, date, salePrice, note)" +
-                    "VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement("INSERT INTO transaction (student_id, firstName, lastName, date, salePrice, note, complete)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, transaction.getStudentId());
             preparedStatement.setString(2, transaction.getFirstName());
             preparedStatement.setString(3, transaction.getLastName());
             preparedStatement.setDate(4, Date.valueOf(transaction.getDate()));
             preparedStatement.setBigDecimal(5, transaction.getSalePrice());
             preparedStatement.setString(6, transaction.getNote());
+            preparedStatement.setBoolean(7, transaction.isComplete());
             preparedStatement.executeUpdate();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -90,7 +89,6 @@ public class TransactionDAOImpl implements TransactionDAO {
         }
     }
 
-    @Override
     public void update(Transaction transaction, int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -98,14 +96,15 @@ public class TransactionDAOImpl implements TransactionDAO {
         try {
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE transaction SET " +
-                    "student_id = ?, firstName = ?, lastName = ?, date = ?, salePrice = ?, note = ? WHERE id = ?");
+                    "student_id = ?, firstName = ?, lastName = ?, date = ?, salePrice = ?, note = ?, complete = ? WHERE id = ?");
             preparedStatement.setInt(1, transaction.getStudentId());
             preparedStatement.setString(2, transaction.getFirstName());
             preparedStatement.setString(3, transaction.getLastName());
             preparedStatement.setDate(4, Date.valueOf(transaction.getDate()));
             preparedStatement.setBigDecimal(5, transaction.getSalePrice());
             preparedStatement.setString(6, transaction.getNote());
-            preparedStatement.setInt(7, id);
+            preparedStatement.setBoolean(7, transaction.isComplete());
+            preparedStatement.setInt(8, id);
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -129,17 +128,17 @@ public class TransactionDAOImpl implements TransactionDAO {
         }
     }
 
-    @Override
-    public List<Transaction> selectAllTransactions() {
-        List<Transaction> transactions = new ArrayList<>();
+    private List<Transaction> selectAllTransactions(boolean complete) {
+        List<Transaction> orders = new ArrayList<>();
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = DBUtil.getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM transaction");
+            preparedStatement = connection.prepareStatement("SELECT * FROM transaction WHERE complete = ?");
+            preparedStatement.setBoolean(1, complete);
+            resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
                 Transaction transaction = new Transaction();
@@ -150,8 +149,9 @@ public class TransactionDAOImpl implements TransactionDAO {
                 transaction.setDate(resultSet.getDate("date"));
                 transaction.setSalePrice(resultSet.getBigDecimal("salePrice"));
                 transaction.setNote(resultSet.getString("note"));
+                transaction.setComplete(resultSet.getBoolean("complete"));
 
-                transactions.add(transaction);
+                orders.add(transaction);
             }
 
         } catch (Exception e){
@@ -165,9 +165,9 @@ public class TransactionDAOImpl implements TransactionDAO {
                 }
             }
 
-            if (statement != null){
+            if (preparedStatement != null){
                 try {
-                    statement.close();
+                    preparedStatement.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -182,11 +182,10 @@ public class TransactionDAOImpl implements TransactionDAO {
             }
         }
 
-        return transactions;
+        return orders;
     }
 
-    @Override
-    public ObservableList<Transaction> selectAllObservableTransactions() {
-        return FXCollections.observableArrayList(selectAllTransactions());
+    public ObservableList<Transaction> selectAllObservableTransactions(boolean complete) {
+        return FXCollections.observableArrayList(selectAllTransactions(complete));
     }
 }
