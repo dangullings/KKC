@@ -3,8 +3,10 @@ package application.controller;
 import application.model.Inventory;
 import application.model.Item;
 import application.model.LineItem;
+import application.model.Transaction;
 import application.util.InventoryDAOImpl;
 import application.util.LineItemDAOImpl;
+import application.util.TransactionDAOImpl;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,12 +42,7 @@ public class ItemDetailController implements Initializable {
         LineItemDAOImpl lineItemDAO = new LineItemDAOImpl();
 
         Inventory inventory = inventoryDAO.selectById(item.getId());
-
-        ObservableList<LineItem> lineItems = lineItemDAO.selectAllObservableByItemId(item.getId());
-        //ObservableList<Test_Student> studentTestScores = t_sdi.selectAllObservableScores(student);
-
-        //student.getTestViews().clear();
-        //student.setTestViews(studentTests, studentTestScores);
+        ObservableList<LineItem> lineItems = lineItemDAO.selectAllObservableByItemIdComplete(item.getId(), true);
 
         TableColumn<LineItem, String> colTranId = new TableColumn<>("Transaction Id");
         colTranId.setMinWidth(100);

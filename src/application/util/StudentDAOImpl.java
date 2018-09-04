@@ -9,9 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDAOImpl implements StudentDAO{
+public class StudentDAOImpl {
 
-    @Override
     public void createStudentTable() {
         Connection connection = null;
         Statement statement = null;
@@ -44,7 +43,6 @@ public class StudentDAOImpl implements StudentDAO{
         }
     }
 
-    @Override
     public void insert(Student student) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -85,7 +83,6 @@ public class StudentDAOImpl implements StudentDAO{
 
     }
 
-    @Override
     public Student selectById(int id) {
         Student student = new Student();
         Connection connection = null;
@@ -143,7 +140,6 @@ public class StudentDAOImpl implements StudentDAO{
         return student;
     }
 
-    @Override
     public List<Student> selectAllInactive() {
         List<Student> students = new ArrayList<Student>();
         Connection connection = null;
@@ -202,7 +198,6 @@ public class StudentDAOImpl implements StudentDAO{
         return students;
     }
 
-    @Override
     public List<Student> selectAllActive() {
         List<Student> students = new ArrayList<Student>();
         Connection connection = null;
@@ -261,19 +256,16 @@ public class StudentDAOImpl implements StudentDAO{
         return students;
     }
 
-    @Override
     public ObservableList<Student> selectAllInactiveObservable() {
         return FXCollections.observableArrayList(selectAllInactive());
 
     }
 
-    @Override
     public ObservableList<Student> selectAllActiveObservable() {
         return FXCollections.observableArrayList(selectAllActive());
 
     }
 
-    @Override
     public void delete(String firstName, String lastName) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -306,7 +298,6 @@ public class StudentDAOImpl implements StudentDAO{
         }
     }
 
-    @Override
     public void update(Student student, int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

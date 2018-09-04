@@ -25,35 +25,35 @@
             <VBox prefHeight="118.0" prefWidth="580.0" spacing="10.0">
                <Label fx:id="lblTransactionDetail" text="Transaction Detail" GridPane.columnIndex="1" GridPane.rowIndex="2">
                   <font>
-                     <Font size="24.0" />
+                      <Font name="System Bold" size="24.0" />
                   </font>
                </Label>
-               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <HBox prefHeight="43.0" prefWidth="580.0" spacing="10.0">
                   <children>
-                     <DatePicker fx:id="datePicker" disable="true" promptText="date" />
+                     <DatePicker fx:id="datePicker" disable="true" prefHeight="25.0" prefWidth="172.0" promptText="date" />
                      <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <TextField fx:id="txtNote" prefHeight="25.0" prefWidth="380.0" promptText="note" />
                   </children>
                </HBox>
-            <HBox prefHeight="34.0" prefWidth="580.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="86.0" prefWidth="580.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#pressCancel" prefHeight="25.0" prefWidth="172.0" text="Cancel">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></Button>
-                  <Separator orientation="VERTICAL" prefHeight="44.0" prefWidth="25.0" />
+                  <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="0.0" />
                   <Button fx:id="btnSave" mnemonicParsing="false" onAction="#pressSaveTransaction" prefHeight="25.0" prefWidth="183.0" text="Save">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></Button>
-                     <Separator orientation="VERTICAL" prefHeight="200.0" />
-                     <Button fx:id="btnSaveComplete" mnemonicParsing="false" onAction="#pressSaveComplete" prefHeight="25.0" prefWidth="169.0" text="Save and Complete" />
+                     <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="0.0" />
+                     <Button fx:id="btnSaveComplete" mnemonicParsing="false" onAction="#pressSaveComplete" prefHeight="45.0" prefWidth="169.0" text="Save and Complete" />
                </children>
                <BorderPane.margin>
                   <Insets top="10.0" />
                </BorderPane.margin>
                   <VBox.margin>
-                     <Insets bottom="10.0" />
+                     <Insets bottom="10.0" top="20.0" />
                   </VBox.margin>
             </HBox>
                <BorderPane.margin>
@@ -65,7 +65,7 @@
             <VBox prefHeight="219.0" prefWidth="580.0">
                <Label fx:id="lblOrder" text="Order Detail">
                   <font>
-                     <Font size="24.0" />
+                     <Font name="System Bold" size="24.0" />
                   </font>
                   <VBox.margin>
                      <Insets bottom="10.0" />
@@ -73,7 +73,7 @@
                </Label>
             <HBox prefHeight="172.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="258.0" prefWidth="196.0" spacing="15.0">
+                  <VBox prefHeight="184.0" prefWidth="274.0" spacing="15.0">
                      <children>
                         <Label text="Type">
                               <font>
@@ -89,7 +89,7 @@
                         <HBox.margin>
                            <Insets />
                         </HBox.margin></VBox>
-                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Separator orientation="VERTICAL" prefHeight="184.0" prefWidth="29.0" />
                   <VBox prefHeight="258.0" prefWidth="285.0" spacing="15.0">
                      <HBox.margin>
                         <Insets />
@@ -147,7 +147,7 @@
             <VBox prefHeight="149.0" prefWidth="470.0">
                <Label fx:id="lblTable" text="Ordered Items">
                   <font>
-                     <Font size="24.0" />
+                      <Font name="System Bold" size="24.0" />
                   </font>
                </Label>
             <TableView fx:id="lineItemsTable" prefHeight="111.0" prefWidth="470.0" BorderPane.alignment="CENTER">

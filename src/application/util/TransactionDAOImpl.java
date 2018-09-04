@@ -128,6 +128,92 @@ public class TransactionDAOImpl {
         }
     }
 
+    public Transaction selectById(int id) {
+        Transaction transaction = new Transaction();
+        Connection connection = null;
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM transaction WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                transaction.setId(resultSet.getInt("id"));
+                transaction.setStudentId(resultSet.getInt("student_id"));
+                transaction.setFirstName(resultSet.getString("firstName"));
+                transaction.setLastName(resultSet.getString("lastName"));
+                transaction.setDate(resultSet.getDate("date"));
+                transaction.setSalePrice(resultSet.getBigDecimal("salePrice"));
+                transaction.setNote(resultSet.getString("note"));
+                transaction.setComplete(resultSet.getBoolean("complete"));
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if (resultSet != null){
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return transaction;
+    }
+
+    public void deleteById(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM transaction WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     private List<Transaction> selectAllTransactions(boolean complete) {
         List<Transaction> orders = new ArrayList<>();
         Connection connection = null;

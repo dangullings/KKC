@@ -203,6 +203,64 @@ public class LineItemDAOImpl {
         return lineItems;
     }
 
+    public List<LineItem> selectAllLineItemsByItemIdComplete(int itemId, boolean isComplete) {
+        List<LineItem> lineItems = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM line_item join transaction on line_item.transaction_id = transaction.id WHERE item_id = ? AND transaction.complete = ?");
+            preparedStatement.setInt(1, itemId);
+            preparedStatement.setBoolean(2, isComplete);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                LineItem lineItem = new LineItem();
+                lineItem.setId(resultSet.getInt("id"));
+                lineItem.setTransactionId(resultSet.getInt("transaction_id"));
+                lineItem.setItemId(resultSet.getInt("item_id"));
+                lineItem.setQuantity(resultSet.getInt("quantity"));
+                lineItem.setPrice(resultSet.getBigDecimal("price"));
+                lineItem.setItemName(resultSet.getString("item_name"));
+
+                lineItem.setItemInfo();
+
+                lineItems.add(lineItem);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if (resultSet != null){
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return lineItems;
+    }
+
     public List<LineItem> selectAllLineItemsByTransactionId(int transactionId) {
         List<LineItem> lineItems = new ArrayList<>();
         Connection connection = null;
@@ -322,6 +380,10 @@ public class LineItemDAOImpl {
 
     public ObservableList<LineItem> selectAllObservableByItemId(int id) {
         return FXCollections.observableArrayList(selectAllLineItemsByItemId(id));
+    }
+
+    public ObservableList<LineItem> selectAllObservableByItemIdComplete(int id, boolean isComplete) {
+        return FXCollections.observableArrayList(selectAllLineItemsByItemIdComplete(id, isComplete));
     }
 
     public ObservableList<LineItem> selectAllObservableByTransactionId(int id) {

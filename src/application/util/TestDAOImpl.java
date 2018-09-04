@@ -8,11 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestDAOImpl implements TestDAO {
+public class TestDAOImpl {
 
     int lastGeneratedId;
 
-    @Override
     public void createTestTable() {
         Connection connection = null;
         Statement statement = null;
@@ -45,7 +44,6 @@ public class TestDAOImpl implements TestDAO {
         }
     }
 
-    @Override
     public void insert(Test test) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -91,7 +89,6 @@ public class TestDAOImpl implements TestDAO {
 
     }
 
-    @Override
     public Test selectById(int id) {
         Test test = new Test();
         Connection connection = null;
@@ -144,7 +141,6 @@ public class TestDAOImpl implements TestDAO {
         return test;
     }
 
-    @Override
     public List<Test> selectAll() {
         List<Test> tests = new ArrayList<>();
         Connection connection = null;
@@ -198,14 +194,12 @@ public class TestDAOImpl implements TestDAO {
         return tests;
     }
 
-    @Override
     public ObservableList<Test> selectAllObservable() {
         ObservableList<Test> tests = FXCollections.observableArrayList(selectAll());
 
         return tests;
     }
 
-    @Override
     public void delete(int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -237,7 +231,6 @@ public class TestDAOImpl implements TestDAO {
         }
     }
 
-    @Override
     public void update(Test test, int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

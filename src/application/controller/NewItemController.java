@@ -35,10 +35,6 @@ public class NewItemController implements Initializable {
     Button btnSave;
     @FXML
     Button btnCancel;
-    @FXML
-    Button btnDecQty;
-    @FXML
-    Button btnIncQty;
 
     @FXML
     TextField txtName;
@@ -48,8 +44,9 @@ public class NewItemController implements Initializable {
     TextField txtSaleCost;
     @FXML
     TextField txtDescription;
+
     @FXML
-    Label lblQuantity;
+    Spinner<Integer> spinnerQty;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -81,6 +78,9 @@ public class NewItemController implements Initializable {
                 }
             }
         });
+
+        SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1);
+        spinnerQty.setValueFactory(quantityValueFactory);
     }
 
     public static String currencyFormat(BigDecimal n) {
@@ -97,6 +97,8 @@ public class NewItemController implements Initializable {
 
         formatter.format(produceCost);
         formatter.format(saleCost);
+
+        newQuantity = spinnerQty.getValue();
 
         if (isNewItem){
             Item item = new Item(txtName.getText(), produceCost, saleCost, txtDescription.getText());
@@ -143,14 +145,6 @@ public class NewItemController implements Initializable {
         }
     }
 
-    public void pressDecreaseQuantity(){
-        lblQuantity.setText(String.valueOf(--newQuantity));
-    }
-
-    public void pressIncreaseQuantity(){
-        lblQuantity.setText(String.valueOf(++newQuantity));
-    }
-
     private void loadItemData(Item item){
         InventoryDAOImpl inventoryDAO = new InventoryDAOImpl();
         this.inventory = inventoryDAO.selectById(item.getId());
@@ -159,7 +153,8 @@ public class NewItemController implements Initializable {
         txtProduceCost.setText(item.getProduceCost().toString());
         txtSaleCost.setText(item.getSaleCost().toString());
         txtDescription.setText(item.getDescription());
-        lblQuantity.setText("" + inventory.getQuantity());
+        SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, inventory.getQuantity());
+        spinnerQty.setValueFactory(quantityValueFactory);
 
         oldQuantity = inventory.getQuantity();
         newQuantity = inventory.getQuantity();

@@ -1,6 +1,7 @@
 package application.model;
 
 import application.util.ItemDAOImpl;
+import application.util.TransactionDAOImpl;
 
 import java.math.BigDecimal;
 
@@ -68,4 +69,12 @@ public class LineItem {
     public int getId() { return id; }
 
     public void setId(int id) { this.id = id; }
+
+    public boolean isTransactionComplete(){
+        TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
+
+        Transaction transaction = transactionDAO.selectById(getTransactionId());
+
+        return transaction.isComplete();
+    }
 }

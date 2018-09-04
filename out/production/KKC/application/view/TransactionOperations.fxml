@@ -2,19 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -24,10 +19,7 @@
          <bottom>
             <HBox prefHeight="31.0" prefWidth="823.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox fx:id="hboxBirthdate" prefHeight="40.0" prefWidth="150.0">
-                     <children>
-                        <TextField />
-                     </children></HBox>
+                  <HBox fx:id="hboxBirthdate" prefHeight="40.0" prefWidth="150.0" />
                </children>
                <BorderPane.margin>
                   <Insets top="10.0" />
@@ -38,10 +30,10 @@
             <VBox prefHeight="529.0" prefWidth="119.0" spacing="5.0" BorderPane.alignment="CENTER">
                <Label fx:id="lblTableHeader" text="Orders">
                   <font>
-                     <Font size="18.0" />
+                     <Font name="System Bold" size="18.0" />
                   </font>
                </Label>
-            <TableView fx:id="transactionsTable" prefHeight="331.0" prefWidth="657.0">
+            <TableView fx:id="transactionsTable" prefHeight="409.0" prefWidth="652.0">
                <BorderPane.margin>
                   <Insets right="10.0" />
                </BorderPane.margin>
@@ -52,13 +44,13 @@
             </VBox>
          </center>
          <right>
-            <VBox prefHeight="363.0" prefWidth="161.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="530.0" prefWidth="119.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnNewOrder" mnemonicParsing="false" onAction="#pressNewOrder" prefHeight="94.0" prefWidth="186.0" text="New Order" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/addstudent.png" />
+                              <Image url="@../images/add_order.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -67,7 +59,7 @@
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/addstudent.png" />
+                              <Image url="@../images/edit_order.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -77,20 +69,12 @@
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/removestudent.png" />
+                              <Image url="@../images/remove_order.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnOrderView" mnemonicParsing="false" onAction="#pressOrderView" prefHeight="91.0" prefWidth="222.0" text="View Transactions" textAlignment="CENTER" wrapText="true">
-                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/removestudent.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+                  <Button fx:id="btnOrderView" mnemonicParsing="false" onAction="#pressOrderView" prefHeight="91.0" prefWidth="222.0" text="View Transactions" textAlignment="CENTER" wrapText="true" />
                </children>
                <BorderPane.margin>
                   <Insets />
@@ -101,32 +85,11 @@
             </VBox>
          </right>
          <top>
-            <VBox prefHeight="167.0" prefWidth="823.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="0.0" prefWidth="823.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox prefHeight="93.0" prefWidth="823.0">
                      <children>
-                        <GridPane prefHeight="214.0" prefWidth="324.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Total Income:" />
-                              <Label text="\$10" GridPane.columnIndex="1" />
-                              <Label text="Total Expense:" GridPane.rowIndex="1" />
-                              <Label text="\$5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label text="Net:" GridPane.rowIndex="2" />
-                              <Label text="\$5" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                           </children>
-                        </GridPane>
                         <VBox prefHeight="93.0" prefWidth="143.0" />
-                        <DatePicker promptText="start date" />
-                        <DatePicker promptText="end date" />
                      </children>
                   </HBox>
                </children></VBox>

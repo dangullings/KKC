@@ -16,7 +16,7 @@
          <right>
             <VBox prefHeight="529.0" prefWidth="119.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnNewTest" mnemonicParsing="false" onAction="#pressNewTest" prefHeight="175.0" prefWidth="120.0" text="New Test" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnNewTest" mnemonicParsing="false" onAction="#pressNewTest" prefHeight="110.0" prefWidth="119.0" text="New Test" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -25,7 +25,7 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnEditTest" mnemonicParsing="false" onAction="#pressEditTest" prefHeight="175.0" prefWidth="120.0" text="Edit Test" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnEditTest" mnemonicParsing="false" onAction="#pressEditTest" prefHeight="110.0" prefWidth="119.0" text="Edit Test" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -34,7 +34,7 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnRemoveTest" mnemonicParsing="false" onAction="#pressRemoveTest" prefHeight="175.0" prefWidth="120.0" text="Remove Test" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnRemoveTest" mnemonicParsing="false" onAction="#pressRemoveTest" prefHeight="110.0" prefWidth="119.0" text="Remove Test" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>

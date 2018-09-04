@@ -57,12 +57,19 @@
               </Tab>
               <Tab fx:id="finances" text="Orders/Transactions">
                   <fx:include fx:id="financeOperations" source="TransactionOperations.fxml" />
+                  <graphic>
+                      <ImageView fitHeight="17.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../images/orders.png" />
+                          </image>
+                      </ImageView>
+                  </graphic>
               </Tab>
               <Tab fx:id="items" text="Inventory">
                   <fx:include fx:id="itemsOperations" source="InventoryOperations.fxml" />
               </Tab>
-              <Tab fx:id="events" text="Events">
-                  <fx:include fx:id="eventOperations" source="EventOperations.fxml" />
+              <Tab fx:id="events" text="Attendance">
+                  <fx:include fx:id="eventOperations" source="AttendanceOperations.fxml" />
               </Tab>
           </tabs>
       </TabPane>

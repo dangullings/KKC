@@ -21,7 +21,7 @@
                      <children>
                         <Label fx:id="lblName" prefHeight="60.0" prefWidth="371.0" text="Kenzie Lastname">
                            <font>
-                              <Font size="36.0" />
+                              <Font name="System Bold" size="36.0" />
                            </font>
                         </Label>
                         <ToggleButton fx:id="toggleActive" mnemonicParsing="false" onAction="#pressActive" prefHeight="69.0" prefWidth="96.0" stylesheets="@../style.css" text="Active" textOverrun="CLIP">
@@ -80,13 +80,13 @@
          <center>
             <TableView fx:id="studentTestsTable" prefHeight="377.0" prefWidth="971.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets bottom="5.0" left="5.0" />
+                  <Insets left="10.0" right="10.0" />
                </BorderPane.margin></TableView>
          </center>
          <bottom>
             <Button fx:id="btnOk" mnemonicParsing="false" onAction="#pressOk" prefHeight="50.0" prefWidth="789.0" text="Ok" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </BorderPane.margin>
             </Button>
          </bottom>

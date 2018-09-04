@@ -73,13 +73,6 @@ public class NewTransactionController implements Initializable {
     RadioButton radioOther;
 
     @FXML
-    Label lblStudentSelected;
-    @FXML
-    Label lblItemSelected;
-    @FXML
-    Label lblDate;
-
-    @FXML
     private Button btnSave;
     @FXML
     private Button btnSaveComplete;
@@ -196,6 +189,12 @@ public class NewTransactionController implements Initializable {
             radioBusiness.setSelected(false);
             setStudentOrder(true);
             selectedStudent = student;
+        }
+
+        if (!lineItems.isEmpty()){
+            radioBusiness.setDisable(true);
+            radioStudent.setDisable(true);
+            studentCombobox.setDisable(true);
         }
 
         lineItemsTable.setItems(lineItems);

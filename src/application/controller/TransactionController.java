@@ -1,8 +1,11 @@
 package application.controller;
 
 import application.Main;
+import application.model.LineItem;
 import application.model.Student;
 import application.model.Transaction;
+import application.util.LineItemDAOImpl;
+import application.util.StudentDAOImpl;
 import application.util.TransactionDAOImpl;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +23,9 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TransactionController implements Initializable {
@@ -35,6 +41,7 @@ public class TransactionController implements Initializable {
     }
 
     private TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
+    private LineItemDAOImpl lineItemDAO = new LineItemDAOImpl();
 
     private boolean completeOrdersOnly;
 
@@ -83,7 +90,7 @@ public class TransactionController implements Initializable {
         colSalePrice.setCellValueFactory(new PropertyValueFactory<>("salePrice"));
 
         TableColumn<Transaction, String> colDesc = new TableColumn<>("Note");
-        colDesc.setMinWidth(300);
+        colDesc.setMinWidth(250);
         colDesc.setCellValueFactory(new PropertyValueFactory<>("note"));
 
         colStudentInfo.getColumns().addAll(colFirstName, colLastName);
@@ -137,7 +144,30 @@ public class TransactionController implements Initializable {
 
     @FXML
     public void pressRemoveOrder(){
+        Transaction transactionSelected;
+        transactionSelected = transactionsTable.getSelectionModel().getSelectedItem();
 
+        if (transactionSelected == null) {
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Remove Order? (Order will be deleted, and all data will be lost)");
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if (action.get() == ButtonType.OK){
+            List<LineItem> lineItems;
+            lineItems = lineItemDAO.selectAllLineItemsByTransactionId(transactionSelected.getId());
+
+            for (LineItem lineItem : lineItems){
+                lineItemDAO.delete(lineItem.getId());
+            }
+
+            transactionDAO.deleteById(transactionSelected.getId());
+            transactionsTable.getItems().remove(transactionSelected);
+        }
     }
 
     public void pressOrderView(){
@@ -146,9 +176,15 @@ public class TransactionController implements Initializable {
         if (completeOrdersOnly){
             btnOrderView.setText("View Orders");
             lblTableHeader.setText("Completed Transactions");
+            btnNewOrder.setDisable(true);
+            btnEditOrder.setDisable(true);
+            btnRemoveOrder.setDisable(true);
         }else{
             btnOrderView.setText("View Transactions");
             lblTableHeader.setText("Pending Orders");
+            btnNewOrder.setDisable(false);
+            btnEditOrder.setDisable(false);
+            btnRemoveOrder.setDisable(false);
         }
 
         updateTransactionTable();

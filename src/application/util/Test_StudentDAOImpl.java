@@ -11,9 +11,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Test_StudentDAOImpl implements Test_StudentDAO{
+public class Test_StudentDAOImpl {
 
-        @Override
         public void createTest_StudentTable() {
             Connection connection = null;
             Statement statement = null;
@@ -46,7 +45,6 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
             }
         }
 
-    @Override
     public void insert(Test_Student test_student) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -89,7 +87,6 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         }
     }
 
-    @Override
     public void update(Test_Student test_student, int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -133,7 +130,6 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         }
     }
 
-    @Override
     public void delete(int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -165,7 +161,6 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         }
     }
 
-    @Override
     public List<Student> selectAllStudentsByTestId(int testId) {
         List<Student> students = new ArrayList<>();
         Connection connection = null;
@@ -224,7 +219,6 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         return students;
     }
 
-    @Override
     public List<Test_Student> selectAllTest_StudentsByTestId(int testId) {
         List<Test_Student> test_students = new ArrayList<>();
         Connection connection = null;
@@ -286,7 +280,6 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         return test_students;
     }
 
-    @Override
     public List<Test> selectAllStudentTests(int student_id) {
         List<Test_Student> test_studentList = new ArrayList<Test_Student>();
         List<Test> tests = new ArrayList<Test>();
@@ -356,7 +349,6 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         return tests;
     }
 
-    @Override
     public List<Test_Student> selectAllStudentTestScores(int student_id) {
         List<Test_Student> testScores = new ArrayList<Test_Student>();
         Connection connection = null;
@@ -418,7 +410,6 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         return testScores;
     }
 
-    @Override
     public void deleteByStudentId(int studentId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -450,7 +441,6 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         }
     }
 
-    @Override
     public void deleteByTestId(int testId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -482,22 +472,18 @@ public class Test_StudentDAOImpl implements Test_StudentDAO{
         }
     }
 
-    @Override
     public ObservableList<Test> selectAllObservable(Student student) {
         return FXCollections.observableArrayList(selectAllStudentTests(student.getId()));
     }
 
-    @Override
     public ObservableList<Test_Student> selectAllObservableScores(Student student) {
         return FXCollections.observableArrayList(selectAllStudentTestScores(student.getId()));
     }
 
-    @Override
     public ObservableList<Student> selectAllObservableStudentsByTestId(int testId) {
         return FXCollections.observableArrayList(selectAllStudentsByTestId(testId));
     }
 
-    @Override
     public ObservableList<Test_Student> selectAllObservableTest_StudentsByTestId(int testId) {
         return FXCollections.observableArrayList(selectAllTest_StudentsByTestId(testId));
     }

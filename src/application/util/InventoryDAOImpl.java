@@ -8,9 +8,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryDAOImpl implements InventoryDAO {
+public class InventoryDAOImpl {
 
-    @Override
     public void createInventoryTable(){
         Connection connection = null;
         Statement statement = null;
@@ -43,7 +42,6 @@ public class InventoryDAOImpl implements InventoryDAO {
         }
     }
 
-    @Override
     public void insert(Inventory inventory) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -81,7 +79,6 @@ public class InventoryDAOImpl implements InventoryDAO {
         }
     }
 
-    @Override
     public Inventory selectById(int id) {
         Inventory inventory = new Inventory();
         Connection connection = null;
@@ -135,7 +132,6 @@ public class InventoryDAOImpl implements InventoryDAO {
         return inventory;
     }
 
-    @Override
     public List<Inventory> selectAll() {
         List<Inventory> inventories = new ArrayList<>();
         Connection connection = null;
@@ -190,19 +186,16 @@ public class InventoryDAOImpl implements InventoryDAO {
         return inventories;
     }
 
-    @Override
     public ObservableList<Inventory> selectAllObservable() {
         ObservableList<Inventory> inventories = FXCollections.observableArrayList(selectAll());
 
         return inventories;
     }
 
-    @Override
     public void delete(String inventoryId) {
 
     }
 
-    @Override
     public void update(Inventory inventory, int itemId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

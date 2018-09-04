@@ -8,9 +8,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDAOImpl implements ItemDAO{
+public class ItemDAOImpl {
 
-    @Override
     public void createItemTable() {
         Connection connection = null;
         Statement statement = null;
@@ -43,7 +42,6 @@ public class ItemDAOImpl implements ItemDAO{
         }
     }
 
-    @Override
     public void insert(Item item) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -89,7 +87,6 @@ public class ItemDAOImpl implements ItemDAO{
 
     }
 
-    @Override
     public Item selectById(int id) {
         Item item = new Item();
         Connection connection = null;
@@ -142,7 +139,6 @@ public class ItemDAOImpl implements ItemDAO{
         return item;
     }
 
-    @Override
     public List<Item> selectAll() {
         List<Item> items = new ArrayList<Item>();
         Connection connection = null;
@@ -196,7 +192,6 @@ public class ItemDAOImpl implements ItemDAO{
         return items;
     }
 
-    @Override
     public ObservableList<Item> selectAllObservable() {
         ObservableList<Item> items = FXCollections.observableArrayList(selectAll());
 
@@ -204,7 +199,6 @@ public class ItemDAOImpl implements ItemDAO{
 
     }
 
-    @Override
     public void delete(String name) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -236,7 +230,6 @@ public class ItemDAOImpl implements ItemDAO{
         }
     }
 
-    @Override
     public void update(Item item, int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
