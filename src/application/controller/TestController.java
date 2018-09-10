@@ -81,7 +81,6 @@ public class TestController implements Initializable {
 
         testTable.setItems(tests);
         testTable.getColumns().addAll(colType, colDate, colLocation, colNumStudents);
-        testTable.setEditable(true);
     }
 
     @FXML

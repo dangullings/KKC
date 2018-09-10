@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="598.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ClassSessionController">
+   <children>
+      <BorderPane prefHeight="598.0" prefWidth="853.0">
+         <right>
+            <VBox prefHeight="506.0" prefWidth="119.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnNewClass" mnemonicParsing="false" onAction="#pressNewClass" prefHeight="68.0" prefWidth="120.0" text="New Class Session" />
+               </children>
+            </VBox>
+         </right>
+         <center>
+            <TableView fx:id="sessionTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

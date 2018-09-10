@@ -2,72 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/controller/ClassSessionController.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/controller/NewClassSessionController.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/model/ClassDate.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/model/ClassSession.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/util/ClassDateDAOImpl.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/util/ClassSessionDAOImpl.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/view/ClassSessionOperations.fxml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/view/NewClass.fxml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/EventController.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/ItemDetailController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/ItemDetailController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController$1.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController$1.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController$2.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController$2.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewTransactionController$1.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewTransactionController$1.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewTransactionController$2.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewTransactionController$2.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewTransactionController$3.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewTransactionController$3.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewTransactionController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewTransactionController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/TransactionController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/TransactionController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/model/LineItem.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/model/LineItem.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/EventDAO.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/EventDAOImpl.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/InventoryDAO.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/InventoryDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/InventoryDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/ItemDAO.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/ItemDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/ItemDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/LineItemDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/LineItemDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/StudentDAO.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/StudentDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/StudentDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/TestDAO.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/AttendanceController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/AttendanceController.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/RootLayoutController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/RootLayoutController.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/TestController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/TestController.class" />
       <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/TestDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/TestDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/Test_StudentDAO.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/Test_StudentDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/Test_StudentDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/TransactionDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/TransactionDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/EventOperations.fxml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/ItemDetail.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/ItemDetail.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/NewItem.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/NewItem.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/NewStudent.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/NewStudent.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/NewTest.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/NewTest.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/NewTransaction.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/NewTransaction.fxml" />
+      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/AttendanceOperations.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/AttendanceOperations.fxml" />
       <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/RootLayout.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/RootLayout.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/StudentDetail.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/StudentDetail.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/TransactionOperations.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/TransactionOperations.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/EventController.java" afterPath="$PROJECT_DIR$/src/application/controller/AttendanceController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/ItemDetailController.java" afterPath="$PROJECT_DIR$/src/application/controller/ItemDetailController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/NewItemController.java" afterPath="$PROJECT_DIR$/src/application/controller/NewItemController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/NewTransactionController.java" afterPath="$PROJECT_DIR$/src/application/controller/NewTransactionController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/TransactionController.java" afterPath="$PROJECT_DIR$/src/application/controller/TransactionController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/model/LineItem.java" afterPath="$PROJECT_DIR$/src/application/model/LineItem.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/EventDAO.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/EventDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/AttendanceDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/InventoryDAO.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/InventoryDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/InventoryDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/ItemDAO.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/ItemDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/ItemDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/LineItemDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/LineItemDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/StudentDAO.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/StudentDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/StudentDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/TestDAO.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/application/controller/AttendanceController.java" afterPath="$PROJECT_DIR$/src/application/controller/AttendanceController.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/controller/RootLayoutController.java" afterPath="$PROJECT_DIR$/src/application/controller/RootLayoutController.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/controller/TestController.java" afterPath="$PROJECT_DIR$/src/application/controller/TestController.java" />
       <change beforePath="$PROJECT_DIR$/src/application/util/TestDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/TestDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/Test_StudentDAO.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/Test_StudentDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/Test_StudentDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/TransactionDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/TransactionDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/EventOperations.fxml" afterPath="$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/InventoryOperations.fxml" afterPath="$PROJECT_DIR$/src/application/view/InventoryOperations.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/ItemDetail.fxml" afterPath="$PROJECT_DIR$/src/application/view/ItemDetail.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/NewItem.fxml" afterPath="$PROJECT_DIR$/src/application/view/NewItem.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/NewStudent.fxml" afterPath="$PROJECT_DIR$/src/application/view/NewStudent.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/NewTest.fxml" afterPath="$PROJECT_DIR$/src/application/view/NewTest.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/NewTransaction.fxml" afterPath="$PROJECT_DIR$/src/application/view/NewTransaction.fxml" />
+      <change beforePath="$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml" afterPath="$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml" />
       <change beforePath="$PROJECT_DIR$/src/application/view/RootLayout.fxml" afterPath="$PROJECT_DIR$/src/application/view/RootLayout.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/StudentDetail.fxml" afterPath="$PROJECT_DIR$/src/application/view/StudentDetail.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/TestOperations.fxml" afterPath="$PROJECT_DIR$/src/application/view/TestOperations.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/TransactionOperations.fxml" afterPath="$PROJECT_DIR$/src/application/view/TransactionOperations.fxml" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -124,28 +79,48 @@
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AttendanceOperations.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-        </entry>
-      </file>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="AttendanceController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/application/controller/AttendanceController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+            <state relative-caret-position="391">
+              <caret line="90" column="54" lean-forward="true" selection-start-line="90" selection-start-column="54" selection-end-line="90" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClassDateDAOImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/util/ClassDateDAOImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="174">
+              <caret line="135" column="35" lean-forward="true" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClassSessionDAOImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/util/ClassSessionDAOImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="143" column="35" lean-forward="true" selection-start-line="143" selection-start-column="35" selection-end-line="143" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AttendanceOperations.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml">
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -186,26 +161,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/application/controller/StudentDetailController.java" />
-        <option value="$PROJECT_DIR$/src/application/model/Test.java" />
-        <option value="$PROJECT_DIR$/src/application/model/Test_Student.java" />
-        <option value="$PROJECT_DIR$/src/application/util/StudentDAO.java" />
-        <option value="$PROJECT_DIR$/src/application/model/Student.java" />
-        <option value="$PROJECT_DIR$/src/application/view/ItemOperations.fxml" />
-        <option value="$PROJECT_DIR$/src/application/view/FinanceOperations.fxml" />
-        <option value="$PROJECT_DIR$/src/application/model/LineItems.java" />
-        <option value="$PROJECT_DIR$/src/application/util/LineItemsDAO.java" />
-        <option value="$PROJECT_DIR$/src/application/util/LineItemsDAOImpl.java" />
-        <option value="$PROJECT_DIR$/src/application/util/TransactionDAO.java" />
-        <option value="$PROJECT_DIR$/src/application/util/LineItemDAO.java" />
-        <option value="$PROJECT_DIR$/src/application/model/Item.java" />
-        <option value="$PROJECT_DIR$/src/application/util/InventoryDAO.java" />
-        <option value="$PROJECT_DIR$/src/application/controller/StudentController.java" />
-        <option value="$PROJECT_DIR$/src/application/controller/TestController.java" />
-        <option value="$PROJECT_DIR$/src/application/controller/InventoryController.java" />
-        <option value="$PROJECT_DIR$/src/application/model/User.java" />
-        <option value="$PROJECT_DIR$/src/application/util/UserDAO.java" />
-        <option value="$PROJECT_DIR$/src/application/view/Login.fxml" />
         <option value="$PROJECT_DIR$/src/application/controller/LoginController.java" />
         <option value="$PROJECT_DIR$/src/application/model/Inventory.java" />
         <option value="$PROJECT_DIR$/src/application/controller/NewTestController.java" />
@@ -214,12 +169,10 @@
         <option value="$PROJECT_DIR$/src/application/Main.java" />
         <option value="$PROJECT_DIR$/src/application/controller/NewTransactionController.java" />
         <option value="$PROJECT_DIR$/src/application/controller/TransactionController.java" />
-        <option value="$PROJECT_DIR$/src/application/view/RootLayout.fxml" />
         <option value="$PROJECT_DIR$/src/application/util/InventoryDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/application/util/ItemDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/application/util/StudentDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/application/util/Test_StudentDAOImpl.java" />
-        <option value="$PROJECT_DIR$/src/application/util/TestDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/application/view/NewTest.fxml" />
         <option value="$PROJECT_DIR$/src/application/util/TransactionDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/application/model/LineItem.java" />
@@ -235,7 +188,29 @@
         <option value="$PROJECT_DIR$/src/application/view/StudentOperations.fxml" />
         <option value="$PROJECT_DIR$/src/application/view/TestOperations.fxml" />
         <option value="$PROJECT_DIR$/src/application/view/InventoryOperations.fxml" />
+        <option value="$PROJECT_DIR$/src/application/model/Schedule.java" />
+        <option value="$PROJECT_DIR$/src/application/view/ScheduleOperations.fxml" />
+        <option value="$PROJECT_DIR$/src/application/controller/RootLayoutController.java" />
+        <option value="$PROJECT_DIR$/src/application/controller/ClassController.java" />
+        <option value="$PROJECT_DIR$/src/application/view/ClassOperations.fxml" />
+        <option value="$PROJECT_DIR$/src/application/view/RootLayout.fxml" />
+        <option value="$PROJECT_DIR$/src/application/controller/NewClassController.java" />
+        <option value="$PROJECT_DIR$/src/application/util/ClassDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/application/model/Class.java" />
+        <option value="$PROJECT_DIR$/src/application/view/NewClass.fxml" />
+        <option value="$PROJECT_DIR$/src/application/controller/NewClassDateController.java" />
+        <option value="$PROJECT_DIR$/src/application/controller/ClassDateController.java" />
+        <option value="$PROJECT_DIR$/src/application/util/ClassSession.java" />
+        <option value="$PROJECT_DIR$/src/application/model/ClassSession.java" />
+        <option value="$PROJECT_DIR$/src/application/util/TestDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/application/view/ClassSessionOperations.fxml" />
+        <option value="$PROJECT_DIR$/src/application/controller/TestController.java" />
+        <option value="$PROJECT_DIR$/src/application/controller/NewClassSessionController.java" />
+        <option value="$PROJECT_DIR$/src/application/controller/ClassSessionController.java" />
         <option value="$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml" />
+        <option value="$PROJECT_DIR$/src/application/util/ClassSessionDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/application/util/ClassDateDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/application/model/ClassDate.java" />
         <option value="$PROJECT_DIR$/src/application/controller/AttendanceController.java" />
       </list>
     </option>
@@ -266,8 +241,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -319,7 +295,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -508,12 +483,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19807692" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19744597" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10989583" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1130064" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298077" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -531,7 +507,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298077" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -553,66 +528,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/application/util/LineItems.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/util/Test_StudentDAO.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/util/TestDAO.java" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/text/DecimalFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="506" column="0" lean-forward="false" selection-start-line="506" selection-start-column="0" selection-end-line="506" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/util/LineItemDAO.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/util/TransactionDAO.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/util/ItemDAO.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/util/InventoryDAO.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/model/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="20" column="39" lean-forward="true" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/model/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="57" column="5" lean-forward="true" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/model/Test_Student.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/controller/StudentDetailController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-476">
           <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/model/Student.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2244">
-          <caret line="252" column="60" lean-forward="true" selection-start-line="252" selection-start-column="60" selection-end-line="252" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/controller/InventoryController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="132" column="9" lean-forward="true" selection-start-line="132" selection-start-column="9" selection-end-line="132" selection-end-column="9" />
-          <folding>
-            <element signature="e#4104#4123#0" expanded="false" />
-            <element signature="e#5019#5041#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -630,13 +549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/controller/RootLayoutController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -649,7 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -663,37 +574,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/controller/TestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="133" column="8" lean-forward="false" selection-start-line="133" selection-start-column="8" selection-end-line="163" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/model/Transaction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="282">
           <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/RootLayout.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="45" column="25" lean-forward="true" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/util/InventoryDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="197" column="4" lean-forward="false" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -718,15 +602,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="327">
           <caret line="173" column="49" lean-forward="false" selection-start-line="173" selection-start-column="49" selection-end-line="173" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/util/TestDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="91" column="4" lean-forward="false" selection-start-line="91" selection-start-column="4" selection-end-line="141" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -755,75 +630,56 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/StudentDetail.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="29" column="36" lean-forward="true" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/ItemDetail.fxml">
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/ItemDetail.fxml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="23" column="38" lean-forward="true" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/NewTransaction.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="27" column="61" lean-forward="false" selection-start-line="27" selection-start-column="61" selection-end-line="27" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/NewStudent.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/NewTest.fxml">
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/NewTest.fxml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="536">
           <caret line="111" column="23" lean-forward="true" selection-start-line="111" selection-start-column="23" selection-end-line="111" selection-end-column="23" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/NewItem.fxml">
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/NewItem.fxml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/controller/NewItemController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="42" column="9" lean-forward="true" selection-start-line="42" selection-start-column="9" selection-end-line="42" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -832,7 +688,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="463">
           <caret line="379" column="0" lean-forward="true" selection-start-line="379" selection-start-column="0" selection-end-line="379" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -840,138 +695,353 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
           <caret line="48" column="83" lean-forward="true" selection-start-line="48" selection-start-column="83" selection-end-line="48" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/controller/NewTransactionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1169">
-          <caret line="185" column="46" lean-forward="false" selection-start-line="185" selection-start-column="46" selection-end-line="185" selection-end-column="46" />
-          <folding>
-            <element signature="e#2340#2341#0" expanded="false" />
-            <element signature="e#2372#2373#0" expanded="false" />
-            <element signature="e#3130#3403#0" expanded="false" />
-            <element signature="e#3402#3403#0" expanded="false" />
-            <element signature="e#3628#3893#0" expanded="false" />
-            <element signature="e#3892#3893#0" expanded="false" />
-            <element signature="e#7990#7991#0" expanded="false" />
-            <element signature="e#8017#8018#0" expanded="false" />
-            <element signature="e#10962#10963#0" expanded="false" />
-            <element signature="e#11022#11023#0" expanded="false" />
-            <element signature="e#12240#12241#0" expanded="false" />
-            <element signature="e#12277#12278#0" expanded="false" />
-            <element signature="e#12335#12336#0" expanded="false" />
-            <element signature="e#12380#12381#0" expanded="false" />
-            <element signature="e#12416#12417#0" expanded="false" />
-            <element signature="e#12450#12451#0" expanded="false" />
-            <element signature="e#12502#12503#0" expanded="false" />
-            <element signature="e#12541#12542#0" expanded="false" />
-            <element signature="e#12582#12583#0" expanded="false" />
-            <element signature="e#12621#12622#0" expanded="false" />
-            <element signature="e#12683#12684#0" expanded="false" />
-            <element signature="e#12732#12733#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/TransactionOperations.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="43" column="19" lean-forward="false" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/StudentOperations.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="44" lean-forward="false" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/InventoryOperations.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/TestOperations.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="35" lean-forward="false" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/Login.fxml">
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/controller/StudentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/controller/NewTestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="176" column="34" lean-forward="true" selection-start-line="176" selection-start-column="34" selection-end-line="176" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/Login.fxml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="67" lean-forward="true" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/controller/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="310">
           <caret line="45" column="14" lean-forward="true" selection-start-line="45" selection-start-column="14" selection-end-line="45" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controller/RootLayoutController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/util/AttendanceDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controller/InventoryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="85" column="8" lean-forward="true" selection-start-line="85" selection-start-column="8" selection-end-line="97" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/StudentOperations.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="35" lean-forward="true" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/InventoryOperations.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/RootLayout.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="76" column="18" lean-forward="false" selection-start-line="76" selection-start-column="18" selection-end-line="76" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/util/InventoryDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="10" column="31" lean-forward="true" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controller/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/util/ClassSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/ClassSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding>
+            <element signature="e#226#227#0" expanded="true" />
+            <element signature="e#251#252#0" expanded="true" />
+            <element signature="e#284#285#0" expanded="true" />
+            <element signature="e#312#313#0" expanded="true" />
+            <element signature="e#347#348#0" expanded="true" />
+            <element signature="e#378#379#0" expanded="true" />
+            <element signature="e#426#427#0" expanded="true" />
+            <element signature="e#466#467#0" expanded="true" />
+            <element signature="e#505#506#0" expanded="true" />
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#590#591#0" expanded="true" />
+            <element signature="e#632#633#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#699#700#0" expanded="true" />
+            <element signature="e#748#749#0" expanded="true" />
+            <element signature="e#786#787#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/util/TestDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-561">
+          <caret line="12" column="24" lean-forward="true" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/NewClass.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="13" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <marker date="1536534178892" expanded="true" signature="5963:5976" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/ClassSessionOperations.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="38" lean-forward="false" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controller/TestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="171" column="4" lean-forward="false" selection-start-line="171" selection-start-column="4" selection-end-line="180" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controller/NewTestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="214" column="17" lean-forward="true" selection-start-line="214" selection-start-column="17" selection-end-line="214" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controller/NewClassSessionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="147" column="13" lean-forward="true" selection-start-line="147" selection-start-column="13" selection-end-line="147" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8054#8055#0" expanded="true" />
+            <element signature="e#8088#8089#0" expanded="true" />
+            <element signature="e#8122#8123#0" expanded="true" />
+            <element signature="e#8156#8157#0" expanded="true" />
+            <element signature="e#8192#8193#0" expanded="true" />
+            <element signature="e#8226#8227#0" expanded="true" />
+            <element signature="e#8261#8262#0" expanded="true" />
+            <element signature="e#8295#8296#0" expanded="true" />
+            <element signature="e#8328#8329#0" expanded="true" />
+            <element signature="e#8362#8363#0" expanded="true" />
+            <element signature="e#8397#8398#0" expanded="true" />
+            <element signature="e#8431#8432#0" expanded="true" />
+            <element signature="e#8474#8475#0" expanded="true" />
+            <element signature="e#8508#8509#0" expanded="true" />
+            <element signature="e#8552#8553#0" expanded="true" />
+            <element signature="e#8586#8587#0" expanded="true" />
+            <element signature="e#8632#8633#0" expanded="true" />
+            <element signature="e#8666#8667#0" expanded="true" />
+            <element signature="e#8711#8712#0" expanded="true" />
+            <element signature="e#8745#8746#0" expanded="true" />
+            <element signature="e#8788#8789#0" expanded="true" />
+            <element signature="e#8822#8823#0" expanded="true" />
+            <element signature="e#8867#8868#0" expanded="true" />
+            <element signature="e#8901#8902#0" expanded="true" />
+            <element signature="e#9235#9236#0" expanded="true" />
+            <element signature="e#9270#9271#0" expanded="true" />
+            <element signature="e#9317#9318#0" expanded="true" />
+            <element signature="e#9357#9358#0" expanded="true" />
+            <element signature="e#9401#9402#0" expanded="true" />
+            <element signature="e#9445#9446#0" expanded="true" />
+            <element signature="e#9508#9509#0" expanded="true" />
+            <element signature="e#9566#9567#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controller/ClassSessionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controller/NewTransactionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1802">
+          <caret line="185" column="46" lean-forward="false" selection-start-line="185" selection-start-column="46" selection-end-line="185" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/NewTransaction.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="27" column="61" lean-forward="false" selection-start-line="27" selection-start-column="61" selection-end-line="27" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/controller/NewItemController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="145" column="5" lean-forward="true" selection-start-line="145" selection-start-column="5" selection-end-line="145" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="476">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/util/ClassSessionDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="143" column="35" lean-forward="true" selection-start-line="143" selection-start-column="35" selection-end-line="143" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/util/ClassDateDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="135" column="35" lean-forward="true" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3281">
+          <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/ClassDate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="56" column="33" lean-forward="false" selection-start-line="56" selection-start-column="33" selection-end-line="56" selection-end-column="33" />
+          <folding>
+            <element signature="e#274#275#0" expanded="true" />
+            <element signature="e#306#307#0" expanded="true" />
+            <element signature="e#353#354#0" expanded="true" />
+            <element signature="e#395#396#0" expanded="true" />
+            <element signature="e#421#422#0" expanded="true" />
+            <element signature="e#446#447#0" expanded="true" />
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#507#508#0" expanded="true" />
+            <element signature="e#545#546#0" expanded="true" />
+            <element signature="e#578#579#0" expanded="true" />
+            <element signature="e#631#632#0" expanded="true" />
+            <element signature="e#675#676#0" expanded="true" />
+            <element signature="e#1077#1078#0" expanded="true" />
+            <element signature="e#1125#1126#0" expanded="true" />
+            <element signature="e#1165#1166#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/controller/AttendanceController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="391">
+          <caret line="90" column="54" lean-forward="true" selection-start-line="90" selection-start-column="54" selection-end-line="90" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
