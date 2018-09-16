@@ -40,6 +40,7 @@ public class StudentController implements Initializable{
     @FXML private Button btnActiveView;
     @FXML TextField filterInput;
     @FXML TableView<Student> studentTable;
+    @FXML Label lblStudents;
 
     private boolean activeStudentsOnly = true;
     private List<Student> studentList;
@@ -269,8 +270,11 @@ public class StudentController implements Initializable{
 
         if (activeStudentsOnly){
             btnActiveView.setText("View Inactive");
+            lblStudents.setText("Active Students");
+
         }else{
             btnActiveView.setText("View Active");
+            lblStudents.setText("Inactive Students");
         }
 
         updateStudentTable();
@@ -300,5 +304,7 @@ public class StudentController implements Initializable{
 
         studentTable.setItems(students);
         initFilter(students);
+
+        AttendanceController.getInstance().init();
     }
 }

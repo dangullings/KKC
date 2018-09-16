@@ -129,6 +129,59 @@ public class ClassDateDAOImpl {
         return classDate;
     }
 
+    public List<ClassDate> selectAllBySessionId(int sessionId) {
+        List<ClassDate> classDates = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM class_date WHERE session_id = ?");
+            preparedStatement.setInt(1, sessionId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                ClassDate classDate = new ClassDate();
+                classDate.setId(resultSet.getInt("id"));
+                classDate.setSessionId(resultSet.getInt("session_id"));
+                classDate.setDate(resultSet.getDate("date"));
+                classDate.setSecondHour(resultSet.getBoolean("second_hour"));
+
+                classDates.add(classDate);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (resultSet != null){
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return classDates;
+    }
+
     public List<ClassDate> selectAllByDate(LocalDate startDate, LocalDate endDate) {
         List<ClassDate> classDates = new ArrayList<>();
         Connection connection = null;
@@ -241,8 +294,35 @@ public class ClassDateDAOImpl {
         return classDates;
     }
 
-    public void delete(String inventoryId) {
+    public void deleteById(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM class_date WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void update(Inventory inventory, int itemId) {

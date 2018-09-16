@@ -30,7 +30,7 @@
                </Label>
                <HBox prefHeight="43.0" prefWidth="580.0" spacing="10.0">
                   <children>
-                     <DatePicker fx:id="datePicker" disable="true" prefHeight="25.0" prefWidth="172.0" promptText="date" />
+                     <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="172.0" promptText="date" />
                      <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <TextField fx:id="txtNote" prefHeight="25.0" prefWidth="380.0" promptText="note" />
                   </children>

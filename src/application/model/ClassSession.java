@@ -13,6 +13,12 @@ public class ClassSession {
 
     }
 
+    public ClassSession(String location, LocalDate startDate, LocalDate endDate) {
+        this.location = location;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public int getId() {
         return id;
     }

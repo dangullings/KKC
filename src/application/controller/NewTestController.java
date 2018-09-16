@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -141,6 +142,7 @@ public class NewTestController implements Initializable {
             Stage stage = new Stage();
             stage.initStyle(StageStyle.DECORATED);
             stage.setTitle("New Student");
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root1));
             stage.show();
         } catch (IOException e) {

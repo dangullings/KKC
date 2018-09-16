@@ -154,8 +154,66 @@ public class Student implements Comparable<Student>{
         return rankValue;
     }
 
-    public void setRankValue(int rankValue) {
-        this.rankValue = rankValue;
+    public void setRankValue(int rankValue) { this.rankValue = rankValue; }
+
+    public String getStyleLight(){
+        String style;
+        switch (rankValue) {
+            case 0:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #FEF78F; -fx-font-size: 16;"; // gold #C8AE01
+                break;
+            case 1:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #FEF78F; -fx-font-size: 16;"; // gold #C8AE01
+                break;
+            case 2:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #97FE8F; -fx-font-size: 16;"; // green #147800
+                break;
+            case 3:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #97FE8F; -fx-font-size: 16;"; // green #147800
+                break;
+            case 4:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #D28FFE; -fx-font-size: 16;"; // purple #A401BD
+                break;
+            case 5:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #D28FFE; -fx-font-size: 16;"; // purple #A401BD
+                break;
+            case 6:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #BC9F7E; -fx-font-size: 16;"; // brown #7D5E47
+                break;
+            case 7:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #BC9F7E; -fx-font-size: 16;"; // brown #7D5E47
+                break;
+            case 8:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #FE9191; -fx-font-size: 16;"; // red #E30101
+                break;
+            case 9: style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #FE9191; -fx-font-size: 16;"; // red #E30101
+                break;
+            default: style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #878787; -fx-font-size: 16;"; // black
+                break;
+        }
+
+        return style;
+    }
+
+    public String getStyleDark(){
+        String style;
+        switch (rankValue) {
+            case 0:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #C8AE01; -fx-font-size: 16;"; // gold #C8AE01
+                break;
+            case 1:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #C8AE01; -fx-font-size: 16;"; // gold #C8AE01
+                break;
+            case 2:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #147800; -fx-font-size: 16;"; // green #147800
+                break;
+            case 3:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #147800; -fx-font-size: 16;"; // green #147800
+                break;
+            case 4:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #A401BD; -fx-font-size: 16;"; // purple #A401BD
+                break;
+            case 5:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #A401BD; -fx-font-size: 16;"; // purple #A401BD
+                break;
+            case 6:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #7D5E47; -fx-font-size: 16;"; // brown #7D5E47
+                break;
+            case 7:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #7D5E47; -fx-font-size: 16;"; // brown #7D5E47
+                break;
+            case 8:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #E30101; -fx-font-size: 16;"; // red #E30101
+                break;
+            case 9: style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #E30101; -fx-font-size: 16;"; // red #E30101
+                break;
+            default: style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #828281; -fx-font-size: 16;"; // black
+                break;
+        }
+
+        return style;
     }
 
     public String getRankName() {

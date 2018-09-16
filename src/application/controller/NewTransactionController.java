@@ -255,7 +255,7 @@ public class NewTransactionController implements Initializable {
     }
 
     private void saveOrder(){
-        transaction.setDate(LocalDate.now());
+        transaction.setDate(datePicker.getValue());
         transaction.setSalePrice(lineItems);
         transaction.setNote(txtNote.getText());
 

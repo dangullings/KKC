@@ -1,9 +1,7 @@
 package application;
 
 import application.model.User;
-import application.util.ItemDAOImpl;
-import application.util.Test_StudentDAOImpl;
-import application.util.TransactionDAOImpl;
+import application.util.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,10 +60,16 @@ public class Main extends Application {
         Test_StudentDAOImpl test_studentDAO = new Test_StudentDAOImpl();
         ItemDAOImpl itemDAO = new ItemDAOImpl();
         TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
+        AttendanceDAOImpl attendanceDAO = new AttendanceDAOImpl();
+        ClassSessionDAOImpl classSessionDAO = new ClassSessionDAOImpl();
+        ClassDateDAOImpl classDateDAO = new ClassDateDAOImpl();
 
         test_studentDAO.createTest_StudentTable();
         itemDAO.createItemTable();
         transactionDAO.createTransactionTable();
+        attendanceDAO.createAttendanceTable();
+        classSessionDAO.createClassSessionTable();
+        classDateDAO.createClassTable();
 
         Ranks = RankFill();
 

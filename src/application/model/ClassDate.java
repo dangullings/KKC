@@ -5,10 +5,11 @@ import java.time.LocalDate;
 public class ClassDate implements Comparable<ClassDate>{
 
     int id;
-    int sessionId;
-    String location;
-    LocalDate date;
-    boolean secondHour;
+    private int sessionId;
+    private String location;
+    private LocalDate date;
+    private boolean secondHour;
+    private String style;
 
     public ClassDate(){
 
@@ -60,6 +61,14 @@ public class ClassDate implements Comparable<ClassDate>{
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setStyle(String style){
+        this.style = style;
+    }
+
+    public String getStyle(){
+        return style;
     }
 
     @Override

@@ -1,26 +1,29 @@
 package application.controller;
 
 import application.LOCATION;
+import application.model.Attendance;
 import application.model.ClassDate;
 import application.model.ClassSession;
+import application.util.AttendanceDAOImpl;
 import application.util.ClassDateDAOImpl;
 import application.util.ClassSessionDAOImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class NewClassSessionController implements Initializable{
+
+    private AttendanceDAOImpl attendanceDAO = new AttendanceDAOImpl();
+
+    private ClassSession classSession = new ClassSession();
+
+    private boolean isNewSession;
 
     @FXML
     Button btnRemoveDate;
@@ -76,14 +79,88 @@ public class NewClassSessionController implements Initializable{
     LocalDate startDate;
     LocalDate endDate;
 
-    ArrayList<LocalDate> classDates;
-    ArrayList<SecondHourDate> secondHourDates;
+    private List<ClassDate> classDateList;
+
+    List<LocalDate> classDates;
+    List<SecondHourDate> secondHourDates;
+
+    private ArrayList<ClassDate> classDateListBeforeEdit;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setNewSession(true);
         choiceLocation.getItems().addAll(LOCATION.values());
         secondHourDates = new ArrayList<>();
         classDates = new ArrayList<>();
+        classDateList = new ArrayList<>();
+    }
+
+    private void loadClassSessionData(ClassSession c){
+        classDateListBeforeEdit = new ArrayList<>();
+        classSession = c;
+
+        classDateList = classDateDAO.selectAllBySessionId(classSession.getId());
+        classDateListBeforeEdit.addAll(classDateList);
+
+        for (ClassDate classDate : classDateList){
+            classDates.add(classDate.getDate());
+        }
+
+        choiceDates.getItems().addAll(classDates);
+        choiceLocation.setValue(LOCATION.valueOf(classSession.getLocation()));
+        pickerStartDate.setValue(classSession.getStartDate());
+        pickerEndDate.setValue(classSession.getEndDate());
+
+        startDate = pickerStartDate.getValue();
+        endDate = pickerEndDate.getValue();
+
+        for (ClassDate classDate : classDateList){
+            LocalDate date = classDate.getDate();
+            DayOfWeek day = date.getDayOfWeek();
+
+            if (day.getValue() == 1){
+                checkMonday.setSelected(true);
+                if (classDate.hasSecondHour()){
+                    secondHourMonday.setSelected(true);
+                }
+            }else if (day.getValue() == 2){
+                checkTuesday.setSelected(true);
+                if (classDate.hasSecondHour()){
+                    secondHourTuesday.setSelected(true);
+                }
+            }else if (day.getValue() == 3){
+                checkWednesday.setSelected(true);
+                if (classDate.hasSecondHour()){
+                    secondHourWednesday.setSelected(true);
+                }
+            }else if (day.getValue() == 4){
+                checkThursday.setSelected(true);
+                if (classDate.hasSecondHour()){
+                    secondHourThursday.setSelected(true);
+                }
+            }else if (day.getValue() == 5){
+                checkFriday.setSelected(true);
+                if (classDate.hasSecondHour()){
+                    secondHourFriday.setSelected(true);
+                }
+            }else if (day.getValue() == 6){
+                checkSaturday.setSelected(true);
+                if (classDate.hasSecondHour()){
+                    secondHourSaturday.setSelected(true);
+                }
+            }
+        }
+
+        //updateClassDates();
+
+        setNewSession(false);
+    }
+
+    public void initData(ClassSession classSession) {
+        this.classSession = new ClassSession();
+        this.classSession = classSession;
+
+        loadClassSessionData(classSession);
     }
 
     public void pressAddDate(){
@@ -91,16 +168,21 @@ public class NewClassSessionController implements Initializable{
             return;
         }
 
+        ClassDate classDate = new ClassDate();
         LocalDate date = pickerSpecificDate.getValue();
 
         classDates.add(date);
+        classDate.setDate(date);
 
         if (secondHourSpecific.isSelected()){
             SecondHourDate secondHourDate = new SecondHourDate(date, true);
             secondHourDates.add(secondHourDate);
+            classDate.setSecondHour(true);
         }
 
         choiceDates.getItems().add(date);
+        classDateList.add(classDate);
+        pickerSpecificDate.getEditor().clear();
     }
 
     public void pressRemoveDate(){
@@ -112,6 +194,13 @@ public class NewClassSessionController implements Initializable{
         }
 
         classDates.remove(date);
+
+        for (ClassDate classDate : classDateList){
+            if (classDate.getDate().equals(date)){
+                classDateList.remove(classDate);
+                break;
+            }
+        }
 
         choiceDates.getItems().remove(date);
 
@@ -126,28 +215,42 @@ public class NewClassSessionController implements Initializable{
     }
 
     public void pressSave(){
-        ClassSession classSession = new ClassSession();
+        List<Attendance> attendances;
 
         classSession.setLocation(choiceLocation.getValue().name());
         classSession.setStartDate(Collections.min(classDates));
         classSession.setEndDate(Collections.max(classDates));
 
-        classSessionDAO.insert(classSession);
+        if (isNewSession){
+            classSession = new ClassSession(choiceLocation.getValue().name(), Collections.min(classDates), Collections.max(classDates));
+            classSessionDAO.insert(classSession);
 
-        for (LocalDate date : classDates){
-            ClassDate classDate = new ClassDate();
+            for (ClassDate classDate : classDateList) {
+                classDate.setSessionId(classSession.getId());
+                classDateDAO.insert(classDate);
+            }
+        }else{
+            classSessionDAO.update(classSession, classSession.getId());
 
-            classDate.setDate(date);
-            classDate.setSessionId(classSession.getId());
+            for (ClassDate classDate_b : classDateListBeforeEdit) {
+                if (!classDateList.contains(classDate_b)) {
+                    attendances = attendanceDAO.selectAllByClassDateId(classDate_b.getId());
 
-            for (SecondHourDate secondHourDate : secondHourDates){
-                if (secondHourDate.getDate().equals(date)){
-                    classDate.setSecondHour(true);
-                    break;
+                    for (Attendance attendance : attendances){
+                        attendanceDAO.deleteById(attendance.getId());
+                    }
+
+                    classDateDAO.deleteById(classDate_b.getId());
                 }
             }
 
-            classDateDAO.insert(classDate);
+            for (ClassDate classDate : classDateList) {
+                if (!classDateListBeforeEdit.contains(classDate)){
+                    classDate.setSessionId(classSession.getId());
+                    classDateDAO.insert(classDate);
+                }
+            }
+
         }
 
         Stage stage = (Stage) btnSave.getScene().getWindow();
@@ -155,6 +258,8 @@ public class NewClassSessionController implements Initializable{
 
         ClassSessionController.getInstance().sessionTableInsert(classSession);
         ClassSessionController.getInstance().updateSessionTable();
+
+        AttendanceController.getInstance().init();
     }
 
     public void changeStartDate(){
@@ -180,61 +285,108 @@ public class NewClassSessionController implements Initializable{
 
         secondHourDates.clear();
         choiceDates.getItems().clear();
+        classDateList.clear();
         classDates.clear();
+        classDateList.clear();
 
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
             DayOfWeek dayOfWeek = DayOfWeek.from(date);
+
             if ((checkMonday.isSelected()) && (dayOfWeek.getValue() == 1)) {
+                ClassDate classDate = new ClassDate();
                 classDates.add(date);
+                classDate.setDate(date);
 
                 if (secondHourMonday.isSelected()){
                     SecondHourDate secondHourDate = new SecondHourDate(date, true);
                     secondHourDates.add(secondHourDate);
+                    classDate.setSecondHour(true);
                 }
+
+                classDateList.add(classDate);
             }
             if ((checkTuesday.isSelected()) && (dayOfWeek.getValue() == 2)) {
+                ClassDate classDate = new ClassDate();
                 classDates.add(date);
+                classDate.setDate(date);
 
                 if (secondHourTuesday.isSelected()){
                     SecondHourDate secondHourDate = new SecondHourDate(date, true);
                     secondHourDates.add(secondHourDate);
+                    classDate.setSecondHour(true);
                 }
+
+                classDateList.add(classDate);
             }
             if ((checkWednesday.isSelected()) && (dayOfWeek.getValue() == 3)) {
+                ClassDate classDate = new ClassDate();
                 classDates.add(date);
+                classDate.setDate(date);
 
                 if (secondHourWednesday.isSelected()){
                     SecondHourDate secondHourDate = new SecondHourDate(date, true);
                     secondHourDates.add(secondHourDate);
+                    classDate.setSecondHour(true);
                 }
+
+                classDateList.add(classDate);
             }
             if ((checkThursday.isSelected()) && (dayOfWeek.getValue() == 4)) {
+                ClassDate classDate = new ClassDate();
                 classDates.add(date);
+                classDate.setDate(date);
 
                 if (secondHourThursday.isSelected()){
                     SecondHourDate secondHourDate = new SecondHourDate(date, true);
                     secondHourDates.add(secondHourDate);
+                    classDate.setSecondHour(true);
                 }
+
+                classDateList.add(classDate);
             }
             if ((checkFriday.isSelected()) && (dayOfWeek.getValue() == 5)) {
+                ClassDate classDate = new ClassDate();
                 classDates.add(date);
+                classDate.setDate(date);
 
                 if (secondHourFriday.isSelected()){
                     SecondHourDate secondHourDate = new SecondHourDate(date, true);
                     secondHourDates.add(secondHourDate);
+                    classDate.setSecondHour(true);
                 }
+
+                classDateList.add(classDate);
             }
             if ((checkSaturday.isSelected()) && (dayOfWeek.getValue() == 6)) {
+                ClassDate classDate = new ClassDate();
                 classDates.add(date);
+                classDate.setDate(date);
 
                 if (secondHourSaturday.isSelected()){
                     SecondHourDate secondHourDate = new SecondHourDate(date, true);
                     secondHourDates.add(secondHourDate);
+                    classDate.setSecondHour(true);
                 }
+
+                classDateList.add(classDate);
             }
 
             choiceDates.getItems().clear();
             choiceDates.getItems().addAll(classDates);
+        }
+    }
+
+    @FXML
+    private void pressCancel(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Exit? (all changed data will be lost)");
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if (action.get() == ButtonType.OK){
+            Stage stage = (Stage) btnCancel.getScene().getWindow();
+            stage.close();
         }
     }
 
@@ -262,6 +414,14 @@ public class NewClassSessionController implements Initializable{
         pickerEndDate.setPromptText("end date");
         pickerSpecificDate.setValue(null);
         pickerSpecificDate.setPromptText("specific date");
+    }
+
+    public boolean isNewSession() {
+        return isNewSession;
+    }
+
+    public void setNewSession(boolean newSession) {
+        isNewSession = newSession;
     }
 
     public void changeMonday(){

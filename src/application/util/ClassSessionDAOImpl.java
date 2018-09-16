@@ -195,25 +195,49 @@ public class ClassSessionDAOImpl {
         return classSessions;
     }
 
-    public void delete(String inventoryId) {
-
-    }
-
-    public void update(Inventory inventory, int itemId) {
+    public void deleteById(int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE inventory SET " +
-                    "item_id = ?, produced = ?, sold = ?, produced_cost = ?, sales_cost = ?, quantity = ? WHERE item_id = ?");
-            preparedStatement.setInt(1, itemId);
-            preparedStatement.setInt(2, inventory.getProduced());
-            preparedStatement.setInt(3, inventory.getSold());
-            preparedStatement.setBigDecimal(4, inventory.getProducedCost());
-            preparedStatement.setBigDecimal(5, inventory.getSalesCost());
-            preparedStatement.setInt(6, inventory.getQuantity());
-            preparedStatement.setInt(7, itemId);
+            preparedStatement = connection.prepareStatement("DELETE FROM class_session WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void update(ClassSession classSession, int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE class_session SET " +
+                    "location = ?, start_date = ?, end_date = ? WHERE id = ?");
+            preparedStatement.setString(1, classSession.getLocation());
+            preparedStatement.setDate(2, Date.valueOf(classSession.getStartDate()));
+            preparedStatement.setDate(3, Date.valueOf(classSession.getEndDate()));
+            preparedStatement.setInt(4, id);
             preparedStatement.executeUpdate();
 
 
