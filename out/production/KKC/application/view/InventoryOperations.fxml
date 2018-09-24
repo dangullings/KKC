@@ -41,9 +41,9 @@
                 </TableView>
             </center>
             <right>
-                <VBox prefHeight="529.0" prefWidth="119.0" spacing="5.0" BorderPane.alignment="CENTER">
+                <VBox prefHeight="486.0" prefWidth="193.0" spacing="5.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="btnNewItem" mnemonicParsing="false" onAction="#pressNewItem" prefHeight="175.0" prefWidth="120.0" text="New Item" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                        <Button fx:id="btnNewItem" mnemonicParsing="false" onAction="#pressNewItem" prefHeight="145.0" prefWidth="188.0" text="New Item" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -52,7 +52,7 @@
                                 </ImageView>
                             </graphic></Button>
                         <Separator prefWidth="200.0" />
-                        <Button fx:id="btnItemDetail" mnemonicParsing="false" onAction="#pressItemDetail" prefHeight="175.0" prefWidth="120.0" text="Item Detail" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="btnItemDetail" mnemonicParsing="false" onAction="#pressItemDetail" prefHeight="145.0" prefWidth="188.0" text="Item Detail" textAlignment="CENTER" wrapText="true">
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -61,7 +61,7 @@
                                 </ImageView>
                             </graphic></Button>
                         <Separator prefWidth="200.0" />
-                        <Button fx:id="btnEditItem" mnemonicParsing="false" onAction="#pressEditItem" prefHeight="175.0" prefWidth="120.0" text="Edit Item" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="btnEditItem" mnemonicParsing="false" onAction="#pressEditItem" prefHeight="145.0" prefWidth="188.0" text="Edit Item" textAlignment="CENTER" wrapText="true">
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -70,7 +70,7 @@
                                 </ImageView>
                             </graphic></Button>
                         <Separator prefWidth="200.0" />
-                        <Button fx:id="btnRemoveItem" mnemonicParsing="false" prefHeight="175.0" prefWidth="120.0" text="Remove Item" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="btnRemoveItem" mnemonicParsing="false" prefHeight="145.0" prefWidth="188.0" text="Remove Item" textAlignment="CENTER" wrapText="true">
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

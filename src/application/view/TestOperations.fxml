@@ -16,9 +16,9 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="15.0">
          <right>
-            <VBox prefHeight="529.0" prefWidth="119.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="543.0" prefWidth="193.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnNewTest" mnemonicParsing="false" onAction="#pressNewTest" prefHeight="110.0" prefWidth="119.0" text="New Test" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnNewTest" mnemonicParsing="false" onAction="#pressNewTest" prefHeight="145.0" prefWidth="188.0" text="New Test" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -27,7 +27,17 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnEditTest" mnemonicParsing="false" onAction="#pressEditTest" prefHeight="110.0" prefWidth="119.0" text="Edit Test" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnTestDetail" mnemonicParsing="false" onAction="#pressTestDetail" prefHeight="145.0" prefWidth="188.0" text="Test Detail" textAlignment="CENTER" wrapText="true">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/detail.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator prefWidth="200.0" />
+                  <Button fx:id="btnEditTest" mnemonicParsing="false" onAction="#pressEditTest" prefHeight="145.0" prefWidth="188.0" text="Edit Test" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -36,7 +46,7 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnRemoveTest" mnemonicParsing="false" onAction="#pressRemoveTest" prefHeight="110.0" prefWidth="119.0" text="Remove Test" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnRemoveTest" mnemonicParsing="false" onAction="#pressRemoveTest" prefHeight="145.0" prefWidth="188.0" text="Remove Test" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>

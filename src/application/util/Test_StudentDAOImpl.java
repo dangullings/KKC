@@ -183,6 +183,7 @@ public class Test_StudentDAOImpl {
                 student.setEmail(resultSet.getString("email"));
                 student.setNumber(resultSet.getString("number"));
                 student.setBirthDate(resultSet.getDate("birthdate"));
+                student.setActive(resultSet.getBoolean("active"));
                 student.setRankValue(Main.Ranks.indexOf(student.getRankName()));
 
                 students.add(student);

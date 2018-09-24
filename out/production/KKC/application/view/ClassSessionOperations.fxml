@@ -14,11 +14,11 @@
 
 <AnchorPane prefHeight="598.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ClassSessionController">
    <children>
-      <BorderPane prefHeight="598.0" prefWidth="853.0">
+      <BorderPane prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="15.0">
          <right>
-            <VBox prefHeight="529.0" prefWidth="119.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="533.0" prefWidth="196.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnNewSession" mnemonicParsing="false" onAction="#pressNewSession" prefHeight="175.0" prefWidth="120.0" text="New Session" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                  <Button fx:id="btnNewSession" mnemonicParsing="false" onAction="#pressNewSession" prefHeight="145.0" prefWidth="188.0" text="New Session" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -27,7 +27,7 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnEditSession" mnemonicParsing="false" onAction="#pressEditSession" prefHeight="175.0" prefWidth="120.0" text="Edit Session" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnEditSession" mnemonicParsing="false" onAction="#pressEditSession" prefHeight="145.0" prefWidth="188.0" text="Edit Session" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -36,7 +36,7 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnRemoveSession" mnemonicParsing="false" onAction="#pressRemoveSession" prefHeight="175.0" prefWidth="120.0" text="Remove Session" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnRemoveSession" mnemonicParsing="false" onAction="#pressRemoveSession" prefHeight="145.0" prefWidth="188.0" text="Remove Session" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>

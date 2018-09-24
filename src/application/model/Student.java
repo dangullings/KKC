@@ -338,7 +338,7 @@ public class Student implements Comparable<Student>{
         }
     }
 
-    public class TestView{
+    public static class TestView{
 
         private int testId;
         private int rankValue;

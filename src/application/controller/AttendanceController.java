@@ -55,6 +55,9 @@ public class AttendanceController implements Initializable{
     private GridPane grid;
 
     @FXML
+    AnchorPane scrollPaneAnchor;
+
+    @FXML
     ScrollPane scrollPane;
 
     @FXML
@@ -67,9 +70,8 @@ public class AttendanceController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        scrollPane.setMaxSize(880, 640);
-        scrollPane.setMinSize(880, 640);
-        scrollPane.setPrefSize(880, 640);
+        scrollPaneAnchor.setStyle("-fx-background-color: #e0e0e0");
+        scrollPane.setStyle("-fx-background-color: #ffffff");
         init();
     }
 
@@ -267,6 +269,10 @@ public class AttendanceController implements Initializable{
         }
 
         private void doEvent(){
+            if (classDate.getDate().isAfter(LocalDate.now())){
+                return;
+            }
+
             double v = 30;
             double k = 5;
 

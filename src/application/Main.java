@@ -3,6 +3,7 @@ package application;
 import application.model.User;
 import application.util.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;

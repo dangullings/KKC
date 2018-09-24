@@ -16,7 +16,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="itmClose" mnemonicParsing="false" onAction="#pressCloseProgram" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Options">
@@ -68,7 +68,7 @@
               <Tab fx:id="items" text="Inventory">
                   <fx:include fx:id="itemsOperations" source="InventoryOperations.fxml" />
               </Tab>
-            <Tab fx:id="classes" text="Classes">
+            <Tab fx:id="classes" text="Sessions">
                 <fx:include fx:id="classOperations" source="ClassSessionOperations.fxml" />
             </Tab>
               <Tab fx:id="events" text="Attendance">

@@ -1,17 +1,25 @@
 package application.controller;
 
+import application.Main;
 import application.model.Student;
 import application.model.Test;
 import application.model.Test_Student;
 import application.util.StudentDAOImpl;
+import application.util.TestDAOImpl;
 import application.util.Test_StudentDAOImpl;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -29,9 +37,9 @@ public class StudentDetailController implements Initializable {
     @FXML ToggleButton toggleActive;
 
     private Student student;
+    private Test test;
 
     public void initData(Student student) {
-        this.student = new Student();
         this.student = student;
 
         Test_StudentDAOImpl t_sdi = new Test_StudentDAOImpl();
@@ -104,6 +112,30 @@ public class StudentDetailController implements Initializable {
         colDate.setSortType(TableColumn.SortType.DESCENDING);
         studentTestsTable.getSortOrder().setAll(colDate);
 
+        studentTestsTable.setRowFactory( tv -> {
+            TableRow<Student.TestView> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Student.TestView rowData = row.getItem();
+                    loadTestDetail(rowData.getTestId());
+                }
+            });
+            return row ;
+        });
+
+        if (test != null) {
+            Student.TestView focusTest = new Student.TestView();
+
+            for (Student.TestView testView : student.getObservableTestViews()) {
+                if (testView.getTestId() == test.getId()) {
+                    focusTest = testView;
+                    break;
+                }
+            }
+
+            studentTestsTable.getSelectionModel().select(focusTest);
+        }
+
         lblName.setText(student.getFirstName() + " " + student.getLastName());
         lblDOB.setText("DOB: " + student.getBirthDate().toString());
         lblRank.setText("Rank: " + student.getRankName());
@@ -123,6 +155,31 @@ public class StudentDetailController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    private void loadTestDetail(int testId){
+        TestDAOImpl testDAO = new TestDAOImpl();
+        test = testDAO.selectById(testId);
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/TestDetail.fxml"));
+        try {
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Test Detail");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene((Pane) loader.load()));
+            TestDetailController controller = loader.<TestDetailController>getController();
+            controller.setStudent(student);
+            controller.initData(test);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setTest(Test test){
+        this.test = test;
     }
 
     public void pressOk(){

@@ -50,6 +50,7 @@ public class TestController implements Initializable {
     @FXML private TextField txtNumber;
 
     @FXML private Button btnNewTest;
+    @FXML private Button btnTestDetail;
     @FXML private Button btnEditTest;
     @FXML private Button btnRemoveTest;
 
@@ -94,6 +95,32 @@ public class TestController implements Initializable {
             stage.setTitle("New Test");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void pressTestDetail(){
+        Test testSelected;
+        testSelected = testTable.getSelectionModel().getSelectedItem();
+
+        if (testSelected == null) {
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/TestDetail.fxml"));
+        try {
+            Parent root1 = (Parent) loader.load();
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Test Detail");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root1));
+            TestDetailController controller = loader.<TestDetailController>getController();
+            controller.initData(testSelected);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -44,9 +44,9 @@
             </VBox>
          </center>
          <right>
-            <VBox prefHeight="530.0" prefWidth="119.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="530.0" prefWidth="193.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnNewOrder" mnemonicParsing="false" onAction="#pressNewOrder" prefHeight="109.0" prefWidth="119.0" text="New Order" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                  <Button fx:id="btnNewOrder" mnemonicParsing="false" onAction="#pressNewOrder" prefHeight="145.0" prefWidth="188.0" text="New Order" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -55,7 +55,7 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnEditOrder" mnemonicParsing="false" onAction="#pressEditOrder" prefHeight="114.0" prefWidth="119.0" text="Edit Order" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                  <Button fx:id="btnEditOrder" mnemonicParsing="false" onAction="#pressEditOrder" prefHeight="145.0" prefWidth="188.0" text="Edit Order" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -65,7 +65,7 @@
                      </graphic>
                   </Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnRemoveOrder" mnemonicParsing="false" onAction="#pressRemoveOrder" prefHeight="114.0" prefWidth="119.0" text="Remove Order" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnRemoveOrder" mnemonicParsing="false" onAction="#pressRemoveOrder" prefHeight="145.0" prefWidth="188.0" text="Remove Order" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -74,7 +74,7 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnOrderView" mnemonicParsing="false" onAction="#pressOrderView" prefHeight="118.0" prefWidth="119.0" text="View Transactions" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="btnOrderView" mnemonicParsing="false" onAction="#pressOrderView" prefHeight="145.0" prefWidth="188.0" text="View Transactions" textAlignment="CENTER" wrapText="true" />
                </children>
                <BorderPane.margin>
                   <Insets />

@@ -84,7 +84,7 @@ public class NewClassSessionController implements Initializable{
     List<LocalDate> classDates;
     List<SecondHourDate> secondHourDates;
 
-    private ArrayList<ClassDate> classDateListBeforeEdit;
+    private List<ClassDate> classDateListBeforeEdit;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -96,11 +96,10 @@ public class NewClassSessionController implements Initializable{
     }
 
     private void loadClassSessionData(ClassSession c){
-        classDateListBeforeEdit = new ArrayList<>();
         classSession = c;
 
         classDateList = classDateDAO.selectAllBySessionId(classSession.getId());
-        classDateListBeforeEdit.addAll(classDateList);
+        classDateListBeforeEdit = classDateDAO.selectAllBySessionId(classSession.getId());
 
         for (ClassDate classDate : classDateList){
             classDates.add(classDate.getDate());
