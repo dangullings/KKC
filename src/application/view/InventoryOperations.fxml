@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -38,6 +39,9 @@
                     <BorderPane.margin>
                         <Insets right="10.0" />
                     </BorderPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </TableView>
             </center>
             <right>
@@ -47,7 +51,7 @@
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/addstudent.png" />
+                                        <Image url="@../images/addinventory.png" />
                                     </image>
                                 </ImageView>
                             </graphic></Button>
@@ -56,7 +60,7 @@
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/detailstudent.png" />
+                                        <Image url="@../images/detailinventory.png" />
                                     </image>
                                 </ImageView>
                             </graphic></Button>
@@ -65,7 +69,7 @@
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/editstudent.png" />
+                                        <Image url="@../images/editinventory.png" />
                                     </image>
                                 </ImageView>
                             </graphic></Button>
@@ -74,7 +78,7 @@
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/removestudent.png" />
+                                        <Image url="@../images/removeinventory.png" />
                                     </image>
                                 </ImageView>
                             </graphic></Button>

@@ -107,6 +107,7 @@ public class StudentDAOImpl {
                 student.setBirthDate(resultSet.getDate("birthdate"));
                 student.setActive(resultSet.getBoolean("active"));
                 student.setRankValue(Main.Ranks.indexOf(student.getRankName()));
+                student.setRankNameRounded();
             }
 
         } catch (Exception e){
@@ -163,6 +164,7 @@ public class StudentDAOImpl {
                 student.setBirthDate(resultSet.getDate("birthdate"));
                 student.setActive(resultSet.getBoolean("active"));
                 student.setRankValue(Main.Ranks.indexOf(student.getRankName()));
+                student.setRankNameRounded();
 
                 students.add(student);
             }
@@ -221,6 +223,7 @@ public class StudentDAOImpl {
                 student.setBirthDate(resultSet.getDate("birthdate"));
                 student.setActive(resultSet.getBoolean("active"));
                 student.setRankValue(Main.Ranks.indexOf(student.getRankName()));
+                student.setRankNameRounded();
 
                 students.add(student);
             }

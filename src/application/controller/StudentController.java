@@ -70,7 +70,7 @@ public class StudentController implements Initializable{
 
         TableColumn<Student, String> colRank = new TableColumn<>("Rank");
         colRank.setMinWidth(100);
-        colRank.setCellValueFactory(new PropertyValueFactory<>("rankName"));
+        colRank.setCellValueFactory(new PropertyValueFactory<>("rankNameRounded"));
 
         TableColumn<Student, String> colClub = new TableColumn<>("Club");
         colClub.setMinWidth(100);
@@ -94,6 +94,7 @@ public class StudentController implements Initializable{
         colBirthdate.setMinWidth(100);
         colBirthdate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 
+        /*
         colFirstName.setCellFactory(TextFieldTableCell.forTableColumn());
         colFirstName.setOnEditCommit(
                 (TableColumn.CellEditEvent<Student, String> t) ->
@@ -101,30 +102,7 @@ public class StudentController implements Initializable{
                                 t.getTablePosition().getRow())
                         ).updateFirstName(t.getNewValue())
         );
-
-        colLastName.setCellFactory(TextFieldTableCell.forTableColumn());
-        colLastName.setOnEditCommit(
-                (TableColumn.CellEditEvent<Student, String> t) ->
-                        ( t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        ).updateLastName(t.getNewValue())
-        );
-
-        colEmail.setCellFactory(TextFieldTableCell.forTableColumn());
-        colEmail.setOnEditCommit(
-                (TableColumn.CellEditEvent<Student, String> t) ->
-                        ( t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        ).updateEmail(t.getNewValue())
-        );
-
-        colNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-        colNumber.setOnEditCommit(
-                (TableColumn.CellEditEvent<Student, String> t) ->
-                        ( t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        ).updateNumber(t.getNewValue())
-        );
+        */
 
         studentTable.setItems(students);
 

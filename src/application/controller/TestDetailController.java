@@ -101,6 +101,7 @@ public class TestDetailController implements Initializable {
             }
 
             studentTable.getSelectionModel().select(focusStudent);
+            studentTable.scrollTo(focusStudent);
         }
 
         lblTest.setText("Test Detail");

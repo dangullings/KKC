@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -45,7 +46,10 @@
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font></Label>
-                  <ComboBox fx:id="choiceLocation" onAction="#changeLocation" prefWidth="150.0" promptText="Location" />
+                  <ComboBox fx:id="choiceLocation" onAction="#changeLocation" prefWidth="150.0" promptText="Location">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ComboBox>
                   <Label text="Select Start and End Dates">
                      <VBox.margin>
                         <Insets top="15.0" />
@@ -98,7 +102,10 @@
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Label>
-                        <ComboBox fx:id="choiceDates" prefWidth="150.0" promptText="Dates" />
+                        <ComboBox fx:id="choiceDates" prefWidth="150.0" promptText="Dates">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></ComboBox>
                         <Button fx:id="btnRemoveDate" mnemonicParsing="false" onAction="#pressRemoveDate" text="Remove Date" />
                      </children>
                      <VBox.margin>

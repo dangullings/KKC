@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
@@ -11,24 +12,30 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AttendanceController">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+      <BorderPane AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <right>
             <VBox prefHeight="522.0" prefWidth="79.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Year">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="System Bold Italic" size="18.0" />
                      </font></Label>
-                  <Spinner fx:id="spinnerYear" onMouseClicked="#changeYear" prefHeight="25.0" prefWidth="79.0" />
+                  <Spinner fx:id="spinnerYear" onMouseClicked="#changeYear" prefHeight="25.0" prefWidth="79.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Spinner>
                   <Label text="Month">
                      <padding>
                         <Insets top="10.0" />
                      </padding>
                      <font>
-                        <Font size="16.0" />
+                        <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Spinner fx:id="spinnerMonth" onMouseClicked="#changeMonth" prefHeight="25.0" prefWidth="79.0" />
+                  <Spinner fx:id="spinnerMonth" onMouseClicked="#changeMonth" prefHeight="25.0" prefWidth="79.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Spinner>
                </children>
                <BorderPane.margin>
                   <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
@@ -36,19 +43,19 @@
             </VBox>
          </right>
          <top>
-            <Label text="Attendance" BorderPane.alignment="CENTER_LEFT">
+            <Label fx:id="lblHeader" text="Attendance" BorderPane.alignment="CENTER_LEFT">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
          </top>
-         <padding>
-            <Insets bottom="10.0" left="10.0" top="10.0" />
-         </padding>
          <center>
             <AnchorPane fx:id="scrollPaneAnchor" prefHeight="525.0" prefWidth="699.0" BorderPane.alignment="CENTER">
                <children>
-                  <ScrollPane fx:id="scrollPane" prefHeight="527.0" prefWidth="738.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                  <ScrollPane fx:id="scrollPane" prefHeight="527.0" prefWidth="738.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ScrollPane>
                </children>
             </AnchorPane>
          </center>

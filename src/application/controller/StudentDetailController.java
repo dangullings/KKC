@@ -134,11 +134,24 @@ public class StudentDetailController implements Initializable {
             }
 
             studentTestsTable.getSelectionModel().select(focusTest);
+            studentTestsTable.scrollTo(focusTest);
         }
 
         lblName.setText(student.getFirstName() + " " + student.getLastName());
         lblDOB.setText("DOB: " + student.getBirthDate().toString());
-        lblRank.setText("Rank: " + student.getRankName());
+
+        String rankDetail = "";
+        if (student.getRankValue() == 11){
+            rankDetail = "[" + student.getRankName() + "]";
+        } else if ((student.getRankValue() >= 13) && (student.getRankValue() < 15)){
+            rankDetail = "[" + student.getRankName() + "]";
+        } else if ((student.getRankValue() >= 16) && (student.getRankValue() < 19)){
+            rankDetail = "[" + student.getRankName() + "]";
+        } else if ((student.getRankValue() >= 20) && (student.getRankValue() < 24)){
+            rankDetail = "[" + student.getRankName() + "]";
+        }
+
+        lblRank.setText("Rank: " + student.getRankNameRounded() + " " + rankDetail);
         lblClub.setText("Club: " + student.getClub());
         lblNumber.setText("Phone Number: " + student.getNumber());
         lblEmail.setText("Email: " + student.getEmail());

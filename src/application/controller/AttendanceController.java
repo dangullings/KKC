@@ -14,6 +14,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -53,6 +54,8 @@ public class AttendanceController implements Initializable{
     private int year;
 
     private GridPane grid;
+
+    @FXML Label lblHeader;
 
     @FXML
     AnchorPane scrollPaneAnchor;
@@ -186,6 +189,7 @@ public class AttendanceController implements Initializable{
                     cellItem1.setMaxSize(25,20);
 
                     Line line = new Line();
+                    line.setStrokeWidth(2);
                     line.setStartX(38.0f);
                     line.setStartY(0.0f);
                     line.setEndX(0.0f);
@@ -227,6 +231,12 @@ public class AttendanceController implements Initializable{
             classDate.setLocation(classSessionDAO.selectById(classDate.getSessionId()).getLocation());
         }
 
+        if (!classDates.isEmpty()) {
+            lblHeader.setText("Attendance for " + classDates.get(0).getDate().getMonth() + " " + classDates.get(0).getDate().getYear());
+        }else{
+            lblHeader.setText("Attendance");
+        }
+
         setupGrid();
     }
 
@@ -247,6 +257,8 @@ public class AttendanceController implements Initializable{
         boolean isSecondHourItem;
         int col;
         int row;
+        String style;
+        String highlightStyle;
         ClassDate classDate;
         Student student;
         Attendance attendance;
@@ -260,12 +272,35 @@ public class AttendanceController implements Initializable{
             this.classDate = classDate;
             this.student = student;
             this.attendance = attendance;
+            this.style = this.getStyle();
+            this.highlightStyle = this.getStyle() + " -fx-background-color:#C8AE01;";
 
             loadMark();
+
+            //setOnMouseMoved(e -> {
+            //    doMoveEvent();
+            //});
 
             setOnMouseClicked(e -> {
                 doEvent();
             });
+        }
+
+        private void doMoveEvent(){
+            for (Node node : grid.getChildren()) {
+                node.setOnMouseEntered(e -> grid.getChildren().forEach(c -> {
+                    Integer targetIndex = GridPane.getColumnIndex(node);
+                    if (GridPane.getColumnIndex(c) == targetIndex) {
+                        c.setStyle(highlightStyle);
+                    }
+                }));
+                node.setOnMouseExited(e -> grid.getChildren().forEach(c -> {
+                    Integer targetIndex = GridPane.getColumnIndex(node);
+                    if (GridPane.getColumnIndex(c) == targetIndex) {
+                        c.setStyle(style);
+                    }
+                }));
+            }
         }
 
         private void doEvent(){

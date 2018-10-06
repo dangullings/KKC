@@ -21,6 +21,7 @@ public class Student implements Comparable<Student>{
     private String lastName;
     private int rankValue;
     private String rankName;
+    private String rankNameRounded;
     private String club;
     private String email;
     private String number;
@@ -134,6 +135,10 @@ public class Student implements Comparable<Student>{
         return age;
     }
 
+    public String getRankNameRounded() { return rankNameRounded; }
+
+    public void setRankNameRounded(String rankNameRounded) { this.rankNameRounded = rankNameRounded; }
+
     public String getEmail() {
         return email;
     }
@@ -159,9 +164,9 @@ public class Student implements Comparable<Student>{
     public String getStyleLight(){
         String style;
         switch (rankValue) {
-            case 0:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #FEF78F; -fx-font-size: 16;"; // gold #C8AE01
+            case 0:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #ffef99; -fx-font-size: 16;"; // gold #ffef99
                 break;
-            case 1:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #FEF78F; -fx-font-size: 16;"; // gold #C8AE01
+            case 1:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #ffef99; -fx-font-size: 16;"; // gold #ffef99
                 break;
             case 2:  style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #97FE8F; -fx-font-size: 16;"; // green #147800
                 break;
@@ -179,7 +184,7 @@ public class Student implements Comparable<Student>{
                 break;
             case 9: style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #FE9191; -fx-font-size: 16;"; // red #E30101
                 break;
-            default: style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #878787; -fx-font-size: 16;"; // black
+            default: style = "-fx-font-color: black; -fx-border-color: black; -fx-background-color: #d3d3d3; -fx-font-size: 16;"; // black
                 break;
         }
 
@@ -189,9 +194,9 @@ public class Student implements Comparable<Student>{
     public String getStyleDark(){
         String style;
         switch (rankValue) {
-            case 0:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #C8AE01; -fx-font-size: 16;"; // gold #C8AE01
+            case 0:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #FFD700; -fx-font-size: 16;"; // gold #C8AE01
                 break;
-            case 1:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #C8AE01; -fx-font-size: 16;"; // gold #C8AE01
+            case 1:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #FFD700; -fx-font-size: 16;"; // gold #C8AE01
                 break;
             case 2:  style = "-fx-font-color: black; -fx-font-weight: bold; -fx-border-color: black; -fx-background-color: #147800; -fx-font-size: 16;"; // green #147800
                 break;
@@ -220,21 +225,19 @@ public class Student implements Comparable<Student>{
         return rankName;
     }
 
-    public String getRankNameRounded() {
-        String name = null;
-
-        if ((rankValue >= 11) && (rankValue <= 12)){
-            name = "1st Degree";
-        }else if ((rankValue >= 13) && (rankValue <= 15)){
-            name = "2nd Degree";
-        }else if ((rankValue >= 16) && (rankValue <= 19)){
-            name = "3rd Degree";
-        }else if ((rankValue >= 20) && (rankValue <= 24)){
-            name = "4th Degree";
-        }else if ((rankValue >= 25) && (rankValue <= 30)){
-            name = "5th Degree";
+    public void setRankNameRounded() {
+        rankNameRounded = rankName;
+        if (rankValue == 11){
+            rankNameRounded = "1st Degree";
+        }else if ((rankValue >= 13) && (rankValue < 15)){
+            rankNameRounded = "2nd Degree";
+        }else if ((rankValue >= 16) && (rankValue < 19)){
+            rankNameRounded = "3rd Degree";
+        }else if ((rankValue >= 20) && (rankValue < 24)){
+            rankNameRounded = "4th Degree";
+        }else if ((rankValue >= 25) && (rankValue < 30)){
+            rankNameRounded = "5th Degree";
         }
-            return name;
     }
 
     public void setRankName(String rankName) {

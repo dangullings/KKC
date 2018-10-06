@@ -1,6 +1,6 @@
 package application.controller;
 
-import application.CLUB;
+import application.LOCATION;
 import application.Main;
 import application.model.Student;
 import application.util.StudentDAOImpl;
@@ -32,7 +32,7 @@ public class NewStudentController implements Initializable {
     private Student student;
     private boolean isNewStudent;
 
-    @FXML ComboBox<CLUB> cboClub = new ComboBox<>();
+    @FXML ComboBox<LOCATION> cboClub = new ComboBox<>();
     @FXML ComboBox<String> cboRank = new ComboBox<>();
     @FXML private TextField txtFirstName;
     @FXML private TextField txtLastName;
@@ -100,8 +100,11 @@ public class NewStudentController implements Initializable {
             }
         });
 
-        cboClub.getItems().addAll(CLUB.values());
-        cboClub.setValue(CLUB.Waconia);
+        cboClub.getItems().addAll(LOCATION.values());
+        cboClub.setValue(LOCATION.Waconia);
+
+        LocalDate initDate = LocalDate.now().minusYears(6);
+        datePickerDOB.setValue(initDate);
     }
 
     private void loadStudentData(Student s){
@@ -113,7 +116,7 @@ public class NewStudentController implements Initializable {
         txtEmail.setText(student.getEmail());
         txtNumber.setText(stripPhoneNumber(student.getNumber()));
         cboRank.setValue(Main.Ranks.get(student.getRankValue()));
-        cboClub.setValue(CLUB.valueOf(student.getClub()));
+        cboClub.setValue(LOCATION.valueOf(student.getClub()));
         datePickerDOB.setValue(student.getBirthDate());
 
         setNewStudent(false);

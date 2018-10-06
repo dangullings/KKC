@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -38,9 +40,9 @@
               <Tab fx:id="students" text="Students">
                   <fx:include fx:id="studentOperations" source="StudentOperations.fxml" />
                <graphic>
-                  <ImageView fitHeight="17.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="21.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/students.png" />
+                        <Image url="@../images/student.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -58,7 +60,7 @@
               <Tab fx:id="finances" text="Orders/Transactions">
                   <fx:include fx:id="financeOperations" source="TransactionOperations.fxml" />
                   <graphic>
-                      <ImageView fitHeight="17.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fitHeight="21.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                           <image>
                               <Image url="@../images/orders.png" />
                           </image>
@@ -67,15 +69,42 @@
               </Tab>
               <Tab fx:id="items" text="Inventory">
                   <fx:include fx:id="itemsOperations" source="InventoryOperations.fxml" />
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/inventory.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
               </Tab>
             <Tab fx:id="classes" text="Sessions">
                 <fx:include fx:id="classOperations" source="ClassSessionOperations.fxml" />
+               <graphic>
+                  <ImageView fitHeight="79.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Session.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Tab>
               <Tab fx:id="events" text="Attendance">
                   <fx:include fx:id="eventOperations" source="AttendanceOperations.fxml" />
+               <graphic>
+                  <ImageView fitHeight="76.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/attendance.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
               </Tab>
 
           </tabs>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
       </TabPane>
    </center>
    <bottom>
