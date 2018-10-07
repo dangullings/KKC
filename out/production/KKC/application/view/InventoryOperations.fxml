@@ -47,41 +47,53 @@
             <right>
                 <VBox prefHeight="486.0" prefWidth="193.0" spacing="5.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="btnNewItem" mnemonicParsing="false" onAction="#pressNewItem" prefHeight="145.0" prefWidth="188.0" text="New Item" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                        <Button fx:id="btnNewItem" mnemonicParsing="false" onAction="#pressNewItem" prefHeight="145.0" prefWidth="188.0" text="New   " textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                             <graphic>
-                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/addinventory.png" />
+                                        <Image url="@../images/newinventoryx.png" />
                                     </image>
                                 </ImageView>
-                            </graphic></Button>
+                            </graphic>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                         <Separator prefWidth="200.0" />
-                        <Button fx:id="btnItemDetail" mnemonicParsing="false" onAction="#pressItemDetail" prefHeight="145.0" prefWidth="188.0" text="Item Detail" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="btnItemDetail" mnemonicParsing="false" onAction="#pressItemDetail" prefHeight="145.0" prefWidth="188.0" text="Detail" textAlignment="CENTER" wrapText="true">
                             <graphic>
-                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/detailinventory.png" />
+                                        <Image url="@../images/detailinventoryx.png" />
                                     </image>
                                 </ImageView>
-                            </graphic></Button>
+                            </graphic>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                         <Separator prefWidth="200.0" />
-                        <Button fx:id="btnEditItem" mnemonicParsing="false" onAction="#pressEditItem" prefHeight="145.0" prefWidth="188.0" text="Edit Item" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="btnEditItem" mnemonicParsing="false" onAction="#pressEditItem" prefHeight="145.0" prefWidth="188.0" text="Edit  " textAlignment="CENTER" wrapText="true">
                             <graphic>
-                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/editinventory.png" />
+                                        <Image url="@../images/editinventoryx.png" />
                                     </image>
                                 </ImageView>
-                            </graphic></Button>
+                            </graphic>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                         <Separator prefWidth="200.0" />
-                        <Button fx:id="btnRemoveItem" mnemonicParsing="false" prefHeight="145.0" prefWidth="188.0" text="Remove Item" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="btnRemoveItem" mnemonicParsing="false" prefHeight="145.0" prefWidth="188.0" text="Remove" textAlignment="CENTER" wrapText="true">
                             <graphic>
-                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/removeinventory.png" />
+                                        <Image url="@../images/removeinventoryx.png" />
                                     </image>
                                 </ImageView>
-                            </graphic></Button>
+                            </graphic>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                     </children>
                     <BorderPane.margin>
                         <Insets />

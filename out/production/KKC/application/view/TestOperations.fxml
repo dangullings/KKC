@@ -20,19 +20,7 @@
          <right>
             <VBox prefHeight="543.0" prefWidth="193.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnNewTest" mnemonicParsing="false" onAction="#pressNewTest" prefHeight="145.0" prefWidth="188.0" text="New Test" textAlignment="CENTER" wrapText="true">
-                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/detail.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Button>
-                  <Separator prefWidth="200.0" />
-                  <Button fx:id="btnTestDetail" mnemonicParsing="false" onAction="#pressTestDetail" prefHeight="145.0" prefWidth="188.0" text="Test Detail" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnNewTest" mnemonicParsing="false" onAction="#pressNewTest" prefHeight="145.0" prefWidth="188.0" text="New" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -43,9 +31,27 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Separator prefWidth="200.0" />
+                  <Button fx:id="btnTestDetail" mnemonicParsing="false" onAction="#pressTestDetail" prefHeight="145.0" prefWidth="188.0" text="Detail" textAlignment="CENTER" wrapText="true">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/detail.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnEditTest" mnemonicParsing="false" onAction="#pressEditTest" prefHeight="145.0" prefWidth="188.0" text="Edit Test" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnEditTest" mnemonicParsing="false" onAction="#pressEditTest" prefHeight="145.0" prefWidth="188.0" text="Edit" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -55,9 +61,12 @@
                      </graphic>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnRemoveTest" mnemonicParsing="false" onAction="#pressRemoveTest" prefHeight="145.0" prefWidth="188.0" text="Remove Test" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnRemoveTest" mnemonicParsing="false" onAction="#pressRemoveTest" prefHeight="145.0" prefWidth="188.0" text="Remove" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -67,7 +76,10 @@
                      </graphic>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                </children>
                <BorderPane.margin>
                   <Insets />

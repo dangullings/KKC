@@ -52,58 +52,73 @@
          <right>
             <VBox prefHeight="486.0" prefWidth="195.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnNewStudent" mnemonicParsing="false" onAction="#pressNewStudent" prefHeight="145.0" prefWidth="188.0" text="New Student" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                  <Button fx:id="btnNewStudent" mnemonicParsing="false" onAction="#pressNewStudent" prefHeight="145.0" prefWidth="188.0" text="New   " textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/addstudent.png" />
+                              <Image url="@../images/newstudentx.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnStudentDetail" mnemonicParsing="false" onAction="#pressStudentDetail" prefHeight="145.0" prefWidth="188.0" text="Student Detail" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnStudentDetail" mnemonicParsing="false" onAction="#pressStudentDetail" prefHeight="145.0" prefWidth="188.0" text="Detail" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/detailstudent.png" />
+                              <Image url="@../images/detailstudentx.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#pressEditStudent" prefHeight="145.0" prefWidth="188.0" text="Edit Student" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#pressEditStudent" prefHeight="145.0" prefWidth="188.0" text="Edit  " textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/editstudent.png" />
+                              <Image url="@../images/editstudentx.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnRemoveStudent" mnemonicParsing="false" onAction="#pressRemove" prefHeight="145.0" prefWidth="190.0" text="Remove Student" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnRemoveStudent" mnemonicParsing="false" onAction="#pressRemove" prefHeight="145.0" prefWidth="190.0" text="Remove" textAlignment="CENTER" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/removestudent.png" />
+                              <Image url="@../images/deletestudentx.png" />
                            </image>
                         </ImageView>
                      </graphic>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                   <Separator prefWidth="200.0" />
                   <Button fx:id="btnActiveView" mnemonicParsing="false" onAction="#pressActiveView" prefHeight="145.0" prefWidth="190.0" text="View Inactive">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                </children>
                <BorderPane.margin>
                   <Insets />
