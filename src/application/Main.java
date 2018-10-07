@@ -58,20 +58,43 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        initDatabase();
+        createRankArray();
+
+        launch(args);
+    }
+
+    private static void initDatabase(){
+        DBUtil.createDatabase();
+
         Test_StudentDAOImpl test_studentDAO = new Test_StudentDAOImpl();
+        StudentDAOImpl studentDAO = new StudentDAOImpl();
         ItemDAOImpl itemDAO = new ItemDAOImpl();
         TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
         AttendanceDAOImpl attendanceDAO = new AttendanceDAOImpl();
         ClassSessionDAOImpl classSessionDAO = new ClassSessionDAOImpl();
         ClassDateDAOImpl classDateDAO = new ClassDateDAOImpl();
 
-        test_studentDAO.createTest_StudentTable();
+        UserDAO userDAO = new UserDAO();
+        userDAO.createUserTable();
+
+        User user = new User("admin", "password");
+
+        User tempUser = userDAO.getUserByCredential("admin", "password");
+        if (tempUser.getId() == -1){
+            userDAO.insert(user);
+        }
+
         itemDAO.createItemTable();
         transactionDAO.createTransactionTable();
         attendanceDAO.createAttendanceTable();
+        studentDAO.createStudentTable();
+        test_studentDAO.createTest_StudentTable();
         classSessionDAO.createClassSessionTable();
         classDateDAO.createClassTable();
+    }
 
+    private static void createRankArray(){
         Ranks = RankFill();
 
         Ranks.add("Gold Stripe");
@@ -99,8 +122,6 @@ public class Main extends Application {
         Ranks.add("3rd of 5th");
         Ranks.add("4th of 5th");
         Ranks.add("5th Degree");
-
-        launch(args);
     }
 
     private static ObservableList<String> RankFill() {

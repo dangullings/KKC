@@ -2,7 +2,7 @@ package application.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBUtil {
 
@@ -18,6 +18,21 @@ public class DBUtil {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(url, username, password);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return connection;
+    }
+
+    public static Connection createDatabase(){
+        Connection connection = null;
+
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/", username, password);
+            Statement statement = connection.createStatement();
+            int Result = statement.executeUpdate("CREATE DATABASE IF NOT EXISTS "+databaseName);
         } catch (Exception e){
             e.printStackTrace();
         }

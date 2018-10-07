@@ -61,22 +61,5 @@ public class LoginController implements Initializable {
                 e.printStackTrace();
             }
         }
-
-
-        //try {
-            //First, load root layout from RootLayout.fxml
-         //   FXMLLoader loader = new FXMLLoader();
-        //    loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
-        //    rootLayout = (BorderPane) loader.load();
-
-            //Second, show the scene containing the root layout.
-        //    Scene scene = new Scene(rootLayout, 1000, 800); //We are sending rootLayout to the Scene.
-        //    primaryStage.setScene(scene); //Set the scene in primary stage.
-
-            //Third, show the primary stage
-        //    primaryStage.show(); //Display the primary stage
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
     }
 }
