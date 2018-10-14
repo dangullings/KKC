@@ -3,7 +3,7 @@ package application.controller;
 import application.LOCATION;
 import application.Main;
 import application.model.Student;
-import application.util.StudentDAOImpl;
+import application.util.DAO.StudentDAOImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -17,6 +17,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static application.util.AlertUser.alertUser;
+
 public class NewStudentController implements Initializable {
 
     private static NewStudentController instance;
@@ -24,6 +26,8 @@ public class NewStudentController implements Initializable {
     public NewStudentController(){
         instance = this;
     }
+
+    private StudentDAOImpl studentDAO = new StudentDAOImpl();
 
     public static NewStudentController getInstance(){
         return instance;
@@ -34,20 +38,22 @@ public class NewStudentController implements Initializable {
 
     @FXML ComboBox<LOCATION> cboClub = new ComboBox<>();
     @FXML ComboBox<String> cboRank = new ComboBox<>();
-    @FXML private TextField txtFirstName;
-    @FXML private TextField txtLastName;
-    @FXML private TextField txtEmail;
-    @FXML private TextField txtNumber;
+    @FXML public TextField txtFirstName;
+    @FXML public TextField txtLastName;
+    @FXML public TextField txtEmail;
+    @FXML public TextField txtNumber;
     @FXML DatePicker datePickerDOB;
-    @FXML private Button btnSave;
-    @FXML private Button btnCancel;
+    @FXML public Button btnSave;
+    @FXML public Button btnCancel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setNewStudent(true);
-        cboRank.setItems(Main.Ranks);
-        cboRank.setValue(Main.Ranks.get(0));
+        setUIData();
+        addListeners();
+    }
 
+    private void addListeners(){
         txtEmail.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
@@ -99,10 +105,13 @@ public class NewStudentController implements Initializable {
                 }
             }
         });
+    }
 
+    private void setUIData(){
+        cboRank.setItems(Main.Ranks);
+        cboRank.setValue(Main.Ranks.get(0));
         cboClub.getItems().addAll(LOCATION.values());
         cboClub.setValue(LOCATION.Waconia);
-
         LocalDate initDate = LocalDate.now().minusYears(6);
         datePickerDOB.setValue(initDate);
     }
@@ -130,30 +139,18 @@ public class NewStudentController implements Initializable {
     }
 
     public void pressSave(){
-        StudentDAOImpl sdi = new StudentDAOImpl();
-
         if (validStudent()){
             if (isNewStudent){
                 Student student = new Student(txtFirstName.getText(), txtLastName.getText(), cboRank.getValue(), cboClub.getValue().name(), txtEmail.getText(), formatPhoneNumber(txtNumber.getText()), datePickerDOB.getValue());
                 this.student = student;
-                sdi.insert(student);
+                studentDAO.insert(student);
             }else{
-                student.setFirstName(txtFirstName.getText());
-                student.setLastName(txtLastName.getText());
-                student.setRankValue(Main.Ranks.indexOf(cboRank.getValue()));
-                student.setRankName(cboRank.getValue());
-                student.setClub(cboClub.getValue().name());
-                student.setEmail(txtEmail.getText());
-                student.setNumber(formatPhoneNumber(txtNumber.getText()));
-                student.setBirthDate(datePickerDOB.getValue());
+                setStudentInfo();
 
-                sdi.update(student, student.getId());
+                studentDAO.update(student, student.getId());
             }
 
-            txtFirstName.clear();
-            txtLastName.clear();
-            txtEmail.clear();
-            txtNumber.clear();
+            clearTextFields();
 
             if (StudentController.getInstance() != null) {
                 StudentController.getInstance().studentTableInsert(student);
@@ -168,27 +165,36 @@ public class NewStudentController implements Initializable {
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         }else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Invalid Student Information");
-            alert.setHeaderText(null);
-            alert.setContentText("Cannot save student. Please enter valid information.");
-            Optional<ButtonType> action = alert.showAndWait();
-
+            Optional<ButtonType> action = alertUser("Invalid Student Information", "Cannot save student. Please enter valid information.", Alert.AlertType.INFORMATION);
             if (action.get() == ButtonType.OK){ }
         }
     }
 
     public void pressCancel(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Exit? (all changed data will be lost)");
-        Optional<ButtonType> action = alert.showAndWait();
+        Optional<ButtonType> action = alertUser("Confirmation Dialog", "Exit? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         }
+    }
+
+    private void clearTextFields(){
+        txtFirstName.clear();
+        txtLastName.clear();
+        txtEmail.clear();
+        txtNumber.clear();
+    }
+
+    private void setStudentInfo(){
+        student.setFirstName(txtFirstName.getText());
+        student.setLastName(txtLastName.getText());
+        student.setRankValue(Main.Ranks.indexOf(cboRank.getValue()));
+        student.setRankName(cboRank.getValue());
+        student.setClub(cboClub.getValue().name());
+        student.setEmail(txtEmail.getText());
+        student.setNumber(formatPhoneNumber(txtNumber.getText()));
+        student.setBirthDate(datePickerDOB.getValue());
     }
 
     public void pressDOB(){

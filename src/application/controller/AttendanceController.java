@@ -2,12 +2,12 @@ package application.controller;
 
 import application.model.Attendance;
 import application.model.ClassDate;
-import application.model.ClassSession;
 import application.model.Student;
-import application.util.AttendanceDAOImpl;
-import application.util.ClassDateDAOImpl;
-import application.util.ClassSessionDAOImpl;
-import application.util.StudentDAOImpl;
+import application.util.DAO.AttendanceDAOImpl;
+import application.util.DAO.ClassDateDAOImpl;
+import application.util.DAO.ClassSessionDAOImpl;
+import application.util.DAO.StudentDAOImpl;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -137,6 +137,16 @@ public class AttendanceController implements Initializable{
             grid.getChildren().add(lblDate);
         }
 
+        Label lblTotal = new Label("Total");
+        lblTotal.setStyle(classDates.get(0).getStyle());
+        lblTotal.setAlignment(Pos.CENTER_RIGHT);
+        lblTotal.setMinWidth(Region.USE_PREF_SIZE);
+        lblTotal.setMaxWidth(Region.USE_PREF_SIZE);
+        GridPane.setFillHeight(lblTotal, true);
+        GridPane.setFillWidth(lblTotal, true);
+        GridPane.setConstraints(lblTotal, (classDates.size()+1), 0);
+        grid.getChildren().add(lblTotal);
+
         ColumnConstraints col1 = new ColumnConstraints(100,100, 100);
         col1.setHalignment(HPos.LEFT);
         col1.setHgrow(Priority.ALWAYS) ; // allow row to grow
@@ -157,9 +167,16 @@ public class AttendanceController implements Initializable{
         RowConstraints row = new RowConstraints(40,40, 40);
         row.setValignment(VPos.CENTER);
 
-        for (int i = 1; i < classDates.size()+1; i++){
+        for (int i = 1; i <= classDates.size()+1; i++){
             grid.getColumnConstraints().add(col);
+
             for (int j = 1; j < students.size()+1; j++){
+
+                if (i == (classDates.size()+1)){
+                    CellItem cellItem = new CellItem(false, false, false, i, j, classDates.get(i-2), students.get(j-1), null);
+                    grid.add(cellItem, i, j);
+                    continue;
+                }
 
                 HBox hbox = new HBox();
                 hbox.setPrefSize(10,10);
@@ -215,15 +232,54 @@ public class AttendanceController implements Initializable{
             }
         }
 
+        int studentTally = 0;
+        for (int i = 1; i < classDates.size()+1; i++) {
+            studentTally = 0;
+            for (int j = 1; j < students.size() + 1; j++) {
+                //if cellItems
+            }
+        }
+
+        for (CellItem cellItem : cellItems){
+            if (cellItem.attendance != null){
+                if (cellItem.attendance.isFirstHour())
+                    studentTally++;
+                if (cellItem.attendance.isSecondHour())
+                    studentTally++;
+            }
+        }
+
         scrollPane.setContent(grid);
     }
 
+    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
+        for (Node node : gridPane.getChildren()) {
+            if ((Label.class == node.getClass()) && (GridPane.getColumnIndex(node) == (classDates.size()+1))){
+                //Label lblTotal = (Label)node;
+                //lblTotal.setText("2");
+            }
+
+            //if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+            //    return node;
+            //}
+        }
+        return null;
+    }
+
     private void setupDates(){
+        AttendanceDAOImpl attendanceDAO = new AttendanceDAOImpl();
+
         LocalDate startDate = LocalDate.of(year, month, 1);
         int lastDay = startDate.lengthOfMonth();
         LocalDate endDate = LocalDate.of(year, month, lastDay);
 
         classDates = classDateDAO.selectAllByDate(startDate, endDate);
+
+        ArrayList<Attendance> attendances = new ArrayList<>();
+
+        for (ClassDate classDate : classDates){
+            attendances.addAll(attendanceDAO.selectAllByClassDateId(classDate.getId()));
+        }
 
         Collections.sort(classDates);
 
@@ -237,6 +293,26 @@ public class AttendanceController implements Initializable{
             lblHeader.setText("Attendance");
         }
 
+        students.clear();
+
+        ArrayList<Integer> studentIds = new ArrayList<>();
+        Student student;
+
+        if ((LocalDate.now().getYear() == year) && (LocalDate.now().getMonthValue() <= month)){
+            students = studentDAO.selectAllActive();
+        }else{
+            for (Attendance attendance : attendances){
+                student = studentDAO.selectById(attendance.getStudentId());
+                if (!studentIds.contains(student.getId())) {
+                    studentIds.add(student.getId());
+                    students.add(student);
+                }
+            }
+        }
+
+        Collections.sort(students);
+        Collections.reverse(students);
+
         setupGrid();
     }
 
@@ -248,6 +324,7 @@ public class AttendanceController implements Initializable{
     public void changeMonth(){
         month = spinnerMonth.getValue();
         setupDates();
+        getNodeFromGridPane(grid,classDates.size(),students.size());
     }
 
     public class CellItem extends Pane{
@@ -257,11 +334,13 @@ public class AttendanceController implements Initializable{
         boolean isSecondHourItem;
         int col;
         int row;
+        int total;
         String style;
         String highlightStyle;
         ClassDate classDate;
         Student student;
         Attendance attendance;
+        Label lblTotal;
 
         private CellItem(boolean isSecondHourItem, boolean isFirstHourSelected, boolean isSecondHourSelected, int col, int row, ClassDate classDate, Student student, Attendance attendance) {
             this.isSecondHourItem = isSecondHourItem;
@@ -274,6 +353,16 @@ public class AttendanceController implements Initializable{
             this.attendance = attendance;
             this.style = this.getStyle();
             this.highlightStyle = this.getStyle() + " -fx-background-color:#C8AE01;";
+
+            if (attendance == null) {
+                this.lblTotal = new Label();
+                lblTotal.setStyle("-fx-font-color: black; -fx-font-size: 28;");
+                lblTotal.setAlignment(Pos.CENTER);
+                lblTotal.setMinWidth(40);
+                //lblTotal.setMaxWidth(Region.USE_PREF_SIZE);
+                lblTotal.setText(""+total);
+                this.getChildren().add(lblTotal);
+            }
 
             loadMark();
 
@@ -307,6 +396,9 @@ public class AttendanceController implements Initializable{
             if (classDate.getDate().isAfter(LocalDate.now())){
                 return;
             }
+            if (col == classDates.size()+1){
+                return;
+            }
 
             double v = 30;
             double k = 5;
@@ -318,14 +410,17 @@ public class AttendanceController implements Initializable{
                 if (isSecondHourSelected()){
                     this.getChildren().clear();
                     setSecondHourSelected(false);
+                    total--;
                 }else{
                     drawMark(15, 0);
                     setSecondHourSelected(true);
+                    total++;
                 }
             }else{
                 if (isFirstHourSelected()){
                     this.getChildren().clear();
                     setFirstHourSelected(false);
+                    total--;
                 }else{
                     if (classDate.hasSecondHour()){
                         v = 15;
@@ -333,6 +428,7 @@ public class AttendanceController implements Initializable{
                     }
                     drawMark(v, k);
                     setFirstHourSelected(true);
+                    total++;
                 }
             }
 
@@ -349,6 +445,10 @@ public class AttendanceController implements Initializable{
         }
 
         private void loadMark(){
+            if (col == classDates.size()+1){
+                return;
+            }
+
             double v = 30;
             double k = 5;
 
@@ -357,6 +457,7 @@ public class AttendanceController implements Initializable{
                     this.getChildren().clear();
                 }else{
                     drawMark(15, 0);
+                    total++;
                 }
             }else{
                 if (!isFirstHourSelected){
@@ -367,6 +468,7 @@ public class AttendanceController implements Initializable{
                         k = 0;
                     }
                     drawMark(v, k);
+                    total++;
                 }
             }
         }

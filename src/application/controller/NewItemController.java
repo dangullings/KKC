@@ -2,8 +2,9 @@ package application.controller;
 
 import application.model.Inventory;
 import application.model.Item;
-import application.util.InventoryDAOImpl;
-import application.util.ItemDAOImpl;
+import application.util.AlertUser;
+import application.util.DAO.InventoryDAOImpl;
+import application.util.DAO.ItemDAOImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -55,29 +56,7 @@ public class NewItemController implements Initializable {
         newQuantity = 0;
         oldQuantity = 0;
 
-        itemDAO.createItemTable();
-
-        txtProduceCost.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String newValue) {
-
-                if (newValue.length() != oldValue.length()) {
-
-                }
-            }
-        });
-
-        txtSaleCost.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String newValue) {
-
-                if (newValue.length() != oldValue.length()) {
-                    //System.out.println(formatter.format(new BigDecimal(newValue)));
-                }
-            }
-        });
+        addUIListeners();
 
         SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 1);
         spinnerQty.setValueFactory(quantityValueFactory);
@@ -133,11 +112,7 @@ public class NewItemController implements Initializable {
     }
 
     public void pressCancel(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Exit item creation? (all data will be lost)");
-        Optional<ButtonType> action = alert.showAndWait();
+        Optional<ButtonType> action = AlertUser.alertUser("Confirmation Dialog", "Exit item creation? (all data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
             Stage stage = (Stage) btnCancel.getScene().getWindow();
@@ -167,6 +142,30 @@ public class NewItemController implements Initializable {
         this.item = item;
 
         loadItemData(item);
+    }
+
+    private void addUIListeners(){
+        txtProduceCost.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+
+                if (newValue.length() != oldValue.length()) {
+
+                }
+            }
+        });
+
+        txtSaleCost.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+
+                if (newValue.length() != oldValue.length()) {
+                    //System.out.println(formatter.format(new BigDecimal(newValue)));
+                }
+            }
+        });
     }
 
     public boolean isNewItem() {

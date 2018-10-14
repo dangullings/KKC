@@ -1,0 +1,56 @@
+title Program Sequence - (Create New Test)
+
+Teacher(USER)->LoginController: pressLogin()
+LoginController->RootController: loadPrimaryStage()
+RootController->TestController: initialize()
+Teacher(USER)->RootController: test tab select
+RootController->TestController: show
+Teacher(USER)->TestController: pressNewTest()
+TestController->StageLoader: loadStage()
+TestController->NewTestController: initData()
+NewTestController->StudentDAOImpl: StudentDAOImpl()
+StudentDAOImpl-->NewTestController: studentDAO
+NewTestController->TestDAOImpl: TestDAOImpl()
+TestDAOImpl-->NewTestController: testDAO
+NewTestController->TestStudentDAOImpl: TestStudentDAOImpl()
+TestStudentDAOImpl-->NewTestController: testStudentDAO
+NewTestController->Test: Test()
+Test-->NewTestController: test
+NewTestController->NewTestController: setNewTest(true)
+NewTestController->NewTestController: populateStudentTable()
+NewTestController->StudentDAOImpl: studentDAO.selectAllActiveObservable()
+StudentDAOImpl-->NewTestController: students
+NewTestController->NewTestController: resetUI()
+NewTestController->NewTestController: setUIListeners()
+Teacher(USER)->NewTestController: setDate
+Teacher(USER)->NewTestController: setType
+Teacher(USER)->NewTestController: setLocation
+Teacher(USER)->NewTestController: pressAddStudent()
+    loop selectedStudents
+        NewTestController->NewTestController: test_student.add(student)
+    end
+
+Teacher(USER)->NewTestController: saveTest()
+NewTestController->NewTestController: getUIValues()
+
+alt validTest()
+    alt case "new test"
+        NewTestController->Test: Test(type, testDate, location, numStudents)
+        Test-->NewTestController: test
+        NewTestController->TestDAOImpl: testDAO.insert(test)
+    end
+    loop testStudents
+        alt case "new test"
+            NewTestController->TestStudentDAOImpl: testStudentDAO.insert(testStudent)
+        end
+    end
+    alt case "new test"
+    loop testStudentsTable
+         NewTestController->Student: student.increaseRank()
+        NewTestController->StudentDAOImpl: studentDAO.update(student)
+    end
+    end
+end
+alt NOT validTest()
+    NewTestController->NewTestController: alertUser()
+end

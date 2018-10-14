@@ -1,23 +1,16 @@
 package application.controller;
 
-import application.Main;
 import application.model.Student;
 import application.model.Test;
-import application.util.Test_StudentDAOImpl;
+import application.util.DAO.Test_StudentDAOImpl;
+import application.util.StageLoader;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -116,21 +109,9 @@ public class TestDetailController implements Initializable {
     }
 
     private void loadStudentDetail(Student student){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/StudentDetail.fxml"));
-        try {
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Student Detail");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene((Pane) loader.load()));
-            StudentDetailController controller = loader.<StudentDetailController>getController();
-            controller.setTest(test);
-            controller.initData(student);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StudentDetailController controller = StageLoader.loadStage("view/StudentDetail.fxml", "Student Detail").getController();
+        controller.setTest(test);
+        controller.initData(student);
     }
 
     public void setStudent(Student student){

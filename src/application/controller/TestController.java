@@ -1,26 +1,16 @@
 package application.controller;
 
-import application.Main;
 import application.model.Student;
 import application.model.Test;
-import application.util.StudentDAOImpl;
-import application.util.TestDAOImpl;
-import application.util.Test_StudentDAOImpl;
+import application.util.DAO.StudentDAOImpl;
+import application.util.DAO.TestDAOImpl;
+import application.util.DAO.Test_StudentDAOImpl;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -28,6 +18,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static application.util.AlertUser.alertUser;
+import static application.util.StageLoader.loadStage;
 
 public class TestController implements Initializable {
 
@@ -40,6 +33,8 @@ public class TestController implements Initializable {
     public static TestController getInstance(){
         return instance;
     }
+
+    private TestDAOImpl testDAO = new TestDAOImpl();
 
     @FXML private TextField txtFirstName;
     @FXML private TextField txtLastName;
@@ -59,11 +54,11 @@ public class TestController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TestDAOImpl tdi = new TestDAOImpl();
-        tdi.createTestTable();
+        ObservableList<Test> tests = testDAO.selectAllObservable();
+        initTestTable(tests);
+    }
 
-        ObservableList<Test> tests = tdi.selectAllObservable();
-
+    private void initTestTable(ObservableList<Test> tests){
         TableColumn<Test, String> colType = new TableColumn<>("Type");
         colType.setMinWidth(120);
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -86,19 +81,7 @@ public class TestController implements Initializable {
 
     @FXML
     public void pressNewTest(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/NewTest.fxml"));
-        try {
-            Parent root1 = (Parent) loader.load();
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("New Test");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadStage("view/NewTest.fxml", "New Test");
     }
 
     @FXML
@@ -110,25 +93,16 @@ public class TestController implements Initializable {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/TestDetail.fxml"));
-        try {
-            Parent root1 = (Parent) loader.load();
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Test Detail");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root1));
-            TestDetailController controller = loader.<TestDetailController>getController();
-            controller.initData(testSelected);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadTestDetail(testSelected);
     }
 
     public void pressEditTest(){
         loadTest();
+    }
+
+    private void loadTestDetail(Test testSelected){
+        TestDetailController controller = loadStage("view/TestDetail.fxml", "Test Detail").getController();
+        controller.initData(testSelected);
     }
 
     private void loadTest(){
@@ -139,21 +113,8 @@ public class TestController implements Initializable {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/NewTest.fxml"));
-        try {
-            //Parent root1 = (Parent) loader.load();
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Edit Test");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene((Pane) loader.load()));
-            NewTestController controller = loader.<NewTestController>getController();
-            controller.initData(testSelected);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        NewTestController controller = loadStage("view/NewTest.fxml", "Edit Test").getController();
+        controller.initData(testSelected);
     }
 
     public void pressRemoveTest(){
@@ -164,30 +125,30 @@ public class TestController implements Initializable {
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Remove Test? (Test will be deleted, and all data will be lost)");
-        Optional<ButtonType> action = alert.showAndWait();
+        Optional<ButtonType> action = alertUser("Confirmation Dialog", "Remove Test? (Test will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
-            Test_StudentDAOImpl tsdi = new Test_StudentDAOImpl();
-            tsdi.deleteByTestId(testSelected.getId());
-
-            List<Student> studentsInTest = tsdi.selectAllStudentsByTestId(testSelected.getId());
-
-            StudentDAOImpl sdi = new StudentDAOImpl();
-
-            for (Student student : studentsInTest){
-                student.decreaseRank();
-                sdi.update(student, student.getId());
-            }
-
-            testTable.getItems().remove(testSelected);
-
-            TestDAOImpl tdi = new TestDAOImpl();
-            tdi.delete(testSelected.getId());
+            removeTest(testSelected);
         }
+    }
+
+    private void removeTest(Test testSelected){
+        Test_StudentDAOImpl test_studentDAO = new Test_StudentDAOImpl();
+        test_studentDAO.deleteByTestId(testSelected.getId());
+
+        List<Student> studentsInTest = test_studentDAO.selectAllStudentsByTestId(testSelected.getId());
+
+        StudentDAOImpl studentDAO = new StudentDAOImpl();
+
+        for (Student student : studentsInTest){
+            student.decreaseRank();
+            studentDAO.update(student, student.getId());
+        }
+
+        testTable.getItems().remove(testSelected);
+
+        TestDAOImpl tdi = new TestDAOImpl();
+        tdi.delete(testSelected.getId());
     }
 
     private boolean isRegexMatch(String pattern, String value) {
@@ -197,9 +158,8 @@ public class TestController implements Initializable {
     }
 
     public void updateTestTable(){
-        TestDAOImpl tdi = new TestDAOImpl();
         testTable.getItems().clear();
-        ObservableList<Test> tests = tdi.selectAllObservable();
+        ObservableList<Test> tests = testDAO.selectAllObservable();
         testTable.setItems(tests);
     }
 

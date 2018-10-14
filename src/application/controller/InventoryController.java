@@ -1,30 +1,22 @@
 package application.controller;
 
-import application.Main;
 import application.model.Inventory;
 import application.model.Item;
-import application.util.InventoryDAOImpl;
-import application.util.ItemDAOImpl;
+import application.util.DAO.InventoryDAOImpl;
+import application.util.DAO.ItemDAOImpl;
+import application.util.StageLoader;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static application.util.StageLoader.loadStage;
 
 public class InventoryController implements Initializable{
 
@@ -38,6 +30,7 @@ public class InventoryController implements Initializable{
         return instance;
     }
 
+    private InventoryDAOImpl inventoryDAO = new InventoryDAOImpl();
     private ItemDAOImpl itemDAO = new ItemDAOImpl();
 
     @FXML private Button btnNewItem;
@@ -49,13 +42,41 @@ public class InventoryController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ItemDAOImpl itemDAO = new ItemDAOImpl();
-        itemDAO.createItemTable();
-        InventoryDAOImpl inventoryDAO = new InventoryDAOImpl();
-        inventoryDAO.createInventoryTable();
+        initTable(inventoryDAO.selectAllObservable());
+    }
 
-        ObservableList<Inventory> inventories = inventoryDAO.selectAllObservable();
+    @FXML
+    public void pressNewItem(){
+        StageLoader.loadStage("view/NewItem.fxml", "New Item");
+    }
 
+    @FXML
+    public void pressEditItem(){
+        Inventory.ItemView inventorySelected;
+        inventorySelected = inventoryTable.getSelectionModel().getSelectedItem();
+
+        if (inventorySelected == null) {
+            return;
+        }
+
+        NewItemController controller = loadStage("view/NewItem.fxml", "Edit Item").getController();
+        controller.initData(itemDAO.selectById(inventorySelected.getId()));
+    }
+
+    @FXML
+    public void pressItemDetail(){
+        Inventory.ItemView inventorySelected;
+        inventorySelected = inventoryTable.getSelectionModel().getSelectedItem();
+
+        if (inventorySelected == null) {
+            return;
+        }
+
+        ItemDetailController controller = loadStage("view/ItemDetail.fxml", "Item Detail").getController();
+        controller.initData(itemDAO.selectById(inventorySelected.getId()));
+    }
+
+    private void initTable(ObservableList<Inventory> inventories){
         TableColumn<Inventory.ItemView, String> colItem = new TableColumn<>("Item Name");
         colItem.setMinWidth(100);
         colItem.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -77,75 +98,7 @@ public class InventoryController implements Initializable{
             inventoryTable.getItems().add(inventory.getItemView());
         }
 
-        //inventoryTable.setItems(inventories);
         inventoryTable.getColumns().addAll(colItem, colSold, colQty, colDesc);
-    }
-
-    @FXML
-    public void pressNewItem(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/NewItem.fxml"));
-        try {
-            Parent root1 = (Parent) loader.load();
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("New Item");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void pressEditItem(){
-        Inventory.ItemView inventorySelected;
-        inventorySelected = inventoryTable.getSelectionModel().getSelectedItem();
-
-        if (inventorySelected == null) {
-            return;
-        }
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/NewItem.fxml"));
-        try {
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Edit Item");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene((Pane) loader.load()));
-            NewItemController controller = loader.<NewItemController>getController();
-            controller.initData(itemDAO.selectById(inventorySelected.getId()));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void pressItemDetail(){
-        Inventory.ItemView inventorySelected;
-        inventorySelected = inventoryTable.getSelectionModel().getSelectedItem();
-
-        if (inventorySelected == null) {
-            return;
-        }
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/ItemDetail.fxml"));
-        try {
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Item Detail");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene((Pane) loader.load()));
-            ItemDetailController controller = loader.<ItemDetailController>getController();
-            controller.initData(itemDAO.selectById(inventorySelected.getId()));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void inventoryTableInsert(Inventory.ItemView inventory){
@@ -153,11 +106,11 @@ public class InventoryController implements Initializable{
     }
 
     public void updateInventoryTable(){
-        InventoryDAOImpl idi = new InventoryDAOImpl();
+        InventoryDAOImpl inventoryDAO = new InventoryDAOImpl();
         inventoryTable.getItems().clear();
         ObservableList<Inventory> inventories;
 
-        inventories = idi.selectAllObservable();
+        inventories = inventoryDAO.selectAllObservable();
 
         for (Inventory inventory : inventories){
             Item item = itemDAO.selectById(inventory.getItemId());

@@ -3,10 +3,8 @@ package application.controller;
 import application.model.Inventory;
 import application.model.Item;
 import application.model.LineItem;
-import application.model.Transaction;
-import application.util.InventoryDAOImpl;
-import application.util.LineItemDAOImpl;
-import application.util.TransactionDAOImpl;
+import application.util.DAO.InventoryDAOImpl;
+import application.util.DAO.LineItemDAOImpl;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,9 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ItemDetailController implements Initializable {
@@ -44,7 +40,7 @@ public class ItemDetailController implements Initializable {
         Inventory inventory = inventoryDAO.selectById(item.getId());
         ObservableList<LineItem> lineItems = lineItemDAO.selectAllObservableByItemIdComplete(item.getId(), true);
 
-        TableColumn<LineItem, String> colTranId = new TableColumn<>("Transaction Id");
+        TableColumn<LineItem, String> colTranId = new TableColumn<>("Order Id");
         colTranId.setMinWidth(100);
         colTranId.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
 

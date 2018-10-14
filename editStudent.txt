@@ -1,0 +1,75 @@
+title Program Sequence - (Edit and Reactivate Student)
+
+Teacher(USER)->LoginController: pressLogin()
+LoginController->RootController: loadPrimaryStage()
+RootController->StudentController: initialize()
+Teacher(USER)->RootController: student tab select
+RootController->StudentController: initialize()
+StudentController->StudentDAOImpl: StudentDAOImpl()
+StudentDAOImpl-->StudentController: studentDAO
+opt active students
+StudentController->StudentDAOImpl: studentDAO.selectAllActive() 
+else inactive students
+StudentController->StudentDAOImpl: studentDAO.selectAllInactive() 
+end
+StudentController->StudentController: initStudentTable(students)
+Teacher(USER)->StudentController: pressActiveView()
+StudentController->StudentController: updateStudentTable()
+opt active students
+StudentController->StudentDAOImpl: studentDAO.selectAllActive() 
+else inactive students
+StudentController->StudentDAOImpl: studentDAO.selectAllInactive() 
+end
+Teacher(USER)->StudentController: select student from inactive table
+Teacher(USER)->StudentController: pressEditStudent()
+StudentController->Student: Student()
+Student-->StudentController: studentSelected = studentTable.getSelected()
+StudentController->NewStudentController: NewStudentController()
+NewStudentController-->StudentController: controller
+StudentController->StageLoader: loadStage()
+StageLoader-->StudentController: controller = NewStudentController
+StageLoader->NewStudentController: initialize()
+NewStudentController->NewStudentController: setNewStudent(true)
+NewStudentController->NewStudentController: setUIData()
+NewStudentController->NewStudentController: addListeners()
+StudentController->NewStudentController: controller.initData(studentSelected)
+NewStudentController->NewStudentController: student = studentSelected
+NewStudentController->NewStudentController: loadStudentData()
+NewStudentController->NewStudentController: setNewStudent(false)
+
+Teacher(USER)->NewStudentController: edit student info
+Teacher(USER)->NewStudentController: pressSave()
+alt validStudent()
+alt is new student
+NewStudentController->Student: Student(student data)
+Student-->NewStudentController: student
+NewStudentController->StudentDAOImpl: studentDAO.insert(student)
+else not new student
+NewStudentController->NewStudentController: setStudentInfo()
+NewStudentController->Student: set student data
+NewStudentController->StudentDAOImpl: studentDAO.update(student)
+end
+else not validStudent()
+NewStudentController->AlertUser: alertUser()
+end
+NewStudentController->StageLoader: close()
+Teacher(USER)->StudentController: select student from inactive table
+Teacher(USER)->StudentController: pressStudentDetail()
+StudentController->Student: Student()
+Student-->StudentController: studentSelected = studentTable.getSelected()
+StudentController->StudentDetailController: StudentDetailController()
+StudentDetailController-->StudentController: controller
+StudentController->StageLoader: loadStage()
+StageLoader-->StudentController: controller = StudentDetailController
+StageLoader->StudentDetailController: initialize()
+StudentController->StudentDetailController: controller.initData(studentSelected)
+StudentDetailController->StudentDetailController: initStudentTableView()
+StudentDetailController->StudentDetailController: initTables()
+StudentDetailController->StudentDetailController: setUIData()
+Teacher(USER)->StudentDetailController: pressActive()
+StudentDetailController->StudentDAOImpl: StudentDAOImpl()
+StudentDAOImpl-->StudentDetailController: studentDAO
+StudentDetailController->Student: student.setActive(true)
+StudentDetailController->StudentDAOImpl: studentDAO.update(student)
+Teacher(USER)->StudentDetailController: pressOk()
+StudentDetailController->StageLoader: close()

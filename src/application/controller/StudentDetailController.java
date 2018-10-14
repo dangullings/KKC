@@ -1,25 +1,19 @@
 package application.controller;
 
-import application.Main;
 import application.model.Student;
 import application.model.Test;
 import application.model.Test_Student;
-import application.util.StudentDAOImpl;
-import application.util.TestDAOImpl;
-import application.util.Test_StudentDAOImpl;
+import application.util.DAO.StudentDAOImpl;
+import application.util.DAO.TestDAOImpl;
+import application.util.DAO.Test_StudentDAOImpl;
+import application.util.StageLoader;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -39,27 +33,38 @@ public class StudentDetailController implements Initializable {
     private Student student;
     private Test test;
 
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
     public void initData(Student student) {
         this.student = student;
+        initStudentTableView();
+        initTables();
+        setUIData();
+    }
 
-        Test_StudentDAOImpl t_sdi = new Test_StudentDAOImpl();
+    private void initStudentTableView(){
+        Test_StudentDAOImpl test_studentDAO = new Test_StudentDAOImpl();
 
-        ObservableList<Test> studentTests = t_sdi.selectAllObservable(student);
-        ObservableList<Test_Student> studentTestScores = t_sdi.selectAllObservableScores(student);
+        ObservableList<Test> studentTests = test_studentDAO.selectAllObservable(student);
+        ObservableList<Test_Student> studentTestScores = test_studentDAO.selectAllObservableScores(student);
 
         student.getTestViews().clear();
         student.setTestViews(studentTests, studentTestScores);
+    }
 
+    private void initTables(){
         TableColumn<Student.TestView, String> colTest = new TableColumn<>("Test");
-        colTest.setMinWidth(100);
+        colTest.setMinWidth(95);
         colTest.setCellValueFactory(new PropertyValueFactory<>("rankName"));
 
         TableColumn<Student.TestView, LocalDate> colDate = new TableColumn<>("Date");
-        colDate.setMinWidth(100);
+        colDate.setMinWidth(95);
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         TableColumn<Student.TestView, String> colLocation = new TableColumn<>("Location");
-        colLocation.setMinWidth(100);
+        colLocation.setMinWidth(95);
         colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
 
         TableColumn<Student.TestView, String> colScores = new TableColumn<>("Scores");
@@ -136,7 +141,18 @@ public class StudentDetailController implements Initializable {
             studentTestsTable.getSelectionModel().select(focusTest);
             studentTestsTable.scrollTo(focusTest);
         }
+    }
 
+    private void loadTestDetail(int testId){
+        TestDAOImpl testDAO = new TestDAOImpl();
+        test = testDAO.selectById(testId);
+
+        TestDetailController controller = StageLoader.loadStage("view/TestDetail.fxml", "Test Detail").getController();
+        controller.setStudent(student);
+        controller.initData(test);
+    }
+
+    private void setUIData(){
         lblName.setText(student.getFirstName() + " " + student.getLastName());
         lblDOB.setText("DOB: " + student.getBirthDate().toString());
 
@@ -166,31 +182,6 @@ public class StudentDetailController implements Initializable {
         toggleActive.setSelected(student.getActive());
     }
 
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
-    private void loadTestDetail(int testId){
-        TestDAOImpl testDAO = new TestDAOImpl();
-        test = testDAO.selectById(testId);
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/TestDetail.fxml"));
-        try {
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Test Detail");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene((Pane) loader.load()));
-            TestDetailController controller = loader.<TestDetailController>getController();
-            controller.setStudent(student);
-            controller.initData(test);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void setTest(Test test){
         this.test = test;
     }
@@ -202,10 +193,10 @@ public class StudentDetailController implements Initializable {
     }
 
     public void pressActive(){
-        StudentDAOImpl sdi = new StudentDAOImpl();
+        StudentDAOImpl studentDAO = new StudentDAOImpl();
 
         student.setActive(toggleActive.isSelected());
-        sdi.update(student, student.getId());
+        studentDAO.update(student, student.getId());
 
         if (student.getActive()){
             toggleActive.setStyle("-fx-base: #A1B56C;");

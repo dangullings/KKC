@@ -1,9 +1,8 @@
 package application;
 
 import application.model.User;
-import application.util.*;
+import application.util.DAO.*;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -70,10 +68,13 @@ public class Main extends Application {
         Test_StudentDAOImpl test_studentDAO = new Test_StudentDAOImpl();
         StudentDAOImpl studentDAO = new StudentDAOImpl();
         ItemDAOImpl itemDAO = new ItemDAOImpl();
-        TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
+        OrderDAOImpl orderDAO = new OrderDAOImpl();
         AttendanceDAOImpl attendanceDAO = new AttendanceDAOImpl();
         ClassSessionDAOImpl classSessionDAO = new ClassSessionDAOImpl();
         ClassDateDAOImpl classDateDAO = new ClassDateDAOImpl();
+        TestDAOImpl testDAO = new TestDAOImpl();
+        LineItemDAOImpl lineItemDAO = new LineItemDAOImpl();
+        InventoryDAOImpl inventoryDAO = new InventoryDAOImpl();
 
         UserDAO userDAO = new UserDAO();
         userDAO.createUserTable();
@@ -86,12 +87,15 @@ public class Main extends Application {
         }
 
         itemDAO.createItemTable();
-        transactionDAO.createTransactionTable();
+        orderDAO.createOrderTable();
         attendanceDAO.createAttendanceTable();
         studentDAO.createStudentTable();
         test_studentDAO.createTest_StudentTable();
         classSessionDAO.createClassSessionTable();
         classDateDAO.createClassTable();
+        testDAO.createTestTable();
+        lineItemDAO.createLineItemTable();
+        inventoryDAO.createInventoryTable();
     }
 
     private static void createRankArray(){

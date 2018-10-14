@@ -1,8 +1,7 @@
 package application.controller;
 
 import application.model.Student;
-import application.util.StudentDAOImpl;
-import javafx.collections.ObservableList;
+import application.util.DAO.StudentDAOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;

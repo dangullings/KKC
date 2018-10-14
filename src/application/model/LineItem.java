@@ -1,14 +1,13 @@
 package application.model;
 
-import application.util.ItemDAOImpl;
-import application.util.TransactionDAOImpl;
+import application.util.DAO.OrderDAOImpl;
 
 import java.math.BigDecimal;
 
 public class LineItem {
 
     private int id;
-    private int transactionId;
+    private int orderId;
     private int itemId;
     private String itemName;
     private BigDecimal price;
@@ -18,12 +17,12 @@ public class LineItem {
 
     }
 
-    public int getTransactionId() {
-        return transactionId;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getItemId() {
@@ -70,11 +69,11 @@ public class LineItem {
 
     public void setId(int id) { this.id = id; }
 
-    public boolean isTransactionComplete(){
-        TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
+    public boolean isOrderComplete(){
+        OrderDAOImpl orderDAO = new OrderDAOImpl();
 
-        Transaction transaction = transactionDAO.selectById(getTransactionId());
+        Order order = orderDAO.selectById(getOrderId());
 
-        return transaction.isComplete();
+        return order.isComplete();
     }
 }

@@ -1,29 +1,26 @@
 package application.controller;
 
-import application.Main;
+import application.model.Attendance;
+import application.model.ClassDate;
 import application.model.Student;
-import application.util.StudentDAOImpl;
-import application.util.Test_StudentDAOImpl;
+import application.util.DAO.AttendanceDAOImpl;
+import application.util.DAO.ClassDateDAOImpl;
+import application.util.StageLoader;
+import application.util.DAO.StudentDAOImpl;
+import application.util.DAO.Test_StudentDAOImpl;
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.*;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+
+import static application.util.AlertUser.alertUser;
 
 public class StudentController implements Initializable{
 
@@ -37,29 +34,34 @@ public class StudentController implements Initializable{
         return instance;
     }
 
+    private StudentDAOImpl studentDAO = new StudentDAOImpl();
+
     @FXML private Button btnActiveView;
     @FXML TextField filterInput;
     @FXML TableView<Student> studentTable;
     @FXML Label lblStudents;
 
     private boolean activeStudentsOnly = true;
-    private List<Student> studentList;
+    private ObservableList<Student> students;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        StudentDAOImpl sdi = new StudentDAOImpl();
-        sdi.createStudentTable();
-
-        ObservableList<Student> students;
-
         if (activeStudentsOnly){
-            students = sdi.selectAllActiveObservable();
+            students = studentDAO.selectAllActiveObservable();
         }else{
-            students = sdi.selectAllInactiveObservable();
+            students = studentDAO.selectAllInactiveObservable();
         }
 
-        studentList = students;
+        initStudentTable(students);
 
+        if (activeStudentsOnly){
+            btnActiveView.setText("View Inactive");
+        }else{
+            btnActiveView.setText("View Active");
+        }
+    }
+
+    private void initStudentTable(ObservableList<Student> students){
         TableColumn<Student, String> colFirstName = new TableColumn<>("First Name");
         colFirstName.setMinWidth(100);
         colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -110,14 +112,7 @@ public class StudentController implements Initializable{
 
         studentTable.getColumns().addAll(colFirstName, colLastName, colRank, colClub, colEmail, colNumber, colAge, colBirthdate);
         studentTable.setEditable(true);
-
-        if (activeStudentsOnly){
-            btnActiveView.setText("View Inactive");
-        }else{
-            btnActiveView.setText("View Active");
-        }
     }
-
 
     private void initFilter(ObservableList<Student> students) {
         filterInput.textProperty().addListener(new InvalidationListener() {
@@ -160,37 +155,13 @@ public class StudentController implements Initializable{
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/StudentDetail.fxml"));
-        try {
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Student Detail");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene((Pane) loader.load()));
-            StudentDetailController controller = loader.<StudentDetailController>getController();
-            controller.initData(studentSelected);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StudentDetailController controller = StageLoader.loadStage("view/StudentDetail.fxml", "Student Detail").getController();
+        controller.initData(studentSelected);
     }
 
     @FXML
     public void pressNewStudent(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/NewStudent.fxml"));
-        try {
-            Parent root1 = (Parent) loader.load();
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("New Student");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StageLoader.loadStage("view/NewStudent.fxml", "New Student");
     }
 
     @FXML
@@ -202,23 +173,11 @@ public class StudentController implements Initializable{
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/NewStudent.fxml"));
-        try {
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Edit Student");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene((Pane) loader.load()));
-            NewStudentController controller = loader.<NewStudentController>getController();
-            controller.initData(studentSelected);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        NewStudentController controller = StageLoader.loadStage("view/NewStudent.fxml", "Edit Student").getController();
+        controller.initData(studentSelected);
     }
 
-    public void pressRemove(){ // remove test_student
+    public void pressRemove(){
         Student studentSelected;
         studentSelected = studentTable.getSelectionModel().getSelectedItem();
 
@@ -226,21 +185,23 @@ public class StudentController implements Initializable{
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Remove student? (Student will be deleted, and all data will be lost)");
-        Optional<ButtonType> action = alert.showAndWait();
+        Optional<ButtonType> action = alertUser("Confirmation Dialog", "Remove student? (Student will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
-            StudentDAOImpl sdi = new StudentDAOImpl();
-            sdi.delete(studentSelected.getFirstName(), studentSelected.getLastName());
-
-            Test_StudentDAOImpl tsdi = new Test_StudentDAOImpl();
-            tsdi.deleteByStudentId(studentSelected.getId());
-
-            studentTable.getItems().remove(studentSelected);
+            removeStudent(studentSelected);
         }
+    }
+
+    private void removeStudent(Student studentSelected){
+        studentDAO.delete(studentSelected.getFirstName(), studentSelected.getLastName());
+
+        Test_StudentDAOImpl test_studentDAO = new Test_StudentDAOImpl();
+        test_studentDAO.deleteByStudentId(studentSelected.getId());
+
+        AttendanceDAOImpl attendanceDAO = new AttendanceDAOImpl();
+        attendanceDAO.deleteByStudentId(studentSelected.getId());
+
+        studentTable.getItems().remove(studentSelected);
     }
 
     public void pressActiveView(){
@@ -259,8 +220,8 @@ public class StudentController implements Initializable{
     }
 
     public void pressListByRank(){
-        Collections.sort(studentList); // compare by rank value, then age
-        Collections.reverse(studentList);
+        Collections.sort(students); // compare by rank value, then age
+        Collections.reverse(students);
     }
 
     public void studentTableInsert(Student student){
@@ -268,17 +229,13 @@ public class StudentController implements Initializable{
     }
 
     public void updateStudentTable(){
-        StudentDAOImpl sdi = new StudentDAOImpl();
         studentTable.getItems().clear();
-        ObservableList<Student> students;
 
         if (activeStudentsOnly){
-            students = sdi.selectAllActiveObservable();
+            students = studentDAO.selectAllActiveObservable();
         }else{
-            students = sdi.selectAllInactiveObservable();
+            students = studentDAO.selectAllInactiveObservable();
         }
-
-        studentList = students;
 
         studentTable.setItems(students);
         initFilter(students);

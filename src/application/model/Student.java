@@ -1,7 +1,7 @@
 package application.model;
 
 import application.Main;
-import application.util.StudentDAOImpl;
+import application.util.DAO.StudentDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -26,6 +26,7 @@ public class Student implements Comparable<Student>{
     private String email;
     private String number;
     private LocalDate birthDate;
+    public int demoScore;
 
     private Boolean active;
 

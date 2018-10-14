@@ -1,34 +1,29 @@
 package application.controller;
 
 import application.LOCATION;
-import application.Main;
 import application.model.Student;
 import application.model.Test;
 import application.model.Test_Student;
-import application.util.StudentDAOImpl;
-import application.util.TestDAOImpl;
-import application.util.Test_StudentDAOImpl;
+import application.util.DAO.StudentDAOImpl;
+import application.util.DAO.TestDAOImpl;
+import application.util.DAO.Test_StudentDAOImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static application.util.AlertUser.alertUser;
 
 public class NewTestController implements Initializable {
 
@@ -52,7 +47,9 @@ public class NewTestController implements Initializable {
     private Student selectedStudent = new Student();
     private Test_Student selectedTest_Student = new Test_Student();
 
-    private Test_StudentDAOImpl stdi = new Test_StudentDAOImpl();
+    private StudentDAOImpl studentDAO = new StudentDAOImpl();
+    private TestDAOImpl testDAO = new TestDAOImpl();
+    private Test_StudentDAOImpl testStudentDAO = new Test_StudentDAOImpl();
 
     @FXML TableView<Student> studentsTable;
     @FXML TableView<Student> testStudentsTable;
@@ -135,45 +132,22 @@ public class NewTestController implements Initializable {
 
     @FXML
     public void pressNewStudent(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/NewStudent.fxml"));
-        try {
-            Parent root1 = (Parent) loader.load();
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("New Student");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StudentController.getInstance().pressNewStudent();
     }
 
     public void saveTest(){
-        StudentDAOImpl sdi = new StudentDAOImpl();
-        TestDAOImpl tdi = new TestDAOImpl();
         int testId;
-
-        location = choiceLocation.getValue().name();
-        testDate = datePicker.getValue();
         numStudents = test_students.size();
 
-        RadioButton selectedRadioButton = (RadioButton) groupType.getSelectedToggle();
-
-        if (selectedRadioButton != null)
-            type = selectedRadioButton.getText();
+        setUIValues();
 
         if (validTest()){
             if (isNewTest) {
                 test = new Test(type, testDate, location, numStudents);
-                tdi.insert(test);
+                testDAO.insert(test);
             }else{
-                test.setLocation(location);
-                test.setDate(testDate);
-                test.setNumStudents(numStudents);
-                test.setType(type);
-                tdi.update(test, test.getId());
+                setTestValues();
+                testDAO.update(test, test.getId());
             }
 
             testId = test.getId();
@@ -182,17 +156,17 @@ public class NewTestController implements Initializable {
                 test_student.setTestId(testId);
 
                 if (isNewTest) {
-                    stdi.insert(test_student);
+                    testStudentDAO.insert(test_student);
                 }else{
                     if (test_studentsBeforeEdit.contains(test_student)){
-                        stdi.update(test_student, test_student.getId());
+                        testStudentDAO.update(test_student, test_student.getId());
                     }else{
-                        stdi.insert(test_student);
+                        testStudentDAO.insert(test_student);
 
                         Student student;
-                        student = sdi.selectById(test_student.getStudentId());
+                        student = studentDAO.selectById(test_student.getStudentId());
                         student.increaseRank();
-                        sdi.update(student, student.getId());
+                        studentDAO.update(student, student.getId());
                     }
                 }
             }
@@ -200,12 +174,12 @@ public class NewTestController implements Initializable {
             if (!isNewTest) {
                 for (Test_Student test_student_b : test_studentsBeforeEdit) {
                     if (!test_students.contains(test_student_b)) {
-                        stdi.delete(test_student_b.getId());
+                        testStudentDAO.delete(test_student_b.getId());
 
                         Student student;
-                        student = sdi.selectById(test_student_b.getStudentId());
+                        student = studentDAO.selectById(test_student_b.getStudentId());
                         student.decreaseRank();
-                        sdi.update(student, student.getId());
+                        studentDAO.update(student, student.getId());
                     }
                 }
             }
@@ -213,7 +187,7 @@ public class NewTestController implements Initializable {
             if (isNewTest) {
                 for (Student student : testStudentsTable.getItems()) {
                     student.increaseRank();
-                    sdi.update(student, student.getId());
+                    studentDAO.update(student, student.getId());
                 }
             }
 
@@ -224,11 +198,7 @@ public class NewTestController implements Initializable {
             TestController.getInstance().updateTestTable();
             StudentController.getInstance().updateStudentTable();
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("WARNING - MISSING REQUIRED TEST DATA");
-            alert.setHeaderText(null);
-            alert.setContentText("Check for a valid date, type and location.");
-            Optional <ButtonType> action = alert.showAndWait();
+            alertUser("WARNING - MISSING REQUIRED TEST DATA", "Check for a valid date, type and location.", Alert.AlertType.WARNING);
         }
     }
 
@@ -254,11 +224,7 @@ public class NewTestController implements Initializable {
     }
 
     public void pressCancel(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Exit? (all changed data will be lost)");
-        Optional <ButtonType> action = alert.showAndWait();
+        Optional<ButtonType> action = alertUser("Confirmation Dialog", "Exit? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
             Stage stage = (Stage) btnCancel.getScene().getWindow();
@@ -332,6 +298,23 @@ public class NewTestController implements Initializable {
         return true;
     }
 
+    private void setTestValues(){
+        test.setLocation(location);
+        test.setDate(testDate);
+        test.setNumStudents(numStudents);
+        test.setType(type);
+    }
+
+    private void setUIValues(){
+        location = choiceLocation.getValue().name();
+        testDate = datePicker.getValue();
+
+        RadioButton selectedRadioButton = (RadioButton) groupType.getSelectedToggle();
+
+        if (selectedRadioButton != null)
+            type = selectedRadioButton.getText();
+    }
+
     @FXML private void cleartxtForm() { txtForm.clear(); }
 
     @FXML private void cleartxtSteps() { txtSteps.clear(); }
@@ -395,82 +378,12 @@ public class NewTestController implements Initializable {
         test_students = new ArrayList<>();
         test_studentsBeforeEdit = new ArrayList<>();
 
-        StudentDAOImpl sdi = new StudentDAOImpl();
-        ObservableList<Student> students = sdi.selectAllActiveObservable();
+        populateStudentTable();
+        resetUI();
+        setUIListeners();
+    }
 
-        TableColumn<Student, String> colFirstNameList = new TableColumn<>("First");
-        colFirstNameList.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-
-        TableColumn<Student, String> colLastNameList = new TableColumn<>("Last");
-        colLastNameList.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-
-        TableColumn<Student, String> colRankList = new TableColumn<>("Rank");
-        colRankList.setCellValueFactory(new PropertyValueFactory<>("rankName"));
-
-        TableColumn<Student, String> colClubList = new TableColumn<>("Club");
-        colClubList.setCellValueFactory(new PropertyValueFactory<>("club"));
-
-        studentsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        studentsTable.setItems(students);
-        studentsTable.getColumns().addAll(colFirstNameList, colLastNameList, colRankList, colClubList);
-
-        TableColumn<Student, String> colFirstName = new TableColumn<>("First Name");
-        colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-
-        TableColumn<Student, String> colLastName = new TableColumn<>("Last Name");
-        colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-
-        TableColumn<Student, String> colRank = new TableColumn<>("Rank");
-        colRank.setCellValueFactory(new PropertyValueFactory<>("rankName"));
-
-        TableColumn<Student, String> colClub = new TableColumn<>("Club");
-        colClub.setCellValueFactory(new PropertyValueFactory<>("club"));
-
-        txtForm.setDisable(true);
-        txtSteps.setDisable(true);
-        txtPower.setDisable(true);
-        txtKiap.setDisable(true);
-        txtQuestions.setDisable(true);
-        txtAttitude.setDisable(true);
-        txtSparring.setDisable(true);
-        txtBreaking.setDisable(true);
-
-        testStudentsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                selectedStudent = testStudentsTable.getSelectionModel().getSelectedItems().get(0);
-
-                for (Test_Student test_student : test_students){
-                    if (test_student.getStudentId() == selectedStudent.getId()){
-                        selectedTest_Student = test_student;
-                        txtForm.setText(String.valueOf(test_student.getForm()));
-                        txtSteps.setText(String.valueOf(test_student.getSteps()));
-                        txtPower.setText(String.valueOf(test_student.getPower()));
-                        txtKiap.setText(String.valueOf(test_student.getKiap()));
-                        txtQuestions.setText(String.valueOf(test_student.getQuestions()));
-                        txtAttitude.setText(String.valueOf(test_student.getAttitude()));
-                        txtSparring.setText(String.valueOf(test_student.getSparring()));
-                        txtBreaking.setText(String.valueOf(test_student.getBreaking()));
-
-                        txtForm.setDisable(false);
-                        txtSteps.setDisable(false);
-                        txtPower.setDisable(false);
-                        txtKiap.setDisable(false);
-                        txtQuestions.setDisable(false);
-                        txtAttitude.setDisable(false);
-                        txtSparring.setDisable(false);
-                        txtBreaking.setDisable(false);
-                        break;
-                    }
-                }
-            }
-        });
-
-        testStudentsTable.getColumns().addAll(colFirstName, colLastName, colRank, colClub);
-
-        choiceLocation.getItems().addAll(LOCATION.values());
-        choiceLocation.setValue(LOCATION.Waconia);
-        type = "Color";
-
+    private void setUIListeners(){
         txtForm.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
@@ -630,5 +543,84 @@ public class NewTestController implements Initializable {
                 }
             }
         });
+    }
+
+    private void resetUI(){
+        txtForm.setDisable(true);
+        txtSteps.setDisable(true);
+        txtPower.setDisable(true);
+        txtKiap.setDisable(true);
+        txtQuestions.setDisable(true);
+        txtAttitude.setDisable(true);
+        txtSparring.setDisable(true);
+        txtBreaking.setDisable(true);
+
+        choiceLocation.getItems().addAll(LOCATION.values());
+        choiceLocation.setValue(LOCATION.Waconia);
+        type = "Color";
+    }
+
+    private void populateStudentTable(){
+        ObservableList<Student> students = studentDAO.selectAllActiveObservable();
+
+        TableColumn<Student, String> colFirstNameList = new TableColumn<>("First");
+        colFirstNameList.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+
+        TableColumn<Student, String> colLastNameList = new TableColumn<>("Last");
+        colLastNameList.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+        TableColumn<Student, String> colRankList = new TableColumn<>("Rank");
+        colRankList.setCellValueFactory(new PropertyValueFactory<>("rankName"));
+
+        TableColumn<Student, String> colClubList = new TableColumn<>("Club");
+        colClubList.setCellValueFactory(new PropertyValueFactory<>("club"));
+
+        studentsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        studentsTable.setItems(students);
+        studentsTable.getColumns().addAll(colFirstNameList, colLastNameList, colRankList, colClubList);
+
+        TableColumn<Student, String> colFirstName = new TableColumn<>("First Name");
+        colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+
+        TableColumn<Student, String> colLastName = new TableColumn<>("Last Name");
+        colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+        TableColumn<Student, String> colRank = new TableColumn<>("Rank");
+        colRank.setCellValueFactory(new PropertyValueFactory<>("rankName"));
+
+        TableColumn<Student, String> colClub = new TableColumn<>("Club");
+        colClub.setCellValueFactory(new PropertyValueFactory<>("club"));
+
+        testStudentsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedStudent = testStudentsTable.getSelectionModel().getSelectedItems().get(0);
+
+                for (Test_Student test_student : test_students){
+                    if (test_student.getStudentId() == selectedStudent.getId()){
+                        selectedTest_Student = test_student;
+                        txtForm.setText(String.valueOf(test_student.getForm()));
+                        txtSteps.setText(String.valueOf(test_student.getSteps()));
+                        txtPower.setText(String.valueOf(test_student.getPower()));
+                        txtKiap.setText(String.valueOf(test_student.getKiap()));
+                        txtQuestions.setText(String.valueOf(test_student.getQuestions()));
+                        txtAttitude.setText(String.valueOf(test_student.getAttitude()));
+                        txtSparring.setText(String.valueOf(test_student.getSparring()));
+                        txtBreaking.setText(String.valueOf(test_student.getBreaking()));
+
+                        txtForm.setDisable(false);
+                        txtSteps.setDisable(false);
+                        txtPower.setDisable(false);
+                        txtKiap.setDisable(false);
+                        txtQuestions.setDisable(false);
+                        txtAttitude.setDisable(false);
+                        txtSparring.setDisable(false);
+                        txtBreaking.setDisable(false);
+                        break;
+                    }
+                }
+            }
+        });
+
+        testStudentsTable.getColumns().addAll(colFirstName, colLastName, colRank, colClub);
     }
 }

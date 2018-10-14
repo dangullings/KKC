@@ -58,7 +58,7 @@
                </graphic>
               </Tab>
               <Tab fx:id="finances" text="Orders/Transactions">
-                  <fx:include fx:id="financeOperations" source="TransactionOperations.fxml" />
+                  <fx:include fx:id="financeOperations" source="OrderOperations.fxml" />
                   <graphic>
                       <ImageView fitHeight="21.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                           <image>

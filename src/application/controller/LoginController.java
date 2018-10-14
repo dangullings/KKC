@@ -2,7 +2,7 @@ package application.controller;
 
 import application.Main;
 import application.model.User;
-import application.util.UserDAO;
+import application.util.DAO.UserDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,8 +30,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userDAO.createUserTable();
-
         User user = userDAO.getUserByCredential("admin", "password");
 
         txtUser.setText(user.getName());

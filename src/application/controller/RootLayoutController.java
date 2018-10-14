@@ -1,6 +1,6 @@
 package application.controller;
 
-import application.util.Test_StudentDAOImpl;
+import application.util.DAO.Test_StudentDAOImpl;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

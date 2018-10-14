@@ -2,9 +2,9 @@ package application.controller;
 
 import application.Main;
 import application.model.*;
-import application.util.AttendanceDAOImpl;
-import application.util.ClassDateDAOImpl;
-import application.util.ClassSessionDAOImpl;
+import application.util.DAO.AttendanceDAOImpl;
+import application.util.DAO.ClassDateDAOImpl;
+import application.util.DAO.ClassSessionDAOImpl;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +21,9 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
+
+import static application.util.AlertUser.alertUser;
 
 public class ClassSessionController implements Initializable{
 
@@ -121,24 +120,14 @@ public class ClassSessionController implements Initializable{
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Remove Session? (Session will be deleted, and all data will be lost)");
-        Optional<ButtonType> action = alert.showAndWait();
+        Optional<ButtonType> action = alertUser("Confirmation Dialog", "Remove Session? (Session will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
             List<ClassDate> classDates;
             classDates = classDateDAO.selectAllBySessionId(sessionSelected.getId());
 
-            List<Attendance> attendances;
-            attendances = attendanceDAO.selectAllByClassDateId(sessionSelected.getId());
-
-            for (Attendance attendance : attendances){
-                attendanceDAO.deleteById(attendance.getId());
-            }
-
             for (ClassDate classDate : classDates){
+                attendanceDAO.deleteByClassDateId(classDate.getId());
                 classDateDAO.deleteById(classDate.getId());
             }
 
