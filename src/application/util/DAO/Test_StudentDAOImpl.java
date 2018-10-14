@@ -1,4 +1,4 @@
-package application.util;
+package application.util.DAO;
 
 import application.Main;
 import application.model.Student;
