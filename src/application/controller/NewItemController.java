@@ -107,6 +107,8 @@ public class NewItemController implements Initializable {
             InventoryController.getInstance().updateInventoryTable();
         }
 
+        RootLayoutController.getInstance().borderPane.setEffect(null);
+
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
     }
@@ -115,6 +117,7 @@ public class NewItemController implements Initializable {
         Optional<ButtonType> action = AlertUser.alertUser("Confirmation Dialog", "Exit item creation? (all data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
+            RootLayoutController.getInstance().borderPane.setEffect(null);
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         }

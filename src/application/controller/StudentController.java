@@ -1,10 +1,7 @@
 package application.controller;
 
-import application.model.Attendance;
-import application.model.ClassDate;
 import application.model.Student;
 import application.util.DAO.AttendanceDAOImpl;
-import application.util.DAO.ClassDateDAOImpl;
 import application.util.StageLoader;
 import application.util.DAO.StudentDAOImpl;
 import application.util.DAO.Test_StudentDAOImpl;
@@ -15,6 +12,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -36,6 +36,7 @@ public class StudentController implements Initializable{
 
     private StudentDAOImpl studentDAO = new StudentDAOImpl();
 
+    @FXML AnchorPane anchorPane;
     @FXML private Button btnActiveView;
     @FXML TextField filterInput;
     @FXML TableView<Student> studentTable;
@@ -155,12 +156,26 @@ public class StudentController implements Initializable{
             return;
         }
 
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+
         StudentDetailController controller = StageLoader.loadStage("view/StudentDetail.fxml", "Student Detail").getController();
         controller.initData(studentSelected);
     }
 
     @FXML
     public void pressNewStudent(){
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
         StageLoader.loadStage("view/NewStudent.fxml", "New Student");
     }
 
@@ -172,6 +187,13 @@ public class StudentController implements Initializable{
         if (studentSelected == null) {
             return;
         }
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
 
         NewStudentController controller = StageLoader.loadStage("view/NewStudent.fxml", "Edit Student").getController();
         controller.initData(studentSelected);

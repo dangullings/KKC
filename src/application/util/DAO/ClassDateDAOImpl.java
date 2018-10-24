@@ -20,7 +20,7 @@ public class ClassDateDAOImpl {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS class_date (id int primary key unique auto_increment," +
-                    "session_id int(6), date Date, second_hour boolean)");
+                    "session_id int(6), date Date, second_hour boolean, complete boolean)");
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -50,11 +50,12 @@ public class ClassDateDAOImpl {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO class_date (session_id, date, second_hour)" +
-                    "VALUES (?, ?, ?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO class_date (session_id, date, second_hour, complete)" +
+                    "VALUES (?, ?, ?, ?)");
             preparedStatement.setInt(1, classDate.getSessionId());
             preparedStatement.setDate(2, Date.valueOf(classDate.getDate()));
             preparedStatement.setBoolean(3, classDate.hasSecondHour());
+            preparedStatement.setBoolean(4, classDate.getComplete());
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -96,6 +97,7 @@ public class ClassDateDAOImpl {
                 classDate.setSessionId(resultSet.getInt("session_id"));
                 classDate.setDate(resultSet.getDate("date"));
                 classDate.setSecondHour(resultSet.getBoolean("second_hour"));
+                classDate.setComplete(resultSet.getBoolean("complete"));
             }
 
         } catch (Exception e){
@@ -147,6 +149,7 @@ public class ClassDateDAOImpl {
                 classDate.setSessionId(resultSet.getInt("session_id"));
                 classDate.setDate(resultSet.getDate("date"));
                 classDate.setSecondHour(resultSet.getBoolean("second_hour"));
+                classDate.setComplete(resultSet.getBoolean("complete"));
 
                 classDates.add(classDate);
             }
@@ -201,6 +204,7 @@ public class ClassDateDAOImpl {
                 classDate.setSessionId(resultSet.getInt("session_id"));
                 classDate.setDate(resultSet.getDate("date"));
                 classDate.setSecondHour(resultSet.getBoolean("second_hour"));
+                classDate.setComplete(resultSet.getBoolean("complete"));
 
                 classDates.add(classDate);
             }
@@ -253,6 +257,7 @@ public class ClassDateDAOImpl {
                 classDate.setSessionId(resultSet.getInt("session_id"));
                 classDate.setDate(resultSet.getDate("date"));
                 classDate.setSecondHour(resultSet.getBoolean("second_hour"));
+                classDate.setComplete(resultSet.getBoolean("complete"));
 
                 classDates.add(classDate);
             }
@@ -325,21 +330,19 @@ public class ClassDateDAOImpl {
         }
     }
 
-    public void update(Inventory inventory, int itemId) {
+    public void update(ClassDate classDate, int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE inventory SET " +
-                    "item_id = ?, produced = ?, sold = ?, produced_cost = ?, sales_cost = ?, quantity = ? WHERE item_id = ?");
-            preparedStatement.setInt(1, itemId);
-            preparedStatement.setInt(2, inventory.getProduced());
-            preparedStatement.setInt(3, inventory.getSold());
-            preparedStatement.setBigDecimal(4, inventory.getProducedCost());
-            preparedStatement.setBigDecimal(5, inventory.getSalesCost());
-            preparedStatement.setInt(6, inventory.getQuantity());
-            preparedStatement.setInt(7, itemId);
+            preparedStatement = connection.prepareStatement("UPDATE class_date SET " +
+                    "session_id = ?, date = ?, second_hour = ?, complete = ? WHERE id = ?");
+            preparedStatement.setInt(1, classDate.getSessionId());
+            preparedStatement.setDate(2, Date.valueOf(classDate.getDate()));
+            preparedStatement.setBoolean(3, classDate.hasSecondHour());
+            preparedStatement.setBoolean(4, classDate.getComplete());
+            preparedStatement.setInt(5, id);
             preparedStatement.executeUpdate();
 
 

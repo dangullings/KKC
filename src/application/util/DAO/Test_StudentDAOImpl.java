@@ -21,7 +21,7 @@ public class Test_StudentDAOImpl {
                 connection = DBUtil.getConnection();
                 statement = connection.createStatement();
                 statement.execute("CREATE TABLE IF NOT EXISTS test_student (id int primary key unique auto_increment," +
-                        "test_id int(6), student_id int(6), rank int(3), form varchar(2), steps varchar(2), power varchar(2), kiap varchar(2), questions varchar(2), attitude varchar(2), sparring varchar(2), breaking varchar(2))");
+                        "test_id int(6), student_id int(6), rank_value int(3), form varchar(2), steps varchar(2), power varchar(2), kiap varchar(2), questions varchar(2), attitude varchar(2), sparring varchar(2), breaking varchar(2))");
 
             }catch (Exception e) {
                 e.printStackTrace();
@@ -51,7 +51,7 @@ public class Test_StudentDAOImpl {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO test_student (test_id, student_id, rank, form, steps, power, kiap, questions, attitude, sparring, breaking)" +
+            preparedStatement = connection.prepareStatement("INSERT INTO test_student (test_id, student_id, rank_value, form, steps, power, kiap, questions, attitude, sparring, breaking)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             preparedStatement.setInt(1, test_student.getTestId());
             preparedStatement.setInt(2, test_student.getStudentId());
@@ -94,7 +94,7 @@ public class Test_StudentDAOImpl {
         try {
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE test_student SET " +
-                    "test_id = ?, student_id = ?, rank = ?, form = ?, steps = ?, power = ?, kiap = ?, questions = ?, attitude = ?, sparring = ?, breaking = ? WHERE id = ?");
+                    "test_id = ?, student_id = ?, rank_value = ?, form = ?, steps = ?, power = ?, kiap = ?, questions = ?, attitude = ?, sparring = ?, breaking = ? WHERE id = ?");
             preparedStatement.setInt(1, test_student.getTestId());
             preparedStatement.setInt(2, test_student.getStudentId());
             preparedStatement.setInt(3, test_student.getRank());
@@ -178,7 +178,7 @@ public class Test_StudentDAOImpl {
                 student.setId(resultSet.getInt("id"));
                 student.setFirstName(resultSet.getString("first_name"));
                 student.setLastName(resultSet.getString("last_name"));
-                student.setRankName(resultSet.getString("rank"));
+                student.setRankName(resultSet.getString("rank_value"));
                 student.setClub(resultSet.getString("club"));
                 student.setEmail(resultSet.getString("email"));
                 student.setNumber(resultSet.getString("number"));
@@ -237,7 +237,7 @@ public class Test_StudentDAOImpl {
                 test_student.setId(resultSet.getInt("id"));
                 test_student.setStudentId(resultSet.getInt("student_id"));
                 test_student.setTestId(resultSet.getInt("test_id"));
-                test_student.setRank(resultSet.getInt("rank"));
+                test_student.setRank(resultSet.getInt("rank_value"));
                 test_student.setForm(resultSet.getString("form"));
                 test_student.setSteps(resultSet.getString("steps"));
                 test_student.setPower(resultSet.getString("power"));
@@ -299,7 +299,7 @@ public class Test_StudentDAOImpl {
                 test_student.setId(resultSet.getInt("id"));
                 test_student.setStudentId(resultSet.getInt("student_id"));
                 test_student.setTestId(resultSet.getInt("test_id"));
-                test_student.setRank(resultSet.getInt("rank"));
+                test_student.setRank(resultSet.getInt("rank_value"));
                 test_student.setForm(resultSet.getString("form"));
                 test_student.setSteps(resultSet.getString("steps"));
                 test_student.setPower(resultSet.getString("power"));
@@ -367,7 +367,7 @@ public class Test_StudentDAOImpl {
                 test_student.setId(resultSet.getInt("id"));
                 test_student.setStudentId(resultSet.getInt("student_id"));
                 test_student.setTestId(resultSet.getInt("test_id"));
-                test_student.setRank(resultSet.getInt("rank"));
+                test_student.setRank(resultSet.getInt("rank_value"));
                 test_student.setForm(resultSet.getString("form"));
                 test_student.setSteps(resultSet.getString("steps"));
                 test_student.setPower(resultSet.getString("power"));

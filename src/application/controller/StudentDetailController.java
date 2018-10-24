@@ -190,6 +190,7 @@ public class StudentDetailController implements Initializable {
         Stage stage = (Stage) btnOk.getScene().getWindow();
         stage.close();
         StudentController.getInstance().updateStudentTable();
+        RootLayoutController.getInstance().borderPane.setEffect(null);
     }
 
     public void pressActive(){

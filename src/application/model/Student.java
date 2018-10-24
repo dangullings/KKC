@@ -1,6 +1,8 @@
 package application.model;
 
 import application.Main;
+import application.util.DAO.DemoPointAwardedDAO;
+import application.util.DAO.DemoPointDAO;
 import application.util.DAO.StudentDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class Student implements Comparable<Student>{
 
@@ -26,7 +29,8 @@ public class Student implements Comparable<Student>{
     private String email;
     private String number;
     private LocalDate birthDate;
-    public int demoScore;
+    private int demoScore;
+    private int tally;
 
     private Boolean active;
 
@@ -134,6 +138,39 @@ public class Student implements Comparable<Student>{
         this.age = ageCalculator.calculateAge(birthDate, LocalDate.now());
 
         return age;
+    }
+
+    public int getTally() {
+        return tally;
+    }
+
+    public void setTally(int tally) {
+        this.tally = tally;
+    }
+
+    public void calculateDemoScore(){
+        DemoPointAwardedDAO demoPointAwardedDAO = new DemoPointAwardedDAO();
+        DemoPointDAO demoPointDAO = new DemoPointDAO();
+
+        List<DemoPointAwarded> demoPointAwardedList = demoPointAwardedDAO.selectAllByStudentId(this.id);
+
+        demoScore = 0;
+
+        for (DemoPointAwarded demoPointAwarded : demoPointAwardedList){
+            demoScore += demoPointAwarded.getValue();
+        }
+    }
+
+    public int getDemoScore() {
+        return demoScore;
+    }
+
+    public void setDemoScore(int demoScore) {
+        this.demoScore = demoScore;
+    }
+
+    public void incTally(int tally) {
+        this.tally += tally;
     }
 
     public String getRankNameRounded() { return rankNameRounded; }
@@ -297,6 +334,15 @@ public class Student implements Comparable<Student>{
                 }
             };
 
+    public static final Comparator<Student> BY_TALLY =
+            new Comparator<Student>() {
+
+                @Override
+                public int compare(Student o1, Student o2) {
+                    Integer i = new Integer(o2.getTally());
+                    return i.compareTo(o1.getTally());
+                }
+            };
 
     public ObservableList<Student.TestView> getObservableTestViews() {
         ObservableList<Student.TestView> testViews = FXCollections.observableArrayList(getTestViews());

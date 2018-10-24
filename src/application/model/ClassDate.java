@@ -10,9 +10,10 @@ public class ClassDate implements Comparable<ClassDate>{
     private LocalDate date;
     private boolean secondHour;
     private String style;
+    private Boolean complete;
 
     public ClassDate(){
-
+        complete = false;
     }
 
     public int getSessionId() {
@@ -69,6 +70,14 @@ public class ClassDate implements Comparable<ClassDate>{
 
     public String getStyle(){
         return style;
+    }
+
+    public Boolean getComplete() {
+        return complete;
+    }
+
+    public void setComplete(Boolean complete) {
+        this.complete = complete;
     }
 
     @Override

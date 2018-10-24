@@ -197,6 +197,7 @@ public class NewTestController implements Initializable {
             TestController.getInstance().testTableInsert(test);
             TestController.getInstance().updateTestTable();
             StudentController.getInstance().updateStudentTable();
+            RootLayoutController.getInstance().borderPane.setEffect(null);
         }else{
             alertUser("WARNING - MISSING REQUIRED TEST DATA", "Check for a valid date, type and location.", Alert.AlertType.WARNING);
         }
@@ -227,6 +228,7 @@ public class NewTestController implements Initializable {
         Optional<ButtonType> action = alertUser("Confirmation Dialog", "Exit? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
+            RootLayoutController.getInstance().borderPane.setEffect(null);
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         }

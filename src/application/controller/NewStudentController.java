@@ -162,6 +162,7 @@ public class NewStudentController implements Initializable {
                 NewTestController.getInstance().updateStudentsTable();
             }
 
+            RootLayoutController.getInstance().borderPane.setEffect(null);
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         }else{
@@ -174,6 +175,7 @@ public class NewStudentController implements Initializable {
         Optional<ButtonType> action = alertUser("Confirmation Dialog", "Exit? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
+            RootLayoutController.getInstance().borderPane.setEffect(null);
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         }

@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -72,6 +74,14 @@ public class ClassSessionController implements Initializable{
     }
 
     public void pressNewSession(){
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/NewClass.fxml"));
         try {
@@ -95,6 +105,13 @@ public class ClassSessionController implements Initializable{
         if (sessionSelected == null) {
             return;
         }
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/NewClass.fxml"));

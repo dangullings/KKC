@@ -252,6 +252,8 @@ public class NewClassSessionController implements Initializable{
 
         }
 
+        RootLayoutController.getInstance().borderPane.setEffect(null);
+
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
 
@@ -384,6 +386,7 @@ public class NewClassSessionController implements Initializable{
         Optional<ButtonType> action = alert.showAndWait();
 
         if (action.get() == ButtonType.OK){
+            RootLayoutController.getInstance().borderPane.setEffect(null);
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         }

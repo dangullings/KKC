@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.GaussianBlur;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,6 +49,13 @@ public class InventoryController implements Initializable{
 
     @FXML
     public void pressNewItem(){
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+
         StageLoader.loadStage("view/NewItem.fxml", "New Item");
     }
 
@@ -58,6 +67,13 @@ public class InventoryController implements Initializable{
         if (inventorySelected == null) {
             return;
         }
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
 
         NewItemController controller = loadStage("view/NewItem.fxml", "Edit Item").getController();
         controller.initData(itemDAO.selectById(inventorySelected.getId()));
@@ -71,6 +87,13 @@ public class InventoryController implements Initializable{
         if (inventorySelected == null) {
             return;
         }
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
 
         ItemDetailController controller = loadStage("view/ItemDetail.fxml", "Item Detail").getController();
         controller.initData(itemDAO.selectById(inventorySelected.getId()));

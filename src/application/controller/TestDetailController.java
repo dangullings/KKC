@@ -119,6 +119,7 @@ public class TestDetailController implements Initializable {
     }
 
     public void pressOk(){
+        RootLayoutController.getInstance().borderPane.setEffect(null);
         Stage stage = (Stage) btnOk.getScene().getWindow();
         stage.close();
     }

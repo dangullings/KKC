@@ -1,5 +1,6 @@
 package application;
 
+import application.model.DemoPoint;
 import application.model.User;
 import application.util.DAO.*;
 import javafx.application.Application;
@@ -46,7 +47,7 @@ public class Main extends Application {
         try {
             Parent root1 = (Parent) loader.load();
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle("Login");
             stage.setScene(new Scene(root1));
             stage.show();
@@ -75,6 +76,8 @@ public class Main extends Application {
         TestDAOImpl testDAO = new TestDAOImpl();
         LineItemDAOImpl lineItemDAO = new LineItemDAOImpl();
         InventoryDAOImpl inventoryDAO = new InventoryDAOImpl();
+        DemoPointDAO demoPointDAO = new DemoPointDAO();
+        DemoPointAwardedDAO demoPointAwardedDAO = new DemoPointAwardedDAO();
 
         UserDAO userDAO = new UserDAO();
         userDAO.createUserTable();
@@ -96,6 +99,88 @@ public class Main extends Application {
         testDAO.createTestTable();
         lineItemDAO.createLineItemTable();
         inventoryDAO.createInventoryTable();
+        demoPointDAO.createDemoPointTable();
+        demoPointAwardedDAO.createDemoPointAwardedTable();
+
+        createInitDemoPoints();
+    }
+
+    private static void createInitDemoPoints(){
+        DemoPointDAO demoPointDAO = new DemoPointDAO();
+
+        DemoPoint demoPoint = demoPointDAO.selectById(1);
+
+        if (demoPoint.getId() >= 0){
+            return;
+        }
+
+        if (demoPoint.getId() == -1){
+            demoPoint.setName("Attend 80% of classes a month (avg 5x week)");
+            demoPoint.setValue(3);
+            demoPoint.setCategory(1);
+            demoPoint.setModifiable(false);
+            demoPointDAO.insert(demoPoint);
+        }
+
+        demoPoint = demoPointDAO.selectById(2);
+
+        if (demoPoint.getId() == -1){
+            demoPoint.setName("Attend 65% of classes a month (avg 4x week)");
+            demoPoint.setValue(2);
+            demoPoint.setCategory(1);
+            demoPoint.setModifiable(false);
+            demoPointDAO.insert(demoPoint);
+        }
+
+        demoPoint = demoPointDAO.selectById(3);
+
+        if (demoPoint.getId() == -1){
+            demoPoint.setName("Have the most classes of the month");
+            demoPoint.setValue(2);
+            demoPoint.setCategory(1);
+            demoPoint.setModifiable(false);
+            demoPointDAO.insert(demoPoint);
+        }
+
+        demoPoint = demoPointDAO.selectById(4);
+
+        if (demoPoint.getId() == -1){
+            demoPoint.setName("Have the most classes of the year");
+            demoPoint.setValue(10);
+            demoPoint.setCategory(1);
+            demoPoint.setModifiable(false);
+            demoPointDAO.insert(demoPoint);
+        }
+
+        demoPoint = demoPointDAO.selectById(5);
+
+        if (demoPoint.getId() == -1){
+            demoPoint.setName("Have the 2nd most classes of the year");
+            demoPoint.setValue(5);
+            demoPoint.setCategory(1);
+            demoPoint.setModifiable(false);
+            demoPointDAO.insert(demoPoint);
+        }
+
+        demoPoint = demoPointDAO.selectById(6);
+
+        if (demoPoint.getId() == -1){
+            demoPoint.setName("Have the 3rd most classes of the year");
+            demoPoint.setValue(3);
+            demoPoint.setCategory(1);
+            demoPoint.setModifiable(false);
+            demoPointDAO.insert(demoPoint);
+        }
+
+        demoPoint = demoPointDAO.selectById(7);
+
+        if (demoPoint.getId() == -1){
+            demoPoint.setName("Perfect attendance for the month");
+            demoPoint.setValue(1);
+            demoPoint.setCategory(1);
+            demoPoint.setModifiable(false);
+            demoPointDAO.insert(demoPoint);
+        }
     }
 
     private static void createRankArray(){

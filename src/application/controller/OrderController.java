@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.GaussianBlur;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -91,6 +93,13 @@ public class OrderController implements Initializable {
 
     @FXML
     public void pressNewOrder(){
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+
         StageLoader.loadStage("view/NewOrder.fxml", "New Order");
     }
 
@@ -102,6 +111,13 @@ public class OrderController implements Initializable {
         if (orderSelected == null) {
             return;
         }
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-.4);
+        GaussianBlur gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(3.0);
+        gaussianBlur.setInput(colorAdjust);
+        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
 
         NewOrderController controller = StageLoader.loadStage("view/NewOrder.fxml", "Edit Order").getController();
         controller.initData(orderSelected);

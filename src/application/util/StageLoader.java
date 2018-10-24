@@ -20,7 +20,7 @@ public class StageLoader {
         try {
             Parent root1 = (Parent) loader.load();
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle(title);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root1));

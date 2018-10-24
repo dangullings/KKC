@@ -19,7 +19,7 @@ public class StudentDAOImpl {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS student (id int primary key unique auto_increment," +
-                    "first_name varchar(55), last_name varchar(55), rank varchar(55), club varchar(55), email varchar(55), number varchar(15), birthdate date, active boolean)");
+                    "first_name varchar(55), last_name varchar(55), rank_value varchar(55), club varchar(55), email varchar(55), number varchar(15), birthdate date, active boolean)");
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -49,7 +49,7 @@ public class StudentDAOImpl {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO student (first_name, last_name, rank, club, email, number, birthdate, active)" +
+            preparedStatement = connection.prepareStatement("INSERT INTO student (first_name, last_name, rank_value, club, email, number, birthdate, active)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             preparedStatement.setString(1, student.getFirstName());
             preparedStatement.setString(2, student.getLastName());
@@ -100,7 +100,7 @@ public class StudentDAOImpl {
                 student.setId(resultSet.getInt("id"));
                 student.setFirstName(resultSet.getString("first_name"));
                 student.setLastName(resultSet.getString("last_name"));
-                student.setRankName(resultSet.getString("rank"));
+                student.setRankName(resultSet.getString("rank_value"));
                 student.setClub(resultSet.getString("club"));
                 student.setEmail(resultSet.getString("email"));
                 student.setNumber(resultSet.getString("number"));
@@ -157,7 +157,7 @@ public class StudentDAOImpl {
                 student.setId(resultSet.getInt("id"));
                 student.setFirstName(resultSet.getString("first_name"));
                 student.setLastName(resultSet.getString("last_name"));
-                student.setRankName(resultSet.getString("rank"));
+                student.setRankName(resultSet.getString("rank_value"));
                 student.setClub(resultSet.getString("club"));
                 student.setEmail(resultSet.getString("email"));
                 student.setNumber(resultSet.getString("number"));
@@ -216,7 +216,7 @@ public class StudentDAOImpl {
                 student.setId(resultSet.getInt("id"));
                 student.setFirstName(resultSet.getString("first_name"));
                 student.setLastName(resultSet.getString("last_name"));
-                student.setRankName(resultSet.getString("rank"));
+                student.setRankName(resultSet.getString("rank_value"));
                 student.setClub(resultSet.getString("club"));
                 student.setEmail(resultSet.getString("email"));
                 student.setNumber(resultSet.getString("number"));
@@ -308,7 +308,7 @@ public class StudentDAOImpl {
         try {
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE student SET " +
-                    "first_name = ?, last_name = ?, rank = ?, club = ?, email = ?, number = ?, birthdate = ?, active = ? WHERE id = ?");
+                    "first_name = ?, last_name = ?, rank_value = ?, club = ?, email = ?, number = ?, birthdate = ?, active = ? WHERE id = ?");
             preparedStatement.setString(1, student.getFirstName());
             preparedStatement.setString(2, student.getLastName());
             preparedStatement.setString(3, student.getRankName());
