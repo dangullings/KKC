@@ -5,6 +5,7 @@ import application.model.Item;
 import application.util.AlertUser;
 import application.util.DAO.InventoryDAOImpl;
 import application.util.DAO.ItemDAOImpl;
+import application.util.GraphicTools;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -107,17 +108,17 @@ public class NewItemController implements Initializable {
             InventoryController.getInstance().updateInventoryTable();
         }
 
-        RootLayoutController.getInstance().borderPane.setEffect(null);
+        GraphicTools.removeGraphicEffectOnRootView();
 
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
     }
 
     public void pressCancel(){
-        Optional<ButtonType> action = AlertUser.alertUser("Confirmation Dialog", "Exit item creation? (all data will be lost)", Alert.AlertType.CONFIRMATION);
+        Optional<ButtonType> action = AlertUser.alertUser("Confirmation", "Exit item creation? (all data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
-            RootLayoutController.getInstance().borderPane.setEffect(null);
+            GraphicTools.removeGraphicEffectOnRootView();
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         }

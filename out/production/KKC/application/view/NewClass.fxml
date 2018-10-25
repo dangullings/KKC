@@ -103,7 +103,7 @@
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Label>
-                        <ComboBox fx:id="choiceDates" prefWidth="150.0" promptText="Dates">
+                        <ComboBox fx:id="choiceDates" onAction="#choiceDatesChange" prefWidth="150.0" promptText="Dates">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></ComboBox>
@@ -119,7 +119,7 @@
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Label>
-                        <DatePicker fx:id="pickerSpecificDate" promptText="specific date" />
+                        <DatePicker fx:id="pickerSpecificDate" onAction="#pickerSpecificDateChange" promptText="specific date" />
                         <CheckBox fx:id="secondHourSpecific" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="2nd Hour" />
                         <Button fx:id="btnAddDate" mnemonicParsing="false" onAction="#pressAddDate" text="Add Date" />
                      </children>

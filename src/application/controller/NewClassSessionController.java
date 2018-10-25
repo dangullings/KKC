@@ -4,9 +4,11 @@ import application.LOCATION;
 import application.model.Attendance;
 import application.model.ClassDate;
 import application.model.ClassSession;
+import application.util.AlertUser;
 import application.util.DAO.AttendanceDAOImpl;
 import application.util.DAO.ClassDateDAOImpl;
 import application.util.DAO.ClassSessionDAOImpl;
+import application.util.GraphicTools;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -17,13 +19,15 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
 
+import static application.util.AlertUser.alertUser;
+
 public class NewClassSessionController implements Initializable{
 
     private AttendanceDAOImpl attendanceDAO = new AttendanceDAOImpl();
 
     private ClassSession classSession = new ClassSession();
 
-    private boolean isNewSession;
+    private boolean isNewSession, isPartialFinal;
 
     @FXML
     Button btnRemoveDate;
@@ -79,6 +83,7 @@ public class NewClassSessionController implements Initializable{
     LocalDate startDate;
     LocalDate endDate;
 
+    private ArrayList<Integer> finalMonths;
     private List<ClassDate> classDateList;
 
     List<LocalDate> classDates;
@@ -93,6 +98,7 @@ public class NewClassSessionController implements Initializable{
         secondHourDates = new ArrayList<>();
         classDates = new ArrayList<>();
         classDateList = new ArrayList<>();
+        finalMonths = new ArrayList<>();
     }
 
     private void loadClassSessionData(ClassSession c){
@@ -101,8 +107,22 @@ public class NewClassSessionController implements Initializable{
         classDateList = classDateDAO.selectAllBySessionId(classSession.getId());
         classDateListBeforeEdit = classDateDAO.selectAllBySessionId(classSession.getId());
 
+        finalMonths.clear();
+        classDates.clear();
         for (ClassDate classDate : classDateList){
             classDates.add(classDate.getDate());
+
+            if (classDate.getComplete()){
+                if (!finalMonths.contains(classDate.getDate().getMonthValue())){
+                    finalMonths.add(classDate.getDate().getMonthValue());
+                }
+            }
+        }
+
+        if (!finalMonths.isEmpty()){
+            setUIDisable(true);
+        }else{
+            setUIDisable(false);
         }
 
         choiceDates.getItems().addAll(classDates);
@@ -150,7 +170,21 @@ public class NewClassSessionController implements Initializable{
             }
         }
 
-        //updateClassDates();
+        /*
+        choiceDates.setCellFactory(lv -> new ListCell<LocalDate>() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                    setDisable(classDateList.contains(item.getMonthValue()));
+                    setStyle("-fx-opacity: 0.4;");
+                }
+            }
+        });
+        */
 
         setNewSession(false);
     }
@@ -160,6 +194,8 @@ public class NewClassSessionController implements Initializable{
         this.classSession = classSession;
 
         loadClassSessionData(classSession);
+
+        isPartialFinal = false;
     }
 
     public void pressAddDate(){
@@ -169,6 +205,10 @@ public class NewClassSessionController implements Initializable{
 
         ClassDate classDate = new ClassDate();
         LocalDate date = pickerSpecificDate.getValue();
+
+        if (finalMonths.contains(date.getMonthValue())){
+            return;
+        }
 
         classDates.add(date);
         classDate.setDate(date);
@@ -252,7 +292,7 @@ public class NewClassSessionController implements Initializable{
 
         }
 
-        RootLayoutController.getInstance().borderPane.setEffect(null);
+        GraphicTools.removeGraphicEffectOnRootView();
 
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
@@ -261,6 +301,40 @@ public class NewClassSessionController implements Initializable{
         ClassSessionController.getInstance().updateSessionTable();
 
         AttendanceController.getInstance().init();
+    }
+
+    private void setUIDisable(boolean d){
+        checkMonday.setDisable(d);
+        checkTuesday.setDisable(d);
+        checkWednesday.setDisable(d);
+        checkThursday.setDisable(d);
+        checkFriday.setDisable(d);
+        checkSaturday.setDisable(d);
+        secondHourMonday.setDisable(d);
+        secondHourTuesday.setDisable(d);
+        secondHourWednesday.setDisable(d);
+        secondHourThursday.setDisable(d);
+        secondHourFriday.setDisable(d);
+        secondHourSaturday.setDisable(d);
+        pickerStartDate.setDisable(d);
+        pickerEndDate.setDisable(d);
+        choiceLocation.setDisable(d);
+    }
+
+    public void choiceDatesChange(){
+        if (finalMonths.contains(choiceDates.getValue().getMonthValue())){
+            btnRemoveDate.setDisable(true);
+        }else{
+            btnRemoveDate.setDisable(false);
+        }
+    }
+
+    public void pickerSpecificDateChange(){
+        if (finalMonths.contains(pickerSpecificDate.getValue().getMonthValue())){
+            btnAddDate.setDisable(true);
+        }else{
+            btnAddDate.setDisable(false);
+        }
     }
 
     public void changeStartDate(){
@@ -379,14 +453,10 @@ public class NewClassSessionController implements Initializable{
 
     @FXML
     private void pressCancel(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Exit? (all changed data will be lost)");
-        Optional<ButtonType> action = alert.showAndWait();
+        Optional<ButtonType> action = alertUser("Confirmation", "Exit? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
-            RootLayoutController.getInstance().borderPane.setEffect(null);
+            GraphicTools.removeGraphicEffectOnRootView();
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         }

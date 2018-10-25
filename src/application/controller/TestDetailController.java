@@ -3,6 +3,7 @@ package application.controller;
 import application.model.Student;
 import application.model.Test;
 import application.util.DAO.Test_StudentDAOImpl;
+import application.util.GraphicTools;
 import application.util.StageLoader;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -119,7 +120,7 @@ public class TestDetailController implements Initializable {
     }
 
     public void pressOk(){
-        RootLayoutController.getInstance().borderPane.setEffect(null);
+        GraphicTools.removeGraphicEffectOnRootView();
         Stage stage = (Stage) btnOk.getScene().getWindow();
         stage.close();
     }

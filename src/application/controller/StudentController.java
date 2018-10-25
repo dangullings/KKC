@@ -2,6 +2,7 @@ package application.controller;
 
 import application.model.Student;
 import application.util.DAO.AttendanceDAOImpl;
+import application.util.GraphicTools;
 import application.util.StageLoader;
 import application.util.DAO.StudentDAOImpl;
 import application.util.DAO.Test_StudentDAOImpl;
@@ -12,8 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -156,13 +155,7 @@ public class StudentController implements Initializable{
             return;
         }
 
-
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
 
         StudentDetailController controller = StageLoader.loadStage("view/StudentDetail.fxml", "Student Detail").getController();
         controller.initData(studentSelected);
@@ -170,12 +163,7 @@ public class StudentController implements Initializable{
 
     @FXML
     public void pressNewStudent(){
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
         StageLoader.loadStage("view/NewStudent.fxml", "New Student");
     }
 
@@ -188,12 +176,7 @@ public class StudentController implements Initializable{
             return;
         }
 
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
 
         NewStudentController controller = StageLoader.loadStage("view/NewStudent.fxml", "Edit Student").getController();
         controller.initData(studentSelected);
@@ -207,7 +190,7 @@ public class StudentController implements Initializable{
             return;
         }
 
-        Optional<ButtonType> action = alertUser("Confirmation Dialog", "Remove student? (Student will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
+        Optional<ButtonType> action = alertUser("Confirmation", "Remove student? (Student will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
             removeStudent(studentSelected);

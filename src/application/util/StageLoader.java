@@ -1,9 +1,11 @@
 package application.util;
 
 import application.Main;
+import application.controller.NewClassSessionController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -18,17 +20,18 @@ public class StageLoader {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource(fxml));
         try {
-            Parent root1 = (Parent) loader.load();
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle(title);
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root1));
+            stage.setScene(new Scene((Pane) loader.load()));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return loader;
+
+
     }
 }

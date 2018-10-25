@@ -4,6 +4,7 @@ import application.LOCATION;
 import application.Main;
 import application.model.Student;
 import application.util.DAO.StudentDAOImpl;
+import application.util.GraphicTools;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -162,7 +163,7 @@ public class NewStudentController implements Initializable {
                 NewTestController.getInstance().updateStudentsTable();
             }
 
-            RootLayoutController.getInstance().borderPane.setEffect(null);
+            GraphicTools.removeGraphicEffectOnRootView();
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         }else{
@@ -172,10 +173,10 @@ public class NewStudentController implements Initializable {
     }
 
     public void pressCancel(){
-        Optional<ButtonType> action = alertUser("Confirmation Dialog", "Exit? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
+        Optional<ButtonType> action = alertUser("Confirmation", "Exit? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
-            RootLayoutController.getInstance().borderPane.setEffect(null);
+            GraphicTools.removeGraphicEffectOnRootView();
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         }

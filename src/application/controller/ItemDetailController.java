@@ -5,6 +5,7 @@ import application.model.Item;
 import application.model.LineItem;
 import application.util.DAO.InventoryDAOImpl;
 import application.util.DAO.LineItemDAOImpl;
+import application.util.GraphicTools;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -88,9 +89,9 @@ public class ItemDetailController implements Initializable {
     }
 
     public void pressOk(){
+        GraphicTools.removeGraphicEffectOnRootView();
         Stage stage = (Stage) btnOk.getScene().getWindow();
         stage.close();
         StudentController.getInstance().updateStudentTable();
-        RootLayoutController.getInstance().borderPane.setEffect(null);
     }
 }

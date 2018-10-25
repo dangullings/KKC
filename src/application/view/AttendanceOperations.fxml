@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AttendanceController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2e89ba;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AttendanceController">
    <children>
       <BorderPane AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <right>
@@ -50,7 +50,7 @@
             </VBox>
          </right>
          <top>
-            <Label fx:id="lblHeader" text="Attendance" BorderPane.alignment="CENTER_LEFT">
+            <Label fx:id="lblHeader" text="Attendance" textFill="WHITE" BorderPane.alignment="CENTER_LEFT">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>

@@ -7,6 +7,7 @@ import application.model.Test_Student;
 import application.util.DAO.StudentDAOImpl;
 import application.util.DAO.TestDAOImpl;
 import application.util.DAO.Test_StudentDAOImpl;
+import application.util.GraphicTools;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -191,13 +192,14 @@ public class NewTestController implements Initializable {
                 }
             }
 
+            GraphicTools.removeGraphicEffectOnRootView();
+
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
 
             TestController.getInstance().testTableInsert(test);
             TestController.getInstance().updateTestTable();
             StudentController.getInstance().updateStudentTable();
-            RootLayoutController.getInstance().borderPane.setEffect(null);
         }else{
             alertUser("WARNING - MISSING REQUIRED TEST DATA", "Check for a valid date, type and location.", Alert.AlertType.WARNING);
         }
@@ -225,10 +227,10 @@ public class NewTestController implements Initializable {
     }
 
     public void pressCancel(){
-        Optional<ButtonType> action = alertUser("Confirmation Dialog", "Exit? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
+        Optional<ButtonType> action = alertUser("Confirmation", "Exit? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
-            RootLayoutController.getInstance().borderPane.setEffect(null);
+            GraphicTools.removeGraphicEffectOnRootView();
             Stage stage = (Stage) btnCancel.getScene().getWindow();
             stage.close();
         }

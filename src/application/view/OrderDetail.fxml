@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="459.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.OrderDetailController">
+    <children>
+        <BorderPane layoutX="-2.0" prefHeight="602.0" prefWidth="976.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <VBox prefHeight="212.0" prefWidth="789.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox prefHeight="98.0" prefWidth="789.0">
+                            <children>
+                                <Label fx:id="lblName" prefHeight="68.0" prefWidth="371.0" text="Order #34">
+                                    <font>
+                                        <Font name="System Bold" size="36.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="lblNote" prefHeight="71.0" prefWidth="304.0" text="Note: day camp">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font></Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </HBox>
+                        <HBox prefHeight="77.0" prefWidth="789.0" spacing="50.0">
+                            <children>
+                                <Label fx:id="lblBuyer" prefHeight="27.0" prefWidth="273.0" text="Buyer: Ronald Kroells">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="lblSaleCost" text="Sale Cost: $7.99">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="789.0" spacing="50.0">
+                            <padding>
+                                <Insets left="10.0" />
+                            </padding>
+                            <children>
+                                <GridPane prefHeight="102.0" prefWidth="403.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="117.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="10.0" prefWidth="286.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="24.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="16.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label fx:id="lblSalePrice" prefHeight="27.0" prefWidth="221.0" text="Sale Price:">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblSaleValue" text="\$12.50" GridPane.columnIndex="1">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblCost" prefHeight="27.0" prefWidth="156.0" text="Item(s) Cost" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblCostValue" text="\$8.50" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label prefHeight="27.0" prefWidth="44.0" text="Net:" GridPane.rowIndex="3">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblNet" text="\$4.00" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </HBox>
+                        <Label prefHeight="36.0" prefWidth="205.0" text="Line Items">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="10.0" />
+                            </VBox.margin>
+                            <padding>
+                                <Insets top="20.0" />
+                            </padding>
+                        </Label>
+                    </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+                </VBox>
+            </top>
+            <center>
+                <TableView fx:id="lineItemsTable" prefHeight="177.0" prefWidth="398.0" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets left="20.0" right="10.0" />
+                    </BorderPane.margin></TableView>
+            </center>
+            <bottom>
+                <Button fx:id="btnOk" mnemonicParsing="false" onAction="#pressOk" prefHeight="50.0" prefWidth="749.0" text="Ok" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </BorderPane.margin>
+                </Button>
+            </bottom>
+         <right>
+            <Label prefHeight="17.0" prefWidth="345.0" text="Label" BorderPane.alignment="CENTER" />
+         </right>
+        </BorderPane>
+    </children>
+    <effect>
+        <InnerShadow />
+    </effect>
+</AnchorPane>

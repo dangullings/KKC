@@ -4,6 +4,7 @@ import application.model.Inventory;
 import application.model.Item;
 import application.util.DAO.InventoryDAOImpl;
 import application.util.DAO.ItemDAOImpl;
+import application.util.GraphicTools;
 import application.util.StageLoader;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,8 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.GaussianBlur;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,12 +48,7 @@ public class InventoryController implements Initializable{
 
     @FXML
     public void pressNewItem(){
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
 
         StageLoader.loadStage("view/NewItem.fxml", "New Item");
     }
@@ -68,12 +62,7 @@ public class InventoryController implements Initializable{
             return;
         }
 
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
 
         NewItemController controller = loadStage("view/NewItem.fxml", "Edit Item").getController();
         controller.initData(itemDAO.selectById(inventorySelected.getId()));
@@ -88,12 +77,7 @@ public class InventoryController implements Initializable{
             return;
         }
 
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
 
         ItemDetailController controller = loadStage("view/ItemDetail.fxml", "Item Detail").getController();
         controller.initData(itemDAO.selectById(inventorySelected.getId()));

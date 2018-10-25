@@ -214,6 +214,63 @@ public class OrderDAOImpl {
         }
     }
 
+    private List<Order> selectAllOrdersByStudentId(int studentId) {
+        List<Order> orders = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM orders WHERE student_id = ?");
+            preparedStatement.setInt(1, studentId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                Order order = new Order();
+                order.setId(resultSet.getInt("id"));
+                order.setStudentId(resultSet.getInt("student_id"));
+                order.setFirstName(resultSet.getString("firstName"));
+                order.setLastName(resultSet.getString("lastName"));
+                order.setDate(resultSet.getDate("date"));
+                order.setSalePrice(resultSet.getBigDecimal("salePrice"));
+                order.setNote(resultSet.getString("note"));
+                order.setComplete(resultSet.getBoolean("complete"));
+
+                orders.add(order);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (resultSet != null){
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return orders;
+    }
+
     private List<Order> selectAllOrders(boolean complete) {
         List<Order> orders = new ArrayList<>();
         Connection connection = null;
@@ -273,5 +330,9 @@ public class OrderDAOImpl {
 
     public ObservableList<Order> selectAllObservableOrders(boolean complete) {
         return FXCollections.observableArrayList(selectAllOrders(complete));
+    }
+
+    public ObservableList<Order> selectAllObservableOrdersByStudent(int studentId) {
+        return FXCollections.observableArrayList(selectAllOrdersByStudentId(studentId));
     }
 }

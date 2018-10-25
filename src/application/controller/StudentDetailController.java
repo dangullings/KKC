@@ -1,12 +1,10 @@
 package application.controller;
 
-import application.model.Student;
-import application.model.Test;
-import application.model.Test_Student;
-import application.util.DAO.StudentDAOImpl;
-import application.util.DAO.TestDAOImpl;
-import application.util.DAO.Test_StudentDAOImpl;
+import application.model.*;
+import application.util.DAO.*;
+import application.util.GraphicTools;
 import application.util.StageLoader;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,11 +14,14 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class StudentDetailController implements Initializable {
 
     @FXML TableView<Student.TestView> studentTestsTable;
+    @FXML TableView<DemoPointAwarded> studentDemoPointsTable;
+    @FXML TableView<Order> studentOrderTable;
     @FXML Label lblName;
     @FXML Label lblDOB;
     @FXML Label lblRank;
@@ -141,6 +142,52 @@ public class StudentDetailController implements Initializable {
             studentTestsTable.getSelectionModel().select(focusTest);
             studentTestsTable.scrollTo(focusTest);
         }
+
+
+        TableColumn<DemoPointAwarded, String> colName = new TableColumn<>("Name");
+        colName.setMinWidth(315);
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<DemoPointAwarded, String> colInfo = new TableColumn<>("Info");
+        colInfo.setMinWidth(240);
+        colInfo.setCellValueFactory(new PropertyValueFactory<>("info"));
+
+        TableColumn<DemoPointAwarded, String> colValue = new TableColumn<>("Value");
+        colValue.setMinWidth(10);
+        colValue.setMaxWidth(40);
+        colValue.setCellValueFactory(new PropertyValueFactory<>("value"));
+
+        studentDemoPointsTable.getColumns().addAll(colName, colInfo, colValue);
+
+        DemoPointAwardedDAO demoPointAwardedDAO = new DemoPointAwardedDAO();
+        ObservableList<DemoPointAwarded> demoPointsAwarded = demoPointAwardedDAO.selectAllObservableByStudentId(student.getId());
+        studentDemoPointsTable.setItems(demoPointsAwarded);
+
+
+
+
+
+        TableColumn<Order, Integer> colNumber = new TableColumn<>("id");
+        colNumber.setMinWidth(50);
+        colNumber.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        TableColumn<Order, LocalDate> colOrderDate = new TableColumn<>("Date");
+        colOrderDate.setMinWidth(150);
+        colOrderDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        TableColumn<Order, String> colSalePrice = new TableColumn<>("Sale Price");
+        colSalePrice.setMinWidth(150);
+        colSalePrice.setCellValueFactory(new PropertyValueFactory<>("salePrice"));
+
+        TableColumn<Order, String> colDesc = new TableColumn<>("Note");
+        colDesc.setMinWidth(350);
+        colDesc.setCellValueFactory(new PropertyValueFactory<>("note"));
+
+        studentOrderTable.getColumns().addAll(colNumber, colOrderDate, colSalePrice, colDesc);
+
+        OrderDAOImpl orderDAO = new OrderDAOImpl();
+        ObservableList<Order> studentOrders = orderDAO.selectAllObservableOrdersByStudent(student.getId());
+        studentOrderTable.setItems(studentOrders);
     }
 
     private void loadTestDetail(int testId){
@@ -187,10 +234,10 @@ public class StudentDetailController implements Initializable {
     }
 
     public void pressOk(){
+        GraphicTools.removeGraphicEffectOnRootView();
         Stage stage = (Stage) btnOk.getScene().getWindow();
         stage.close();
         StudentController.getInstance().updateStudentTable();
-        RootLayoutController.getInstance().borderPane.setEffect(null);
     }
 
     public void pressActive(){

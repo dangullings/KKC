@@ -133,8 +133,8 @@ public class DemoPointsController implements Initializable {
         //    }
        // }
 
-        studentDemoPoints = FXCollections.observableArrayList(demoPointsAwarded);
-        tableStudentDemoPoints.setItems(studentDemoPoints);
+        //studentDemoPoints = FXCollections.observableArrayList(demoPointsAwarded);
+        tableStudentDemoPoints.setItems(demoPointsAwarded);
     }
 
     private void initAccordTable(ObservableList<DemoPoint> demoPoints, int category){

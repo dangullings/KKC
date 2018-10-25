@@ -5,14 +5,13 @@ import application.model.Order;
 import application.util.AlertUser;
 import application.util.DAO.LineItemDAOImpl;
 import application.util.DAO.OrderDAOImpl;
+import application.util.GraphicTools;
 import application.util.StageLoader;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.GaussianBlur;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -93,14 +92,24 @@ public class OrderController implements Initializable {
 
     @FXML
     public void pressNewOrder(){
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
 
         StageLoader.loadStage("view/NewOrder.fxml", "New Order");
+    }
+
+    @FXML
+    public void pressDetail(){
+        Order orderSelected;
+        orderSelected = ordersTable.getSelectionModel().getSelectedItem();
+
+        if (orderSelected == null) {
+            return;
+        }
+
+        GraphicTools.setGraphicEffectOnRootView();
+
+        OrderDetailController controller = StageLoader.loadStage("view/OrderDetail.fxml", "Order Detail").getController();
+        controller.initData(orderSelected);
     }
 
     @FXML
@@ -112,12 +121,7 @@ public class OrderController implements Initializable {
             return;
         }
 
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
 
         NewOrderController controller = StageLoader.loadStage("view/NewOrder.fxml", "Edit Order").getController();
         controller.initData(orderSelected);
@@ -132,7 +136,7 @@ public class OrderController implements Initializable {
             return;
         }
 
-        Optional<ButtonType> action = AlertUser.alertUser("Confirmation Dialog", "Remove Order? (Order will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
+        Optional<ButtonType> action = AlertUser.alertUser("Confirmation", "Remove Order? (Order will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
             List<LineItem> lineItems;

@@ -5,13 +5,12 @@ import application.model.Test;
 import application.util.DAO.StudentDAOImpl;
 import application.util.DAO.TestDAOImpl;
 import application.util.DAO.Test_StudentDAOImpl;
+import application.util.GraphicTools;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.GaussianBlur;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -83,12 +82,7 @@ public class TestController implements Initializable {
 
     @FXML
     public void pressNewTest(){
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
 
         loadStage("view/NewTest.fxml", "New Test");
     }
@@ -102,6 +96,7 @@ public class TestController implements Initializable {
             return;
         }
 
+        GraphicTools.setGraphicEffectOnRootView();
         loadTestDetail(testSelected);
     }
 
@@ -110,13 +105,6 @@ public class TestController implements Initializable {
     }
 
     private void loadTestDetail(Test testSelected){
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
-
         TestDetailController controller = loadStage("view/TestDetail.fxml", "Test Detail").getController();
         controller.initData(testSelected);
     }
@@ -129,12 +117,7 @@ public class TestController implements Initializable {
             return;
         }
 
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-.4);
-        GaussianBlur gaussianBlur = new GaussianBlur();
-        gaussianBlur.setRadius(3.0);
-        gaussianBlur.setInput(colorAdjust);
-        RootLayoutController.getInstance().borderPane.setEffect(gaussianBlur);
+        GraphicTools.setGraphicEffectOnRootView();
 
         NewTestController controller = loadStage("view/NewTest.fxml", "Edit Test").getController();
         controller.initData(testSelected);
@@ -148,7 +131,7 @@ public class TestController implements Initializable {
             return;
         }
 
-        Optional<ButtonType> action = alertUser("Confirmation Dialog", "Remove Test? (Test will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
+        Optional<ButtonType> action = alertUser("Confirmation", "Remove Test? (Test will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
             removeTest(testSelected);
