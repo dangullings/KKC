@@ -76,7 +76,7 @@ public class AttendanceController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        scrollPaneAnchor.setStyle("-fx-background-color: #e0e0e0");
+        //scrollPaneAnchor.setStyle("-fx-background-color: #e0e0e0");
         scrollPane.setStyle("-fx-background-color: #ffffff");
         init();
     }

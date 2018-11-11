@@ -18,7 +18,7 @@ public class AttendanceDAOImpl {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS attendance (id int primary key unique auto_increment," +
-                    "student_id int(6), classDate_id int(6), first_hour boolean, second_hour boolean)");
+                    "student_id int(6), class_date_id int(6), first_hour boolean, second_hour boolean, FOREIGN KEY (student_id) REFERENCES student(id), FOREIGN KEY (class_date_id) REFERENCES class_date(id))");
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class AttendanceDAOImpl {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO attendance (student_id, classDate_id, first_hour, second_hour)" +
+            preparedStatement = connection.prepareStatement("INSERT INTO attendance (student_id, class_date_id, first_hour, second_hour)" +
                     "VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, attendance.getStudentId());
             preparedStatement.setInt(2, attendance.getClassDateId());
@@ -123,7 +123,7 @@ public class AttendanceDAOImpl {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM attendance WHERE classDate_id = ?");
+            preparedStatement = connection.prepareStatement("DELETE FROM attendance WHERE class_date_id = ?");
             preparedStatement.setInt(1, classDateId);
             preparedStatement.executeUpdate();
 
@@ -164,7 +164,7 @@ public class AttendanceDAOImpl {
                 Attendance attendance = new Attendance();
                 attendance.setId(resultSet.getInt("id"));
                 attendance.setStudentId(resultSet.getInt("student_id"));
-                attendance.setClassDateId(resultSet.getInt("classDate_id"));
+                attendance.setClassDateId(resultSet.getInt("class_date_id"));
                 attendance.setFirstHour(resultSet.getBoolean("first_hour"));
                 attendance.setSecondHour(resultSet.getBoolean("second_hour"));
 
@@ -210,7 +210,7 @@ public class AttendanceDAOImpl {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM attendance WHERE classDate_id = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM attendance WHERE class_date_id = ?");
             preparedStatement.setInt(1, classDateId);
             resultSet = preparedStatement.executeQuery();
 
@@ -218,7 +218,7 @@ public class AttendanceDAOImpl {
                 Attendance attendance = new Attendance();
                 attendance.setId(resultSet.getInt("id"));
                 attendance.setStudentId(resultSet.getInt("student_id"));
-                attendance.setClassDateId(resultSet.getInt("classDate_id"));
+                attendance.setClassDateId(resultSet.getInt("class_date_id"));
                 attendance.setFirstHour(resultSet.getBoolean("first_hour"));
                 attendance.setSecondHour(resultSet.getBoolean("second_hour"));
 
@@ -265,7 +265,7 @@ public class AttendanceDAOImpl {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM attendance WHERE classDate_id = ? AND student_id = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM attendance WHERE class_date_id = ? AND student_id = ?");
             preparedStatement.setInt(1, classDateId);
             preparedStatement.setInt(2, studentId);
             resultSet = preparedStatement.executeQuery();
@@ -277,7 +277,7 @@ public class AttendanceDAOImpl {
             while (resultSet.next()){
                 attendance.setId(resultSet.getInt("id"));
                 attendance.setStudentId(resultSet.getInt("student_id"));
-                attendance.setClassDateId(resultSet.getInt("classDate_id"));
+                attendance.setClassDateId(resultSet.getInt("class_date_id"));
                 attendance.setFirstHour(resultSet.getBoolean("first_hour"));
                 attendance.setSecondHour(resultSet.getBoolean("second_hour"));
             }
@@ -329,7 +329,7 @@ public class AttendanceDAOImpl {
             while (resultSet.next()){
                 attendance.setId(resultSet.getInt("id"));
                 attendance.setStudentId(resultSet.getInt("student_id"));
-                attendance.setClassDateId(resultSet.getInt("classDate_id"));
+                attendance.setClassDateId(resultSet.getInt("class_date_id"));
                 attendance.setFirstHour(resultSet.getBoolean("first_hour"));
                 attendance.setSecondHour(resultSet.getBoolean("second_hour"));
             }
@@ -380,7 +380,7 @@ public class AttendanceDAOImpl {
                 Attendance attendance = new Attendance();
                 attendance.setId(resultSet.getInt("id"));
                 attendance.setStudentId(resultSet.getInt("student_id"));
-                attendance.setClassDateId(resultSet.getInt("classDate_id"));
+                attendance.setClassDateId(resultSet.getInt("class_date_id"));
                 attendance.setFirstHour(resultSet.getBoolean("first_hour"));
                 attendance.setSecondHour(resultSet.getBoolean("second_hour"));
 
@@ -462,7 +462,7 @@ public class AttendanceDAOImpl {
         try {
             connection = DBUtil.getConnection();
             preparedStatement = connection.prepareStatement("UPDATE attendance SET " +
-                    "student_id = ?, classDate_id = ?, first_hour = ?, second_hour = ? WHERE id = ?");
+                    "student_id = ?, class_date_id = ?, first_hour = ?, second_hour = ? WHERE id = ?");
             preparedStatement.setInt(1, attendance.getStudentId());
             preparedStatement.setInt(2, attendance.getClassDateId());
             preparedStatement.setBoolean(3, attendance.isFirstHour());

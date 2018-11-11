@@ -2,18 +2,16 @@ package application.controller;
 
 import application.LOCATION;
 import application.model.Student;
-import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class CreateStudents {
 
     private StudentController studentController = new StudentController();
 
-    @Test
+    
     public void CreateStudent (){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 

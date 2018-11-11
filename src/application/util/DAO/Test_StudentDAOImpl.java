@@ -21,7 +21,7 @@ public class Test_StudentDAOImpl {
                 connection = DBUtil.getConnection();
                 statement = connection.createStatement();
                 statement.execute("CREATE TABLE IF NOT EXISTS test_student (id int primary key unique auto_increment," +
-                        "test_id int(6), student_id int(6), rank_value int(3), form varchar(2), steps varchar(2), power varchar(2), kiap varchar(2), questions varchar(2), attitude varchar(2), sparring varchar(2), breaking varchar(2))");
+                        "test_id int(6), student_id int(6), rank_value int(3), form varchar(2), steps varchar(2), power varchar(2), kiap varchar(2), questions varchar(2), attitude varchar(2), sparring varchar(2), breaking varchar(2), FOREIGN KEY (test_id) REFERENCES test(id), FOREIGN KEY (student_id) REFERENCES student(id))");
 
             }catch (Exception e) {
                 e.printStackTrace();

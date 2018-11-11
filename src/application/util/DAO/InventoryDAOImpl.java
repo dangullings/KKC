@@ -18,7 +18,7 @@ public class InventoryDAOImpl {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS inventory (id int primary key unique auto_increment," + // constraint inventory_pk primary key(item_id
-                    "item_id int(6), produced int(6), sold int(6), produced_cost decimal(6,2), sales_cost decimal(6,2), quantity int(6))");
+                    "item_id int(6), produced int(6), sold int(6), produced_cost decimal(6,2), sales_cost decimal(6,2), quantity int(6), FOREIGN KEY (item_id) REFERENCES item(id))");
 
         }catch (Exception e) {
             e.printStackTrace();

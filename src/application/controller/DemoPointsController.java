@@ -6,6 +6,8 @@ import application.model.Student;
 import application.util.DAO.DemoPointAwardedDAO;
 import application.util.DAO.DemoPointDAO;
 import application.util.DAO.StudentDAOImpl;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,7 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -101,11 +105,11 @@ public class DemoPointsController implements Initializable {
         comboboxStudentDemoPoints.setItems(studentDAO.selectAllActiveObservable());
 
         TableColumn<DemoPointAwarded, String> colName = new TableColumn<>("Name");
-        colName.setMinWidth(215);
+        colName.setMinWidth(185);
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<DemoPointAwarded, String> colInfo = new TableColumn<>("Info");
-        colInfo.setMinWidth(140);
+        colInfo.setMinWidth(170);
         colInfo.setCellValueFactory(new PropertyValueFactory<>("info"));
 
         TableColumn<DemoPointAwarded, String> colValue = new TableColumn<>("Value");
@@ -114,26 +118,25 @@ public class DemoPointsController implements Initializable {
         colValue.setCellValueFactory(new PropertyValueFactory<>("value"));
 
         tableStudentDemoPoints.getColumns().addAll(colName, colInfo, colValue);
+
+        tableStudentDemoPoints.setPlaceholder(new Label("No Demo Points Awarded"));
+
+        tableStudentDemoPoints.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> source, Number oldWidth, Number newWidth) {
+                Pane header = (Pane) tableStudentDemoPoints.lookup("TableHeaderRow");
+                if (header.isVisible()){
+                    header.setMaxHeight(0);
+                    header.setMinHeight(0);
+                    header.setPrefHeight(0);
+                    header.setVisible(false);
+                }
+            }
+        });
     }
 
     private void initStudentDemoPointsTable(){
         ObservableList<DemoPointAwarded> demoPointsAwarded = demoPointAwardedDAO.selectAllObservableByStudentId(selectedStudent.getId());
-
-        //ArrayList<DemoPoint> demoPointsTemp = new ArrayList<>();
-
-        //for (DemoPointAwarded demoPointAwarded : demoPointsAwarded){
-        //    demoPointsTemp.add(demoPointDAO.selectById(demoPointAwarded.getDemoPointId()));
-        //}
-
-        //for (DemoPointAwarded demoPointAwarded : demoPointsAwarded) {
-        //    for (DemoPointAwarded demoPoint : demoPointsTemp) {
-        //        if (demoPoint.getId() == demoPointAwarded.getDemoPointId()){
-        //            demoPoint.setInfo(demoPointAwarded.getInfo());
-        //        }
-        //    }
-       // }
-
-        //studentDemoPoints = FXCollections.observableArrayList(demoPointsAwarded);
         tableStudentDemoPoints.setItems(demoPointsAwarded);
     }
 
@@ -146,6 +149,22 @@ public class DemoPointsController implements Initializable {
         colValue.setMinWidth(30);
         colValue.setCellValueFactory(new PropertyValueFactory<>("strValue"));
 
+        // Custom rendering of the table cell.
+        colName.setCellFactory(column -> {
+            return new TableCell<DemoPoint, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                        if (item.equalsIgnoreCase("Attend 80% of Classes a Month (avg 5x week)")) {
+                            setTextFill(Color.CHOCOLATE);
+                            setStyle("-fx-background-color: yellow");
+                        } else {
+                            setTextFill(Color.BLACK);
+                            setStyle("");
+                        }
+                }
+            };
+        });
         /*
         colName.setCellFactory(TextFieldTableCell.forTableColumn());
         colName.setOnEditCommit(
@@ -227,6 +246,47 @@ public class DemoPointsController implements Initializable {
             tableAccordPane3.getColumns().addAll(colName, colValue);
             tableAccordPane3.setEditable(true);
         }
+
+        tableAccordPane1.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> source, Number oldWidth, Number newWidth) {
+                Pane header = (Pane) tableAccordPane1.lookup("TableHeaderRow");
+                if (header.isVisible()){
+                    header.setMaxHeight(0);
+                    header.setMinHeight(0);
+                    header.setPrefHeight(0);
+                    header.setVisible(false);
+                }
+            }
+        });
+
+        tableAccordPane2.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> source, Number oldWidth, Number newWidth) {
+                Pane header = (Pane) tableAccordPane2.lookup("TableHeaderRow");
+                if (header.isVisible()){
+                    header.setMaxHeight(0);
+                    header.setMinHeight(0);
+                    header.setPrefHeight(0);
+                    header.setVisible(false);
+                }
+            }
+        });
+
+        tableAccordPane3.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> source, Number oldWidth, Number newWidth) {
+                Pane header = (Pane) tableAccordPane3.lookup("TableHeaderRow");
+                if (header.isVisible()){
+                    header.setMaxHeight(0);
+                    header.setMinHeight(0);
+                    header.setPrefHeight(0);
+                    header.setVisible(false);
+                }
+            }
+        });
+
+        tableAccordPane2.setPlaceholder(new Label("No Demo Points Created"));
     }
 
     @FXML void pressSubmit1(){

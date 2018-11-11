@@ -25,6 +25,7 @@ public class StudentDetailController implements Initializable {
     @FXML Label lblName;
     @FXML Label lblDOB;
     @FXML Label lblRank;
+    @FXML Label lblDemoPoints;
     @FXML Label lblClub;
     @FXML Label lblNumber;
     @FXML Label lblEmail;
@@ -57,15 +58,15 @@ public class StudentDetailController implements Initializable {
 
     private void initTables(){
         TableColumn<Student.TestView, String> colTest = new TableColumn<>("Test");
-        colTest.setMinWidth(95);
+        colTest.setMinWidth(99);
         colTest.setCellValueFactory(new PropertyValueFactory<>("rankName"));
 
         TableColumn<Student.TestView, LocalDate> colDate = new TableColumn<>("Date");
-        colDate.setMinWidth(95);
+        colDate.setMinWidth(98);
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         TableColumn<Student.TestView, String> colLocation = new TableColumn<>("Location");
-        colLocation.setMinWidth(95);
+        colLocation.setMinWidth(98);
         colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
 
         TableColumn<Student.TestView, String> colScores = new TableColumn<>("Scores");
@@ -117,6 +118,7 @@ public class StudentDetailController implements Initializable {
         studentTestsTable.getColumns().addAll(colTest, colDate, colLocation, colScores);
         colDate.setSortType(TableColumn.SortType.DESCENDING);
         studentTestsTable.getSortOrder().setAll(colDate);
+        studentTestsTable.setPlaceholder(new Label("No Tests Taken"));
 
         studentTestsTable.setRowFactory( tv -> {
             TableRow<Student.TestView> row = new TableRow<>();
@@ -145,15 +147,15 @@ public class StudentDetailController implements Initializable {
 
 
         TableColumn<DemoPointAwarded, String> colName = new TableColumn<>("Name");
-        colName.setMinWidth(315);
+        colName.setMinWidth(185);
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<DemoPointAwarded, String> colInfo = new TableColumn<>("Info");
-        colInfo.setMinWidth(240);
+        colInfo.setMinWidth(175);
         colInfo.setCellValueFactory(new PropertyValueFactory<>("info"));
 
         TableColumn<DemoPointAwarded, String> colValue = new TableColumn<>("Value");
-        colValue.setMinWidth(10);
+        colValue.setMinWidth(40);
         colValue.setMaxWidth(40);
         colValue.setCellValueFactory(new PropertyValueFactory<>("value"));
 
@@ -162,7 +164,7 @@ public class StudentDetailController implements Initializable {
         DemoPointAwardedDAO demoPointAwardedDAO = new DemoPointAwardedDAO();
         ObservableList<DemoPointAwarded> demoPointsAwarded = demoPointAwardedDAO.selectAllObservableByStudentId(student.getId());
         studentDemoPointsTable.setItems(demoPointsAwarded);
-
+        studentDemoPointsTable.setPlaceholder(new Label("No Demo Team Points Awarded"));
 
 
 
@@ -180,7 +182,7 @@ public class StudentDetailController implements Initializable {
         colSalePrice.setCellValueFactory(new PropertyValueFactory<>("salePrice"));
 
         TableColumn<Order, String> colDesc = new TableColumn<>("Note");
-        colDesc.setMinWidth(350);
+        colDesc.setMinWidth(425);
         colDesc.setCellValueFactory(new PropertyValueFactory<>("note"));
 
         studentOrderTable.getColumns().addAll(colNumber, colOrderDate, colSalePrice, colDesc);
@@ -188,6 +190,18 @@ public class StudentDetailController implements Initializable {
         OrderDAOImpl orderDAO = new OrderDAOImpl();
         ObservableList<Order> studentOrders = orderDAO.selectAllObservableOrdersByStudent(student.getId());
         studentOrderTable.setItems(studentOrders);
+        studentOrderTable.setPlaceholder(new Label("No Orders/Transactions By "+student.getFirstName()));
+
+        studentOrderTable.setRowFactory( tv -> {
+            TableRow<Order> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Order rowData = row.getItem();
+                    loadOrderDetail(rowData.getId());
+                }
+            });
+            return row ;
+        });
     }
 
     private void loadTestDetail(int testId){
@@ -199,7 +213,24 @@ public class StudentDetailController implements Initializable {
         controller.initData(test);
     }
 
+    private void loadOrderDetail(int orderId){
+        OrderDAOImpl orderDAO = new OrderDAOImpl();
+        Order order = orderDAO.selectById(orderId);
+
+        OrderDetailController controller = StageLoader.loadStage("view/OrderDetail.fxml", "Order Detail").getController();
+        controller.initData(order);
+    }
+
     private void setUIData(){
+        int demoPoints = 0;
+
+        DemoPointAwardedDAO demoPointAwardedDAO = new DemoPointAwardedDAO();
+        List<DemoPointAwarded> demoPointsAwarded = demoPointAwardedDAO.selectAllByStudentId(student.getId());
+
+        for (DemoPointAwarded demoPointAwarded : demoPointsAwarded){
+            demoPoints += demoPointAwarded.getValue();
+        }
+
         lblName.setText(student.getFirstName() + " " + student.getLastName());
         lblDOB.setText("DOB: " + student.getBirthDate().toString());
 
@@ -216,6 +247,7 @@ public class StudentDetailController implements Initializable {
 
         lblRank.setText("Rank: " + student.getRankNameRounded() + " " + rankDetail);
         lblClub.setText("Club: " + student.getClub());
+        lblDemoPoints.setText("Demo Team Points: " + demoPoints);
         lblNumber.setText("Phone Number: " + student.getNumber());
         lblEmail.setText("Email: " + student.getEmail());
 

@@ -3,16 +3,20 @@ package application.model;
 public class User {
 
     int id;
-    String name;
+    String username;
     String password;
+    int student_id;
+    String role;
 
     public User(){
 
     }
 
-    public User(String name, String password){
-        this.name = name;
+    public User(String username, String password, int student_id, String role){
+        this.username = username;
         this.password = password;
+        this.student_id = student_id;
+        this.role = role;
     }
 
     public int getId() {
@@ -23,19 +27,35 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getStudent_id() {
+        return student_id;
+    }
+
+    public void setStudent_id(int student_id) {
+        this.student_id = student_id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

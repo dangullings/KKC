@@ -2,6 +2,7 @@ package application.controller;
 
 import application.model.LineItem;
 import application.model.Order;
+import application.model.Student;
 import application.util.DAO.LineItemDAOImpl;
 import application.util.GraphicTools;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 public class OrderDetailController implements Initializable {
 
     @FXML TableView<LineItem> lineItemsTable;
+    @FXML Label lblOrder;
     @FXML Label lblBuyer;
     @FXML Label lblNote;
     @FXML Label lblSalePrice;
@@ -49,6 +51,7 @@ public class OrderDetailController implements Initializable {
         lineItemsTable.setItems(lineItems);
         lineItemsTable.getColumns().addAll(colLineItemName, colQuantity, colPrice);
 
+        lblOrder.setText("Order #"+order.getId());
         lblBuyer.setText("Buyer: "+order.getFirstName() + " " + order.getLastName());
         lblNote.setText("Note: " + order.getNote());
         lblSalePrice.setText("Sale Price:");

@@ -10,7 +10,7 @@ public class DBUtil {
     static String url = "jdbc:mysql://localhost:3306/" +databaseName;
 
     static String username = "root";
-    static String password = "vikings35";
+    static String password = ""; // vikings35
 
     public static Connection getConnection() {
         Connection connection = null;

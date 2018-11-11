@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -112,4 +113,7 @@
    <bottom>
       <HBox prefHeight="16.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </bottom>
+   <effect>
+      <InnerShadow />
+   </effect>
 </BorderPane>

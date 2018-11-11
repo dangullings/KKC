@@ -23,7 +23,7 @@
                     <children>
                         <HBox prefHeight="98.0" prefWidth="789.0">
                             <children>
-                                <Label fx:id="lblName" prefHeight="68.0" prefWidth="371.0" text="Order #34">
+                                <Label fx:id="lblOrder" prefHeight="68.0" prefWidth="371.0" text="Order #34">
                                     <font>
                                         <Font name="System Bold" size="36.0" />
                                     </font>
@@ -87,7 +87,7 @@
                                                 <Font size="18.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="lblCost" prefHeight="27.0" prefWidth="156.0" text="Item(s) Cost" GridPane.rowIndex="1">
+                                        <Label fx:id="lblCost" prefHeight="27.0" prefWidth="156.0" text="Cost:" GridPane.rowIndex="1">
                                             <font>
                                                 <Font size="18.0" />
                                             </font>
@@ -136,7 +136,10 @@
                 <TableView fx:id="lineItemsTable" prefHeight="177.0" prefWidth="398.0" BorderPane.alignment="CENTER">
                     <BorderPane.margin>
                         <Insets left="20.0" right="10.0" />
-                    </BorderPane.margin></TableView>
+                    </BorderPane.margin>
+               <effect>
+                  <InnerShadow />
+               </effect></TableView>
             </center>
             <bottom>
                 <Button fx:id="btnOk" mnemonicParsing="false" onAction="#pressOk" prefHeight="50.0" prefWidth="749.0" text="Ok" BorderPane.alignment="CENTER">

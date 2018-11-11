@@ -20,7 +20,7 @@ public class ClassDateDAOImpl {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS class_date (id int primary key unique auto_increment," +
-                    "session_id int(6), date Date, second_hour boolean, complete boolean)");
+                    "session_id int(6), date Date, second_hour boolean, complete boolean, FOREIGN KEY (session_id) REFERENCES class_session(id))");
 
         }catch (Exception e) {
             e.printStackTrace();

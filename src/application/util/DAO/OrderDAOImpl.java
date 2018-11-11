@@ -18,7 +18,7 @@ public class OrderDAOImpl {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS orders (id int primary key unique auto_increment," +
-                    "student_id int(6), firstName varchar(55), lastName varchar(55), date date, salePrice decimal(6,2), note varchar(55), complete boolean)");
+                    "student_id int(6), firstName varchar(55), lastName varchar(55), date date, salePrice decimal(6,2), note varchar(55), complete boolean, FOREIGN KEY (student_id) REFERENCES student(id))");
 
         }catch (Exception e) {
             e.printStackTrace();

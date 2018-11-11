@@ -14,7 +14,7 @@ public class UserDAO {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS user (id int primary key unique auto_increment," +
-                    "name varchar(55), password varchar(55))");
+                    "username varchar(55), password varchar(55), student_id int(6), role varchar(55), FOREIGN KEY (student_id) REFERENCES student(id))");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,10 +44,12 @@ public class UserDAO {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO user (name, password)" +
-                    "VALUES (?, ?)");
-            preparedStatement.setString(1, user.getName());
+            preparedStatement = connection.prepareStatement("INSERT INTO user (username, password, student_id, role)" +
+                    "VALUES (?, ?, ?, ?)");
+            preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setInt(3, user.getStudent_id());
+            preparedStatement.setString(4, user.getRole());
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -71,7 +73,7 @@ public class UserDAO {
         }
     }
 
-    public User getUserByCredential(String name, String password) {
+    public User getUserByCredential(String username, String password) {
         User user = new User();
         Connection connection = null;
 
@@ -80,8 +82,8 @@ public class UserDAO {
 
         try {
             connection = DBUtil.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE name = ? AND password = ?");
-            preparedStatement.setString(1, name);
+            preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE username = ? AND password = ?");
+            preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
 
@@ -90,8 +92,10 @@ public class UserDAO {
             }else{
                 while (resultSet.next()) {
                     user.setId(resultSet.getInt("id"));
-                    user.setName(resultSet.getString("name"));
+                    user.setUsername(resultSet.getString("username"));
                     user.setPassword(resultSet.getString("password"));
+                    user.setStudent_id(resultSet.getInt("student_id"));
+                    user.setRole(resultSet.getString("role"));
                 }
             }
 

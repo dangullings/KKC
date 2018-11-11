@@ -3,6 +3,7 @@ package application.util;
 import application.controller.RootLayoutController;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.InnerShadow;
 
 public class GraphicTools {
 
@@ -20,6 +21,8 @@ public class GraphicTools {
     }
 
     public static void removeGraphicEffectOnRootView(){
+        InnerShadow innerShadow = new InnerShadow();
         RootLayoutController.getInstance().borderPane.setEffect(null);
+        RootLayoutController.getInstance().borderPane.setEffect(innerShadow);
     }
 }

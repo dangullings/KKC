@@ -1,12 +1,11 @@
 package application.controller;
 
 import application.LOCATION;
+import application.model.DemoPointAwarded;
 import application.model.Student;
 import application.model.Test;
 import application.model.Test_Student;
-import application.util.DAO.StudentDAOImpl;
-import application.util.DAO.TestDAOImpl;
-import application.util.DAO.Test_StudentDAOImpl;
+import application.util.DAO.*;
 import application.util.GraphicTools;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -158,9 +157,16 @@ public class NewTestController implements Initializable {
 
                 if (isNewTest) {
                     testStudentDAO.insert(test_student);
+
+                    if (Integer.parseInt(test_student.getForm()) >= 8){
+                        awardDemoPoint(studentDAO.selectById(test_student.getStudentId()), 9);
+                    }
                 }else{
                     if (test_studentsBeforeEdit.contains(test_student)){
                         testStudentDAO.update(test_student, test_student.getId());
+                        if (Integer.parseInt(test_student.getForm()) >= 8){
+                            awardDemoPoint(studentDAO.selectById(test_student.getStudentId()), 9);
+                        }
                     }else{
                         testStudentDAO.insert(test_student);
 
@@ -168,6 +174,10 @@ public class NewTestController implements Initializable {
                         student = studentDAO.selectById(test_student.getStudentId());
                         student.increaseRank();
                         studentDAO.update(student, student.getId());
+
+                        if (Integer.parseInt(test_student.getForm()) >= 8){
+                            awardDemoPoint(studentDAO.selectById(test_student.getStudentId()), 9);
+                        }
                     }
                 }
             }
@@ -181,6 +191,10 @@ public class NewTestController implements Initializable {
                         student = studentDAO.selectById(test_student_b.getStudentId());
                         student.decreaseRank();
                         studentDAO.update(student, student.getId());
+
+                        if (Integer.parseInt(test_student.getForm()) >= 8){
+                            //removeAwardDemoPoint(studentDAO.selectById(test_student.getStudentId()), 9);
+                        }
                     }
                 }
             }
@@ -189,6 +203,8 @@ public class NewTestController implements Initializable {
                 for (Student student : testStudentsTable.getItems()) {
                     student.increaseRank();
                     studentDAO.update(student, student.getId());
+
+                    awardDemoPoint(student, 8);
                 }
             }
 
@@ -203,6 +219,22 @@ public class NewTestController implements Initializable {
         }else{
             alertUser("WARNING - MISSING REQUIRED TEST DATA", "Check for a valid date, type and location.", Alert.AlertType.WARNING);
         }
+    }
+
+    void awardDemoPoint(Student student, int demoPointId){
+        DemoPointAwardedDAO demoPointAwardedDAO = new DemoPointAwardedDAO();
+        DemoPointDAO demoPointDAO = new DemoPointDAO();
+        DemoPointAwarded demoPointAwarded;
+        demoPointAwarded = new DemoPointAwarded(student.getId(), demoPointDAO.selectById(demoPointId).getName(), datePicker.getValue()+" "+student.getRankName(), demoPointDAO.selectById(demoPointId).getValue());
+        demoPointAwardedDAO.insert(demoPointAwarded);
+    }
+
+    void removeAwardDemoPoint(Student student, int demoPointId){
+        DemoPointAwardedDAO demoPointAwardedDAO = new DemoPointAwardedDAO();
+        DemoPointDAO demoPointDAO = new DemoPointDAO();
+        DemoPointAwarded demoPointAwarded;
+        demoPointAwarded = new DemoPointAwarded(student.getId(), demoPointDAO.selectById(demoPointId).getName(), datePicker.getValue()+" "+student.getRankName(), demoPointDAO.selectById(demoPointId).getValue());
+        demoPointAwardedDAO.insert(demoPointAwarded);
     }
 
     public void studentTableInsert(Student student){ studentsTable.getItems().add(student); }

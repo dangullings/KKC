@@ -18,7 +18,7 @@ public class LineItemDAOImpl {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS line_item (id int primary key unique auto_increment," + // constraint line_item_pk primary key(transaction_id,item_id),
-                    "order_id int(6), item_id int(6), quantity int(6), price decimal(6,2), item_name varchar(55))");
+                    "order_id int(6), item_id int(6), quantity int(6), price decimal(6,2), item_name varchar(55), FOREIGN KEY (order_id) REFERENCES orders(id), FOREIGN KEY (item_id) REFERENCES item(id))");
 
         }catch (Exception e) {
             e.printStackTrace();

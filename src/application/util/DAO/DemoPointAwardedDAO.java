@@ -18,7 +18,7 @@ public class DemoPointAwardedDAO {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS demo_point_awarded (id int primary key unique auto_increment," +
-                    "student_id int(6), name char(95), info char(55), value int(6))");
+                    "student_id int(6), name char(95), info char(55), value int(6), FOREIGN KEY (student_id) REFERENCES student(id))");
 
         }catch (Exception e) {
             e.printStackTrace();

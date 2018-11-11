@@ -144,10 +144,6 @@ public class StudentController implements Initializable{
     }
 
     public void pressStudentDetail(){
-        loadStudentDetail();
-    }
-
-    public void loadStudentDetail(){
         Student studentSelected;
         studentSelected = studentTable.getSelectionModel().getSelectedItem();
 

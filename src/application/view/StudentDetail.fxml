@@ -44,17 +44,17 @@
                         <Insets left="10.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="38.0" prefWidth="976.0" spacing="40.0">
+                  <HBox prefHeight="38.0" prefWidth="976.0" spacing="5.0">
                      <children>
-                        <Label fx:id="lblDOB" text="DOB: 1993/09/08">
+                        <Label fx:id="lblDOB" prefHeight="27.0" prefWidth="155.0" text="DOB: 1993/09/08">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <Label fx:id="lblRank" text="Current Rank: Brown Belt">
+                        <Label fx:id="lblRank" prefHeight="27.0" prefWidth="269.0" text="Current Rank: Brown Belt">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <Label prefHeight="27.0" prefWidth="153.0" text="Demo Points: 135">
+                        <Label fx:id="lblDemoPoints" prefHeight="27.0" prefWidth="202.0" text="Demo Team Points: 135">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -133,6 +133,12 @@
                     </content>
                   </Tab>
               </tabs>
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <BorderPane.margin>
+                  <Insets left="7.0" right="5.0" />
+               </BorderPane.margin>
             </TabPane>
          </center>
       </BorderPane>

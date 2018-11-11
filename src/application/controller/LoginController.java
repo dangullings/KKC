@@ -32,14 +32,14 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         User user = userDAO.getUserByCredential("admin", "password");
 
-        txtUser.setText(user.getName());
+        txtUser.setText(user.getUsername());
         txtPassword.setText(user.getPassword());
     }
 
     public void pressLogin(){
         User user = userDAO.getUserByCredential(txtUser.getText(), txtPassword.getText());
 
-        if (user.getName() == null){
+        if (user.getUsername() == null){
             return;
         }else{
             FXMLLoader loader = new FXMLLoader();

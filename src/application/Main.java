@@ -82,7 +82,7 @@ public class Main extends Application {
         UserDAO userDAO = new UserDAO();
         userDAO.createUserTable();
 
-        User user = new User("admin", "password");
+        User user = new User("admin", "password", 1, "admin");
 
         User tempUser = userDAO.getUserByCredential("admin", "password");
         if (tempUser.getId() == -1){
@@ -115,7 +115,7 @@ public class Main extends Application {
         }
 
         if (demoPoint.getId() == -1){
-            demoPoint.setName("Attend 80% of classes a month (avg 5x week)");
+            demoPoint.setName("Attend 80% of Classes a Month (avg 5x week)");
             demoPoint.setValue(3);
             demoPoint.setCategory(1);
             demoPoint.setModifiable(false);
@@ -125,7 +125,7 @@ public class Main extends Application {
         demoPoint = demoPointDAO.selectById(2);
 
         if (demoPoint.getId() == -1){
-            demoPoint.setName("Attend 65% of classes a month (avg 4x week)");
+            demoPoint.setName("Attend 65% of Classes a Month (avg 4x week)");
             demoPoint.setValue(2);
             demoPoint.setCategory(1);
             demoPoint.setModifiable(false);
@@ -135,7 +135,7 @@ public class Main extends Application {
         demoPoint = demoPointDAO.selectById(3);
 
         if (demoPoint.getId() == -1){
-            demoPoint.setName("Have the most classes of the month");
+            demoPoint.setName("Have the Most Classes of the Month");
             demoPoint.setValue(2);
             demoPoint.setCategory(1);
             demoPoint.setModifiable(false);
@@ -145,7 +145,7 @@ public class Main extends Application {
         demoPoint = demoPointDAO.selectById(4);
 
         if (demoPoint.getId() == -1){
-            demoPoint.setName("Have the most classes of the year");
+            demoPoint.setName("Have the Most Classes of the Year");
             demoPoint.setValue(10);
             demoPoint.setCategory(1);
             demoPoint.setModifiable(false);
@@ -155,7 +155,7 @@ public class Main extends Application {
         demoPoint = demoPointDAO.selectById(5);
 
         if (demoPoint.getId() == -1){
-            demoPoint.setName("Have the 2nd most classes of the year");
+            demoPoint.setName("Have the 2nd Most Classes of the Year");
             demoPoint.setValue(5);
             demoPoint.setCategory(1);
             demoPoint.setModifiable(false);
@@ -165,7 +165,7 @@ public class Main extends Application {
         demoPoint = demoPointDAO.selectById(6);
 
         if (demoPoint.getId() == -1){
-            demoPoint.setName("Have the 3rd most classes of the year");
+            demoPoint.setName("Have the 3rd Most Classes of the Year");
             demoPoint.setValue(3);
             demoPoint.setCategory(1);
             demoPoint.setModifiable(false);
@@ -175,9 +175,29 @@ public class Main extends Application {
         demoPoint = demoPointDAO.selectById(7);
 
         if (demoPoint.getId() == -1){
-            demoPoint.setName("Perfect attendance for the month");
+            demoPoint.setName("Perfect Attendance for the Month");
             demoPoint.setValue(1);
             demoPoint.setCategory(1);
+            demoPoint.setModifiable(false);
+            demoPointDAO.insert(demoPoint);
+        }
+
+        demoPoint = demoPointDAO.selectById(8);
+
+        if (demoPoint.getId() == -1){
+            demoPoint.setName("Testing");
+            demoPoint.setValue(1);
+            demoPoint.setCategory(3);
+            demoPoint.setModifiable(false);
+            demoPointDAO.insert(demoPoint);
+        }
+
+        demoPoint = demoPointDAO.selectById(9);
+
+        if (demoPoint.getId() == -1){
+            demoPoint.setName("Exceptional Test");
+            demoPoint.setValue(1);
+            demoPoint.setCategory(3);
             demoPoint.setModifiable(false);
             demoPointDAO.insert(demoPoint);
         }

@@ -16,9 +16,9 @@
    <children>
       <BorderPane AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <right>
-            <VBox prefHeight="522.0" prefWidth="79.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="315.0" prefWidth="80.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Year">
+                  <Label text="Year" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font></Label>
@@ -26,7 +26,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Spinner>
-                  <Label text="Month">
+                  <Label text="Month" textFill="WHITE">
                      <padding>
                         <Insets top="10.0" />
                      </padding>
@@ -38,14 +38,14 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Spinner>
-                  <Button fx:id="btnFinalizeAttendance" mnemonicParsing="false" onAction="#pressFinalizeAttendance" prefHeight="162.0" prefWidth="79.0" text="Finalize Attendance" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnFinalizeAttendance" mnemonicParsing="false" onAction="#pressFinalizeAttendance" prefHeight="162.0" prefWidth="88.0" text="Finalize Attendance" textAlignment="CENTER" wrapText="true">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Button>
                </children>
                <BorderPane.margin>
-                  <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </BorderPane.margin>
             </VBox>
          </right>
