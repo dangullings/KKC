@@ -1,6 +1,7 @@
 package application;
 
 import application.model.DemoPoint;
+import application.model.Student;
 import application.model.User;
 import application.util.DAO.*;
 import javafx.application.Application;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 //Main class which extends from Application Class
 public class Main extends Application {
@@ -36,12 +38,12 @@ public class Main extends Application {
         //Optional: Set a title for primary stage
         this.primaryStage.setTitle("Kroells Karate Club");
         this.primaryStage.getIcons().add(new Image("file:duncan.png"));
-        //2) Initialize RootLayout
+
         initRootLayout();
     }
 
     //Initializes the root layout.
-    public void initRootLayout() {
+    public static void initRootLayout() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/Login.fxml"));
         try {
@@ -57,8 +59,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        initDatabase();
         createRankArray();
+        initDatabase();
 
         launch(args);
     }
@@ -78,29 +80,29 @@ public class Main extends Application {
         InventoryDAOImpl inventoryDAO = new InventoryDAOImpl();
         DemoPointDAO demoPointDAO = new DemoPointDAO();
         DemoPointAwardedDAO demoPointAwardedDAO = new DemoPointAwardedDAO();
-
         UserDAO userDAO = new UserDAO();
-        userDAO.createUserTable();
 
-        User user = new User("admin", "password", 1, "admin");
-
-        User tempUser = userDAO.getUserByCredential("admin", "password");
-        if (tempUser.getId() == -1){
-            userDAO.insert(user);
-        }
-
+        studentDAO.createStudentTable();
+        testDAO.createTestTable();
         itemDAO.createItemTable();
         orderDAO.createOrderTable();
-        attendanceDAO.createAttendanceTable();
-        studentDAO.createStudentTable();
         test_studentDAO.createTest_StudentTable();
         classSessionDAO.createClassSessionTable();
         classDateDAO.createClassTable();
-        testDAO.createTestTable();
+        attendanceDAO.createAttendanceTable();
         lineItemDAO.createLineItemTable();
         inventoryDAO.createInventoryTable();
         demoPointDAO.createDemoPointTable();
         demoPointAwardedDAO.createDemoPointAwardedTable();
+        userDAO.createUserTable();
+
+        User admin = new User("admin", "password", 1, "admin");
+        User tempUser = userDAO.getUserByCredential("admin", "password");
+        if (tempUser.getId() == -1){
+            Student teacher = new Student("Tessa", "Gullings", "2nd of 4th", LOCATION.Waconia.toString(), "tessagullings@gmail.com", "612-816-6580", LocalDate.of(1993, 4, 6));
+            studentDAO.insert(teacher);
+            userDAO.insert(admin);
+        }
 
         createInitDemoPoints();
     }
