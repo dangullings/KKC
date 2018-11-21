@@ -1,6 +1,7 @@
 package application;
 
 import application.model.DemoPoint;
+import application.model.Item;
 import application.model.Student;
 import application.model.User;
 import application.util.DAO.*;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 //Main class which extends from Application Class
@@ -102,6 +104,9 @@ public class Main extends Application {
             Student teacher = new Student("Tessa", "Gullings", "2nd of 4th", LOCATION.Waconia.toString(), "tessagullings@gmail.com", "612-816-6580", LocalDate.of(1993, 4, 6));
             studentDAO.insert(teacher);
             userDAO.insert(admin);
+
+            Item item = new Item("Misc Item", BigDecimal.ZERO, BigDecimal.ZERO, "for all misc items - cannot be deleted and has no inventory quantity");
+            itemDAO.insert(item);
         }
 
         createInitDemoPoints();

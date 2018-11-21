@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.Student;
+import application.util.AlertUser;
 import application.util.DAO.AttendanceDAOImpl;
 import application.util.GraphicTools;
 import application.util.StageLoader;
@@ -182,7 +183,8 @@ public class StudentController implements Initializable{
         Student studentSelected;
         studentSelected = studentTable.getSelectionModel().getSelectedItem();
 
-        if (studentSelected == null) {
+        if ((studentSelected == null) || (studentSelected.getId() == 1)){
+            Optional<ButtonType> action = alertUser("Information", "Cannot remove student? (Student is an admin)", Alert.AlertType.INFORMATION);
             return;
         }
 

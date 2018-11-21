@@ -192,8 +192,35 @@ public class InventoryDAOImpl {
         return inventories;
     }
 
-    public void delete(String inventoryId) {
+    public void deleteByItemId(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM inventory WHERE item_id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void update(Inventory inventory, int itemId) {

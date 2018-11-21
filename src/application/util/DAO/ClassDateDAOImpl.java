@@ -299,6 +299,12 @@ public class ClassDateDAOImpl {
         return classDates;
     }
 
+    public ObservableList<ClassDate> selectAllObservableBySessionId(int id) {
+        ObservableList<ClassDate> classDates = FXCollections.observableArrayList(selectAllBySessionId(id));
+
+        return classDates;
+    }
+
     public void deleteById(int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

@@ -79,7 +79,7 @@
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="1.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <children>
-                        <Spinner fx:id="spinnerQty" editable="true" prefHeight="54.0" prefWidth="122.0">
+                        <Spinner fx:id="spinnerQty" editable="true" onMouseClicked="#qtyChanged" prefHeight="54.0" prefWidth="122.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Spinner>

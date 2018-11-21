@@ -136,8 +136,8 @@ public class DemoPointsController implements Initializable {
     }
 
     private void initStudentDemoPointsTable(){
-        ObservableList<DemoPointAwarded> demoPointsAwarded = demoPointAwardedDAO.selectAllObservableByStudentId(selectedStudent.getId());
-        tableStudentDemoPoints.setItems(demoPointsAwarded);
+        studentDemoPoints = demoPointAwardedDAO.selectAllObservableByStudentId(selectedStudent.getId());
+        tableStudentDemoPoints.setItems(studentDemoPoints);
     }
 
     private void initAccordTable(ObservableList<DemoPoint> demoPoints, int category){
@@ -290,6 +290,11 @@ public class DemoPointsController implements Initializable {
     }
 
     @FXML void pressSubmit1(){
+        if ((txtAccordPane1Name.getText().isEmpty()) || (txtAccordPane1Value.getText().isEmpty())){
+            Optional<ButtonType> action = alertUser("Information", "Missing data. (Type a name and value before submitting)", Alert.AlertType.INFORMATION);
+            return;
+        }
+
         String newName = txtAccordPane1Name.getText();
         int newValue = Integer.parseInt(txtAccordPane1Value.getText());
 
@@ -302,6 +307,11 @@ public class DemoPointsController implements Initializable {
     }
 
     @FXML void pressSubmit2(){
+        if ((txtAccordPane2Name.getText().isEmpty()) || (txtAccordPane2Value.getText().isEmpty())){
+            Optional<ButtonType> action = alertUser("Information", "Missing data. (Type a name and value before submitting)", Alert.AlertType.INFORMATION);
+            return;
+        }
+
         String newName = txtAccordPane2Name.getText();
         int newValue = Integer.parseInt(txtAccordPane2Value.getText());
 
@@ -314,6 +324,11 @@ public class DemoPointsController implements Initializable {
     }
 
     @FXML void pressSubmit3(){
+        if ((txtAccordPane3Name.getText().isEmpty()) || (txtAccordPane3Value.getText().isEmpty())){
+            Optional<ButtonType> action = alertUser("Information", "Missing data. (Type a name and value before submitting)", Alert.AlertType.INFORMATION);
+            return;
+        }
+
         String newName = txtAccordPane3Name.getText();
         int newValue = Integer.parseInt(txtAccordPane3Value.getText());
 
@@ -326,7 +341,8 @@ public class DemoPointsController implements Initializable {
     }
 
     @FXML void pressDeleteDemoPoint(){
-        if (selectedDemoPoint == null){
+        if (selectedDemoPoint.getName() == null){
+            Optional<ButtonType> action = alertUser("Information", "No demo point selected. (select a demo point before deleting)", Alert.AlertType.INFORMATION);
             return;
         }
 
@@ -346,7 +362,8 @@ public class DemoPointsController implements Initializable {
     }
 
     @FXML void pressAwardDemoPoint(){
-        if ((selectedDemoPoint == null) || (selectedStudent == null) || (studentDemoPoints == null)){
+        if ((selectedDemoPoint.getName() == null) || (selectedStudent == null) || (studentDemoPoints == null)){
+            Optional<ButtonType> action = alertUser("Information", "Demo Point and or student not selected. (select a demo point and student before awarding)", Alert.AlertType.INFORMATION);
             return;
         }
 
@@ -356,7 +373,8 @@ public class DemoPointsController implements Initializable {
     }
 
     @FXML void pressRemoveStudentDemoPoint(){
-        if ((selectedStudentDemoPoint == null) || (selectedStudent == null)){
+        if ((selectedStudentDemoPoint.getName() == null) || (selectedStudent == null)){
+            Optional<ButtonType> action = alertUser("Information", "Demo Point and or student not selected. (select a demo point and student before removing)", Alert.AlertType.INFORMATION);
             return;
         }
 

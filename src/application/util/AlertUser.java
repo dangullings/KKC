@@ -2,6 +2,7 @@ package application.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 
 import java.util.Optional;
 

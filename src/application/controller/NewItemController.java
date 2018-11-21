@@ -16,9 +16,12 @@ import javafx.stage.Stage;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static application.util.AlertUser.alertUser;
 
 public class NewItemController implements Initializable {
 
@@ -72,6 +75,11 @@ public class NewItemController implements Initializable {
     }
 
     public void pressSave(){
+        if (!validItem()) {
+            Optional<ButtonType> action = alertUser("Invalid Item Information", "Cannot save item. Please enter valid information.", Alert.AlertType.INFORMATION);
+            return;
+        }
+
         BigDecimal produceCost = new BigDecimal(txtProduceCost.getText());
         BigDecimal saleCost = new BigDecimal(txtSaleCost.getText());
 
@@ -148,14 +156,66 @@ public class NewItemController implements Initializable {
         loadItemData(item);
     }
 
+    public boolean validItem(){
+        boolean valid = true;
+
+        String nameText = txtName.getText();
+        String produceCostText = txtProduceCost.getText();
+        String saleCostText = txtSaleCost.getText();
+        String descriptionText = txtDescription.getText();
+        int qtyValue = spinnerQty.getValue();
+
+        if (nameText.isEmpty()){
+            txtName.setStyle(cssError);
+            valid = false;
+        }
+
+        if (produceCostText.isEmpty()){
+            txtProduceCost.setStyle(cssError);
+            valid = false;
+        }
+
+        if (saleCostText.isEmpty()){
+            txtSaleCost.setStyle(cssError);
+            valid = false;
+        }
+
+        if (descriptionText.isEmpty()){
+            txtDescription.setStyle(cssError);
+            valid = false;
+        }
+
+        if (qtyValue <= 0){
+            spinnerQty.setStyle(cssError);
+            valid = false;
+        }
+
+        return valid;
+    }
+
     private void addUIListeners(){
+        txtName.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+
+                if (newValue.length() > 0){
+                    txtName.setStyle(cssClear);
+                } else{
+                    txtName.setStyle(cssError);
+                }
+            }
+        });
+
         txtProduceCost.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
 
-                if (newValue.length() != oldValue.length()) {
-
+                if (newValue.length() > 0){
+                    txtName.setStyle(cssClear);
+                } else{
+                    txtName.setStyle(cssError);
                 }
             }
         });
@@ -165,12 +225,30 @@ public class NewItemController implements Initializable {
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
 
-                if (newValue.length() != oldValue.length()) {
-                    //System.out.println(formatter.format(new BigDecimal(newValue)));
+                if (newValue.length() > 0){
+                    txtName.setStyle(cssClear);
+                } else{
+                    txtName.setStyle(cssError);
+                }
+            }
+        });
+
+        txtDescription.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+
+                if (newValue.length() > 0){
+                    txtDescription.setStyle(cssClear);
+                } else{
+                    txtDescription.setStyle(cssError);
                 }
             }
         });
     }
+
+    private final String cssError = "-fx-border-color: red;";
+    private final String cssClear = "";
 
     public boolean isNewItem() {
         return isNewItem;
@@ -178,5 +256,13 @@ public class NewItemController implements Initializable {
 
     private void setNewItem(boolean newItem) {
         isNewItem = newItem;
+    }
+
+    public void qtyChanged(){
+        if (spinnerQty.getValue() > 0){
+            spinnerQty.setStyle(cssClear);
+        } else{
+            spinnerQty.setStyle(cssError);
+        }
     }
 }

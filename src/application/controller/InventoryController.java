@@ -2,6 +2,9 @@ package application.controller;
 
 import application.model.Inventory;
 import application.model.Item;
+import application.model.LineItem;
+import application.model.Order;
+import application.util.AlertUser;
 import application.util.DAO.InventoryDAOImpl;
 import application.util.DAO.ItemDAOImpl;
 import application.util.GraphicTools;
@@ -9,12 +12,12 @@ import application.util.StageLoader;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static application.util.StageLoader.loadStage;
@@ -37,6 +40,7 @@ public class InventoryController implements Initializable{
     @FXML private Button btnNewItem;
     @FXML private Button btnEditItem;
     @FXML private Button btnItemDetail;
+    @FXML private Button btnRemoveItem;
 
     @FXML
     TableView<Inventory.ItemView> inventoryTable;
@@ -83,20 +87,40 @@ public class InventoryController implements Initializable{
         controller.initData(itemDAO.selectById(inventorySelected.getId()));
     }
 
+    @FXML
+    public void pressRemoveItem(){
+        System.out.println("remove item");
+        Inventory.ItemView itemSelected;
+        itemSelected = inventoryTable.getSelectionModel().getSelectedItem();
+
+        if (itemSelected == null) {
+            return;
+        }
+
+        Optional<ButtonType> action = AlertUser.alertUser("Confirmation", "Remove Item? (Item will be deleted, and all data will be lost)", Alert.AlertType.CONFIRMATION);
+
+        if (action.get() == ButtonType.OK){
+            inventoryDAO.deleteByItemId(itemSelected.getId());
+            itemDAO.deleteById(itemSelected.getId());
+            inventoryTable.getItems().remove(itemSelected);
+        }
+    }
+
     private void initTable(ObservableList<Inventory> inventories){
         TableColumn<Inventory.ItemView, String> colItem = new TableColumn<>("Item Name");
-        colItem.setMinWidth(100);
+        colItem.setMinWidth(129);
         colItem.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<Inventory.ItemView, Integer> colSold = new TableColumn<>("Amount Sold");
-        colSold.setMinWidth(100);
+        colSold.setMinWidth(80);
         colSold.setCellValueFactory(new PropertyValueFactory<>("sold"));
 
         TableColumn<Inventory.ItemView, Integer> colQty = new TableColumn<>("Stock Qty");
-        colQty.setMinWidth(100);
+        colQty.setMinWidth(80);
         colQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         TableColumn<Inventory.ItemView, String> colDesc = new TableColumn<>("Item Description");
+        colDesc.setMinWidth(450);
         colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         for (Inventory inventory : inventories){

@@ -100,6 +100,13 @@
               </Tab>
               <Tab fx:id="demopoints" text="Demo Points">
                   <fx:include fx:id="demoPoints" source="DemoPoints.fxml" />
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/demopoint.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Tab>
           </tabs>
          <opaqueInsets>

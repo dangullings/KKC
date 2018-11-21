@@ -12,6 +12,8 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -169,19 +171,33 @@
                <children>
                   <VBox fx:id="midVBox" prefHeight="554.0" prefWidth="102.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="btnAwardDemoPoint" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#pressAwardDemoPoint" prefHeight="95.0" prefWidth="210.0" text="Award Demo Point &gt;&gt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+                        <Button fx:id="btnAwardDemoPoint" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#pressAwardDemoPoint" prefHeight="95.0" prefWidth="210.0" text="Award Demo Point" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
+                           <graphic>
+                              <ImageView fitHeight="38.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/awarddemopoint.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
                         <Separator prefHeight="0.0" prefWidth="173.0" />
-                        <Button fx:id="btnRemoveStudentDemoPoint" mnemonicParsing="false" onAction="#pressRemoveStudentDemoPoint" prefHeight="92.0" prefWidth="212.0" text="Remove Demo Point &lt;&lt;" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="btnRemoveStudentDemoPoint" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#pressRemoveStudentDemoPoint" prefHeight="92.0" prefWidth="212.0" text="Remove Demo Point" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/removedemopoint.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
                      </children>
                   </VBox>

@@ -251,19 +251,19 @@ public class AttendanceController implements Initializable{
     }
 
     private void setBtnFinalizeAttendanceEnabled(){
-        //btnFinalizeAttendance.setDisable(true);
+        btnFinalizeAttendance.setDisable(true);
         btnFinalizeAttendance.setText("Finalize Now");
 
         if (classDates.isEmpty())
             return;
 
         if (classDates.get(0).getComplete()){
-            //btnFinalizeAttendance.setDisable(true);
+            btnFinalizeAttendance.setDisable(true);
             btnFinalizeAttendance.setText("Finalized");
 
-            //DropShadow glow = new DropShadow();
+            DropShadow glow = new DropShadow();
 
-            //grid.setEffect(glow);
+            grid.setEffect(glow);
 
             return;
         }else{
@@ -273,11 +273,11 @@ public class AttendanceController implements Initializable{
         LocalDate date = LocalDate.of(year,month,28);
         date = date.with(TemporalAdjusters.lastDayOfMonth());
 
-        if (LocalDate.now().isAfter(classDates.get(classDates.size()-1).getDate())){
+        if (LocalDate.now().isAfter(classDates.get(classDates.size()-1).getDate()) || (LocalDate.now().isEqual(classDates.get(classDates.size()-1).getDate()))){
             btnFinalizeAttendance.setDisable(false);
             btnFinalizeAttendance.setText("Finalize Now (will auto finalize "+date.plusWeeks(1)+")");
         }else{
-            //btnFinalizeAttendance.setDisable(true);
+            btnFinalizeAttendance.setDisable(true);
         }
 
         if (LocalDate.now().isAfter(date.plusWeeks(1))){
@@ -499,11 +499,15 @@ public class AttendanceController implements Initializable{
             demoPointAwarded = new DemoPointAwarded(students.get(0).getId(), demoPointDAO.selectById(4).getName()+"("+students.get(0).getTally()+")", Integer.toString(year) + " Most Classes", demoPointDAO.selectById(4).getValue());
             demoPointAwardedDAO.insert(demoPointAwarded);
 
-            demoPointAwarded = new DemoPointAwarded(students.get(1).getId(), demoPointDAO.selectById(5).getName()+"("+students.get(1).getTally()+")", Integer.toString(year) + " 2nd Most Classes", demoPointDAO.selectById(5).getValue());
-            demoPointAwardedDAO.insert(demoPointAwarded);
+            if (students.size() > 1) {
+                demoPointAwarded = new DemoPointAwarded(students.get(1).getId(), demoPointDAO.selectById(5).getName() + "(" + students.get(1).getTally() + ")", Integer.toString(year) + " 2nd Most Classes", demoPointDAO.selectById(5).getValue());
+                demoPointAwardedDAO.insert(demoPointAwarded);
+            }
 
-            demoPointAwarded = new DemoPointAwarded(students.get(2).getId(), demoPointDAO.selectById(6).getName()+"("+students.get(2).getTally()+")", Integer.toString(year) + " 3rd Most Classes", demoPointDAO.selectById(6).getValue());
-            demoPointAwardedDAO.insert(demoPointAwarded);
+            if (students.size() > 2) {
+                demoPointAwarded = new DemoPointAwarded(students.get(2).getId(), demoPointDAO.selectById(6).getName() + "(" + students.get(2).getTally() + ")", Integer.toString(year) + " 3rd Most Classes", demoPointDAO.selectById(6).getValue());
+                demoPointAwardedDAO.insert(demoPointAwarded);
+            }
         }
     }
 

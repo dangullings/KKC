@@ -18,7 +18,7 @@ public class ItemDAOImpl {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS item (id int primary key unique auto_increment," +
-                    "name varchar(55), produce_cost decimal(6,2), sale_cost decimal(6,2), description varchar(55))");
+                    "name varchar(55), produce_cost decimal(6,2), sale_cost decimal(6,2), description varchar(85))");
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -148,7 +148,7 @@ public class ItemDAOImpl {
         try {
             connection = DBUtil.getConnection();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM item");
+            resultSet = statement.executeQuery("SELECT * FROM item WHERE id > 1");
 
             while (resultSet.next()){
                 Item item = new Item();
@@ -197,6 +197,37 @@ public class ItemDAOImpl {
 
         return items;
 
+    }
+
+    public void deleteById(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DBUtil.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM item WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally{
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void delete(String name) {

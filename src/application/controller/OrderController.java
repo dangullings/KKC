@@ -62,7 +62,7 @@ public class OrderController implements Initializable {
         colNumber.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         TableColumn<Order, LocalDate> colDate = new TableColumn<>("Date");
-        colDate.setMinWidth(120);
+        colDate.setMinWidth(90);
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         TableColumn<Order, String> colStudentInfo = new TableColumn<>("Buyer");
@@ -77,11 +77,11 @@ public class OrderController implements Initializable {
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
         TableColumn<Order, String> colSalePrice = new TableColumn<>("Sale Price");
-        colSalePrice.setMinWidth(120);
+        colSalePrice.setMinWidth(85);
         colSalePrice.setCellValueFactory(new PropertyValueFactory<>("salePrice"));
 
         TableColumn<Order, String> colDesc = new TableColumn<>("Note");
-        colDesc.setMinWidth(250);
+        colDesc.setMinWidth(254);
         colDesc.setCellValueFactory(new PropertyValueFactory<>("note"));
 
         colStudentInfo.getColumns().addAll(colFirstName, colLastName);

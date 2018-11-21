@@ -83,9 +83,9 @@
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
                         <Separator prefWidth="200.0" />
-                        <Button fx:id="btnRemoveItem" mnemonicParsing="false" prefHeight="145.0" prefWidth="188.0" text="Remove" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="btnRemoveItem" mnemonicParsing="false" onAction="#pressRemoveItem" prefHeight="145.0" prefWidth="188.0" text="Remove" textAlignment="CENTER" wrapText="true">
                             <graphic>
-                                <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="75.0" fitWidth="75.0" onMouseClicked="#pressRemoveItem" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../images/removeinventoryx.png" />
                                     </image>

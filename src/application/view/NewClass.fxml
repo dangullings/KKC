@@ -9,6 +9,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -18,19 +20,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewClassSessionController">
+<AnchorPane prefHeight="467.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.NewClassSessionController">
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
             <HBox prefHeight="54.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#pressCancel" prefHeight="54.0" prefWidth="278.0" text="Cancel" />
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#pressCancel" prefHeight="54.0" prefWidth="327.0" text="Cancel" />
                   <Separator orientation="VERTICAL" prefHeight="200.0">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </Separator>
-                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#pressSave" prefHeight="54.0" prefWidth="288.0" text="Save" />
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#pressSave" prefHeight="54.0" prefWidth="335.0" text="Save" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
@@ -38,7 +40,7 @@
             </HBox>
          </bottom>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="680.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Select Location">
                      <VBox.margin>
@@ -113,7 +115,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                  <HBox prefHeight="68.0" prefWidth="680.0" spacing="15.0">
                      <children>
                         <Label prefHeight="27.0" prefWidth="166.0" text="Add specific date">
                            <font>
@@ -131,6 +133,11 @@
             </VBox>
          </center>
       </BorderPane>
+      <ImageView fitHeight="150.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: .2;" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image url="@../images/Session.png" />
+         </image>
+      </ImageView>
    </children>
    <effect>
       <InnerShadow />

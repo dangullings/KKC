@@ -9,6 +9,8 @@ import application.util.DAO.AttendanceDAOImpl;
 import application.util.DAO.ClassDateDAOImpl;
 import application.util.DAO.ClassSessionDAOImpl;
 import application.util.GraphicTools;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -125,6 +127,7 @@ public class NewClassSessionController implements Initializable{
             setUIDisable(false);
         }
 
+        Collections.sort(classDates);
         choiceDates.getItems().addAll(classDates);
         choiceLocation.setValue(LOCATION.valueOf(classSession.getLocation()));
         pickerStartDate.setValue(classSession.getStartDate());
@@ -199,18 +202,23 @@ public class NewClassSessionController implements Initializable{
     }
 
     public void pressAddDate(){
-        if (pickerSpecificDate == null){
+        if ((pickerSpecificDate == null) || (pickerSpecificDate.getValue() == null)){
             return;
         }
 
-        ClassDate classDate = new ClassDate();
         LocalDate date = pickerSpecificDate.getValue();
+
+        if ((date == null) || (finalMonths == null)) {
+            return;
+        }
 
         if (finalMonths.contains(date.getMonthValue())){
             return;
         }
 
+        ClassDate classDate = new ClassDate();
         classDates.add(date);
+        Collections.sort(classDates);
         classDate.setDate(date);
 
         if (secondHourSpecific.isSelected()){
@@ -219,9 +227,12 @@ public class NewClassSessionController implements Initializable{
             classDate.setSecondHour(true);
         }
 
-        choiceDates.getItems().add(date);
+        choiceDates.getItems().clear();
+        choiceDates.getItems().addAll(classDates);
         classDateList.add(classDate);
         pickerSpecificDate.getEditor().clear();
+
+        btnAddDate.setDisable(true);
     }
 
     public void pressRemoveDate(){
@@ -232,7 +243,12 @@ public class NewClassSessionController implements Initializable{
             return;
         }
 
-        classDates.remove(date);
+        if (!choiceDates.getSelectionModel().isSelected(0)){
+            choiceDates.getItems().remove(date);
+            classDates.remove(date);
+        }else{
+            return;
+        }
 
         for (ClassDate classDate : classDateList){
             if (classDate.getDate().equals(date)){
@@ -240,8 +256,6 @@ public class NewClassSessionController implements Initializable{
                 break;
             }
         }
-
-        choiceDates.getItems().remove(date);
 
         for (SecondHourDate secondHourDate : secondHourDates){
             if (secondHourDate.getDate().equals(date)){

@@ -26,6 +26,9 @@ public class DemoPoint {
     }
 
     public void updateName(String name) {
+        if (!modifiable)
+            return;
+
         this.name = name;
 
         DemoPointDAO demoPointDAO = new DemoPointDAO();
@@ -33,7 +36,11 @@ public class DemoPoint {
     }
 
     public void updateValue(String value) {
+        if (!modifiable)
+            return;
+
         this.value = Integer.parseInt(value);
+        this.strValue = Integer.toString(this.value);
 
         DemoPointDAO demoPointDAO = new DemoPointDAO();
         demoPointDAO.update(this, this.id);

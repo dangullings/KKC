@@ -223,6 +223,7 @@ public class NewOrderController implements Initializable {
             lineItem.setItemName(selectedItem.getName());
             lineItem.setPrice(selectedItem.getSaleCost().multiply(BigDecimal.valueOf(lineItem.getQuantity())));
         }else{
+            lineItem.setItemId(1);
             BigDecimal price = new BigDecimal(txtPrice.getText());
             formatter.format(price);
             lineItem.setItemName(txtOther.getText());
@@ -264,6 +265,7 @@ public class NewOrderController implements Initializable {
         }else{
             order.setFirstName("Business");
             order.setLastName("Business");
+            order.setStudentId(1);
         }
 
         if (isNewOrder) {
@@ -276,6 +278,7 @@ public class NewOrderController implements Initializable {
             lineItem.setOrderId(order.getId());
 
             if (isNewOrder()){
+                System.out.println(""+lineItem.getOrderId()+" "+lineItem.getItemId()+" "+lineItem.getItemName());
                 lineItemDAO.insert(lineItem);
             }else{
                 if (lineItemsBeforeEdit.contains(lineItem)){
@@ -312,7 +315,7 @@ public class NewOrderController implements Initializable {
         orderDAO.update(order, order.getId());
 
         for (LineItem lineItem : lineItems){
-            if (lineItem.getItemId() != 0) {
+            if (lineItem.getItemId() > 1) {
                 Inventory inventory = inventoryDAO.selectById(lineItem.getItemId());
                 inventory.sellItem(lineItem.getQuantity(), lineItem.getPrice());
                 inventoryDAO.update(inventory, inventory.getItemId());
