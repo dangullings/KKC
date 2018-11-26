@@ -1,56 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90a45b7f-a6e2-482d-a816-fad50a7ada53" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/Main.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/Main.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/AttendanceController$CellItem.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/AttendanceController$CellItem.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/AttendanceController$DoubleCellItem.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/AttendanceController$DoubleCellItem.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/AttendanceController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/AttendanceController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/DemoPointsController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/DemoPointsController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/InventoryController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/InventoryController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewClassSessionController$SecondHourDate.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewClassSessionController$SecondHourDate.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewClassSessionController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewClassSessionController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController$1.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController$1.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController$2.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController$2.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewItemController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/NewOrderController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/NewOrderController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/OrderController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/OrderController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/StudentController$1.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/StudentController$1.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/controller/StudentController.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/controller/StudentController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/model/DemoPoint.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/model/DemoPoint.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/AlertUser.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/AlertUser.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/DAO/ClassDateDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/DAO/ClassDateDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/DAO/ItemDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/DAO/ItemDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/util/DAO/LineItemDAOImpl.class" afterPath="$PROJECT_DIR$/out/production/KKC/application/util/DAO/LineItemDAOImpl.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/AttendanceOperations.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/AttendanceOperations.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/DemoPoints.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/DemoPoints.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/NewClass.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/NewClass.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/NewItem.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/NewItem.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/OrderOperations.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/OrderOperations.fxml" />
-      <change beforePath="$PROJECT_DIR$/out/production/KKC/application/view/RootLayout.fxml" afterPath="$PROJECT_DIR$/out/production/KKC/application/view/RootLayout.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/Main.java" afterPath="$PROJECT_DIR$/src/application/Main.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/AttendanceController.java" afterPath="$PROJECT_DIR$/src/application/controller/AttendanceController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/DemoPointsController.java" afterPath="$PROJECT_DIR$/src/application/controller/DemoPointsController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/InventoryController.java" afterPath="$PROJECT_DIR$/src/application/controller/InventoryController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/NewClassSessionController.java" afterPath="$PROJECT_DIR$/src/application/controller/NewClassSessionController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/NewItemController.java" afterPath="$PROJECT_DIR$/src/application/controller/NewItemController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/NewOrderController.java" afterPath="$PROJECT_DIR$/src/application/controller/NewOrderController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/OrderController.java" afterPath="$PROJECT_DIR$/src/application/controller/OrderController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/controller/StudentController.java" afterPath="$PROJECT_DIR$/src/application/controller/StudentController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/model/DemoPoint.java" afterPath="$PROJECT_DIR$/src/application/model/DemoPoint.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/AlertUser.java" afterPath="$PROJECT_DIR$/src/application/util/AlertUser.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/DAO/ClassDateDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/DAO/ClassDateDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/DAO/InventoryDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/DAO/InventoryDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/util/DAO/ItemDAOImpl.java" afterPath="$PROJECT_DIR$/src/application/util/DAO/ItemDAOImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml" afterPath="$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/DemoPoints.fxml" afterPath="$PROJECT_DIR$/src/application/view/DemoPoints.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/InventoryOperations.fxml" afterPath="$PROJECT_DIR$/src/application/view/InventoryOperations.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/NewClass.fxml" afterPath="$PROJECT_DIR$/src/application/view/NewClass.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/NewItem.fxml" afterPath="$PROJECT_DIR$/src/application/view/NewItem.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/OrderOperations.fxml" afterPath="$PROJECT_DIR$/src/application/view/OrderOperations.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/RootLayout.fxml" afterPath="$PROJECT_DIR$/src/application/view/RootLayout.fxml" />
-    </list>
+    <list default="true" id="90a45b7f-a6e2-482d-a816-fad50a7ada53" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -60,7 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -120,6 +71,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -179,9 +133,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="RunDashboard">
@@ -324,7 +275,6 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -335,8 +285,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13539445" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32940018" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13646056" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -347,7 +296,9 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32940018" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -383,14 +334,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/ClassSessionOperations.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/util/DAO/StudentDAOImpl.java">
@@ -426,36 +377,36 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/AttendanceOperations.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/NewClass.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/NewOrder.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/util/DAO/LineItemDAOImpl.java">
@@ -499,14 +450,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/OrderOperations.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/controller/NewOrderController.java">
@@ -529,25 +480,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/RootLayout.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/DemoPoints.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/controller/DemoPointsController.java">
@@ -559,14 +510,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/NewItem.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/controller/NewStudentController.java">
@@ -607,14 +558,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/InventoryOperations.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/util/DAO/ClassSessionDAOImpl.java">
