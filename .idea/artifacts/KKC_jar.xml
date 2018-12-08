@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="KKC:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/KKC_jar</output-path>
+    <root id="archive" name="KKC.jar">
+      <element id="module-output" name="KKC" />
+      <element id="library" level="project" name="easybind-1.0.3" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/mysql-connector-java-5.1.46-bin.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

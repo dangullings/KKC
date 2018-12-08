@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact name="kkc">
+    <output-path>$PROJECT_DIR$/out/artifacts/kkc</output-path>
+    <root id="root" />
+  </artifact>
+</component>
