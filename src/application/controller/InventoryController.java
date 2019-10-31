@@ -130,6 +130,17 @@ public class InventoryController implements Initializable{
         }
 
         inventoryTable.getColumns().addAll(colItem, colSold, colQty, colDesc);
+        inventoryTable.setPlaceholder(new Label("no inventory created"));
+
+        inventoryTable.setRowFactory( tv -> {
+            TableRow<Inventory.ItemView> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    pressItemDetail();
+                }
+            });
+            return row ;
+        });
     }
 
     public void inventoryTableInsert(Inventory.ItemView inventory){

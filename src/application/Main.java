@@ -38,7 +38,7 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
 
         //Optional: Set a title for primary stage
-        this.primaryStage.setTitle("Kroells Karate Club");
+        this.primaryStage.setTitle("Gullings Karate Club");
         this.primaryStage.getIcons().add(new Image("file:duncan.png"));
 
         initRootLayout();
@@ -101,7 +101,7 @@ public class Main extends Application {
         User admin = new User("admin", "password", 1, "admin");
         User tempUser = userDAO.getUserByCredential("admin", "password");
         if (tempUser.getId() == -1){
-            Student teacher = new Student("Tessa", "Gullings", "2nd of 4th", LOCATION.Waconia.toString(), "tessagullings@gmail.com", "612-816-6580", LocalDate.of(1993, 4, 6));
+            Student teacher = new Student("Kayla", "Bonnell", "2nd of 4th", LOCATION.Waconia.toString(), "kaylabonnell@gmail.com", "763-816-5432", LocalDate.of(1993, 4, 26));
             studentDAO.insert(teacher);
             userDAO.insert(admin);
 

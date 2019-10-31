@@ -156,6 +156,7 @@ public class NewOrderController implements Initializable {
         lineItemsTable.setItems(lineItems);
         lineItemsTable.getItems().clear();
         lineItemsTable.getColumns().addAll(colLineItemName, colQuantity, colPrice);
+        lineItemsTable.setPlaceholder(new Label("no items in order"));
 
         lineItemsTable.setRowFactory( tv -> {
             TableRow<LineItem> row = new TableRow<>();

@@ -97,15 +97,15 @@ public class StudentController implements Initializable{
         colBirthdate.setMinWidth(100);
         colBirthdate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 
-        /*
-        colFirstName.setCellFactory(TextFieldTableCell.forTableColumn());
-        colFirstName.setOnEditCommit(
-                (TableColumn.CellEditEvent<Student, String> t) ->
-                        ( t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        ).updateFirstName(t.getNewValue())
-        );
-        */
+        studentTable.setRowFactory( tv -> {
+            TableRow<Student> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    pressStudentDetail();
+                }
+            });
+            return row ;
+        });
 
         studentTable.setItems(students);
 

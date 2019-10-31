@@ -88,6 +88,17 @@ public class OrderController implements Initializable {
 
         ordersTable.setItems(orders);
         ordersTable.getColumns().addAll(colNumber, colDate, colStudentInfo, colSalePrice, colDesc);
+        ordersTable.setPlaceholder(new Label("no orders created"));
+
+        ordersTable.setRowFactory( tv -> {
+            TableRow<Order> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    pressDetail();
+                }
+            });
+            return row ;
+        });
     }
 
     @FXML

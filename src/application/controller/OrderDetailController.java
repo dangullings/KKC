@@ -5,6 +5,7 @@ import application.model.Order;
 import application.model.Student;
 import application.util.DAO.LineItemDAOImpl;
 import application.util.GraphicTools;
+import application.util.StageLoader;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,6 +51,7 @@ public class OrderDetailController implements Initializable {
 
         lineItemsTable.setItems(lineItems);
         lineItemsTable.getColumns().addAll(colLineItemName, colQuantity, colPrice);
+        lineItemsTable.setPlaceholder(new Label("no items in order"));
 
         lblOrder.setText("Order #"+order.getId());
         lblBuyer.setText("Buyer: "+order.getFirstName() + " " + order.getLastName());

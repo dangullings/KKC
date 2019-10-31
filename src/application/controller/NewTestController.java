@@ -658,5 +658,6 @@ public class NewTestController implements Initializable {
         });
 
         testStudentsTable.getColumns().addAll(colFirstName, colLastName, colRank, colClub);
+        testStudentsTable.setPlaceholder(new Label("no students in test"));
     }
 }

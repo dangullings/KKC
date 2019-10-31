@@ -78,6 +78,17 @@ public class TestController implements Initializable {
 
         testTable.setItems(tests);
         testTable.getColumns().addAll(colType, colDate, colLocation, colNumStudents);
+        testTable.setPlaceholder(new Label("no tests created"));
+
+        testTable.setRowFactory( tv -> {
+            TableRow<Test> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    pressTestDetail();
+                }
+            });
+            return row ;
+        });
     }
 
     @FXML

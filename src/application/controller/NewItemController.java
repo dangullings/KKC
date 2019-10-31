@@ -123,7 +123,7 @@ public class NewItemController implements Initializable {
     }
 
     public void pressCancel(){
-        Optional<ButtonType> action = AlertUser.alertUser("Confirmation", "Exit item creation? (all data will be lost)", Alert.AlertType.CONFIRMATION);
+        Optional<ButtonType> action = AlertUser.alertUser("Confirmation", "Exit item creation? (all changed data will be lost)", Alert.AlertType.CONFIRMATION);
 
         if (action.get() == ButtonType.OK){
             GraphicTools.removeGraphicEffectOnRootView();

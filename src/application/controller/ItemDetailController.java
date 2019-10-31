@@ -3,9 +3,14 @@ package application.controller;
 import application.model.Inventory;
 import application.model.Item;
 import application.model.LineItem;
+import application.model.Order;
 import application.util.DAO.InventoryDAOImpl;
 import application.util.DAO.LineItemDAOImpl;
+import application.util.DAO.OrderDAOImpl;
+import application.util.DAO.TestDAOImpl;
 import application.util.GraphicTools;
+import application.util.StageLoader;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,11 +20,15 @@ import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class ItemDetailController implements Initializable {
+public class ItemDetailController {
 
-    @FXML TableView<LineItem> itemTransactionTable;
+    @FXML TableView<Order> itemTransactionTable;
     @FXML Label lblName;
     @FXML Label lblDescription;
     @FXML Label lblProduceCost;
@@ -29,34 +38,57 @@ public class ItemDetailController implements Initializable {
     @FXML Label lblNet;
     @FXML Button btnOk;
 
+    private boolean completeOrdersOnly;
+    private OrderDAOImpl orderDAO = new OrderDAOImpl();
     private Item item;
 
-    public void initData(Item item) {
-        this.item = new Item();
-        this.item = item;
-
+    public void initTable(ObservableList<Order> orders) {
         InventoryDAOImpl inventoryDAO = new InventoryDAOImpl();
-        LineItemDAOImpl lineItemDAO = new LineItemDAOImpl();
-
         Inventory inventory = inventoryDAO.selectById(item.getId());
-        ObservableList<LineItem> lineItems = lineItemDAO.selectAllObservableByItemIdComplete(item.getId(), true);
 
-        TableColumn<LineItem, String> colTranId = new TableColumn<>("Order Id");
-        colTranId.setMinWidth(100);
-        colTranId.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
+        TableColumn<Order, Integer> colNumber = new TableColumn<>("id");
+        colNumber.setMinWidth(50);
+        colNumber.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<LineItem, String> colQty = new TableColumn<>("Quantity Sold");
-        colQty.setMinWidth(100);
-        colQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        TableColumn<Order, LocalDate> colDate = new TableColumn<>("Date");
+        colDate.setMinWidth(90);
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        TableColumn<LineItem, String> colPrice = new TableColumn<>("Sale Price");
-        colPrice.setMinWidth(100);
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        TableColumn<Order, String> colStudentInfo = new TableColumn<>("Buyer");
+        colStudentInfo.setMinWidth(120);
 
-        itemTransactionTable.setItems(lineItems);
-        itemTransactionTable.getColumns().addAll(colTranId, colQty, colPrice);
-        colTranId.setSortType(TableColumn.SortType.DESCENDING);
-        itemTransactionTable.getSortOrder().setAll(colTranId);
+        TableColumn<Order, String> colFirstName = new TableColumn<>("First Name");
+        colFirstName.setMinWidth(120);
+        colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+
+        TableColumn<Order, String> colLastName = new TableColumn<>("Last Name");
+        colLastName.setMinWidth(120);
+        colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+        TableColumn<Order, String> colSalePrice = new TableColumn<>("Sale Price");
+        colSalePrice.setMinWidth(85);
+        colSalePrice.setCellValueFactory(new PropertyValueFactory<>("salePrice"));
+
+        TableColumn<Order, String> colDesc = new TableColumn<>("Note");
+        colDesc.setMinWidth(254);
+        colDesc.setCellValueFactory(new PropertyValueFactory<>("note"));
+
+        colStudentInfo.getColumns().addAll(colFirstName, colLastName);
+
+        itemTransactionTable.setItems(orders);
+        itemTransactionTable.getColumns().addAll(colNumber, colDate, colStudentInfo, colSalePrice, colDesc);
+        itemTransactionTable.setPlaceholder(new Label("no orders created"));
+
+        itemTransactionTable.setRowFactory( tv -> {
+            TableRow<Order> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Order rowData = row.getItem();
+                    loadOrderDetail(rowData.getId());
+                }
+            });
+            return row ;
+        });
 
         lblName.setText(item.getName());
         lblDescription.setText("Description: " + item.getDescription());
@@ -84,8 +116,29 @@ public class ItemDetailController implements Initializable {
         lblNet.setText(netAmt + " ($" + netCost + ")");
     }
 
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initData(Item item) {
+        this.item = new Item();
+        this.item = item;
 
+        LineItemDAOImpl lineItemDAO = new LineItemDAOImpl();
+        OrderDAOImpl orderDAO = new OrderDAOImpl();
+        ObservableList<Order> orders = FXCollections.observableArrayList();
+
+        List<LineItem> lineItems = lineItemDAO.selectAllObservableByItemId(item.getId());
+
+        for(LineItem lineItem : lineItems){
+            orders.add(orderDAO.selectById(lineItem.getOrderId()));
+        }
+
+        initTable(orders);
+    }
+
+    private void loadOrderDetail(int orderId){
+        OrderDAOImpl orderDAO = new OrderDAOImpl();
+        Order order = orderDAO.selectById(orderId);
+
+        OrderDetailController controller = StageLoader.loadStage("view/OrderDetail.fxml", "Order Detail").getController();
+        controller.initData(order);
     }
 
     public void pressOk(){

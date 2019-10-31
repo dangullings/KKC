@@ -332,6 +332,10 @@ public class OrderDAOImpl {
         return FXCollections.observableArrayList(selectAllOrders(complete));
     }
 
+    public ObservableList<Order> selectObservableOrder(int id) {
+        return FXCollections.observableArrayList(selectById(id));
+    }
+
     public ObservableList<Order> selectAllObservableOrdersByStudent(int studentId) {
         return FXCollections.observableArrayList(selectAllOrdersByStudentId(studentId));
     }
